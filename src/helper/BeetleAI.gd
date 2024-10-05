@@ -2,9 +2,9 @@ extends RigidBody2D
 
 
 var state = 0 #int
-var cooldown = 0.0 #float
 var screenSize #Vector2
 var velocity #Vector2
+var rng = RandomNumberGenerator.new()
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,27 +20,54 @@ func _physics_process(delta: float) -> void:
 	
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO, screenSize)
-	pass
+	
+	
+	if state == 1 && ((position.x > screenSize.x or position.y > screenSize.y) or (position.x < 0 or position.y < 0)):
+		velocity.x *= -1
+		velocity.y *= -1
 	
 	
 	
 
 func main_attack() -> void: 
-	pass
+	
+	#activate hit animation and attack box
+	await get_tree().create_timer(2.0).timeout
+	#expose vulnerable
+	await get_tree().create_timer(1.0).timeout
+	state = 0
 	
 func aoe_attack() -> void:
-	pass
+	#start area of attack anim
+	await get_tree().create_timer(1.0).timeout
+	#do damage
+	await get_tree().create_timer(1.0).timeout
+	#expose vulnerable
+	await get_tree().create_timer(3.0).timeout
 	
 func second_attack() -> void:
 	pass
 	
+func rapid_attack() -> void:
+	pass
+	
 func move() -> void:
 	
+	var direction = rng.randi_range(0,4)
+	match direction:
+		0:
+			velocity = Vector2(1,1)
+		1:
+			velocity = Vector2(-1,1)
+		2:
+			velocity = Vector2(1,-1)
+		3:
+			velocity = Vector2(-1,-1)
 	
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(4.0).timeout
+	velocity = Vector2.ZERO
+	state = 0
 	
-	
-	pass
 	
 func take_damage() -> void:
 	pass
@@ -51,9 +78,9 @@ func make_decisions() -> void:
 			
 			pass
 		1:	#default walking
-			pass
+			move()
 		2:	#basic attack
-			pass
+			main_attack()
 		3:	#flutter wings aoe
 			pass
 		4:  #jump and land aoe
