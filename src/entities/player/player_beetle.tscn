@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://bmkjq2v77ou1d"]
+[gd_scene load_steps=11 format=3 uid="uid://t2oal6prg838"]
 
-[ext_resource type="Script" path="res://src/entities/player/player.gd" id="1_2nvsa"]
+[ext_resource type="Script" path="res://src/entities/player/player.gd" id="1_ixamv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j3vac"]
 radius = 8.0
@@ -8,22 +8,26 @@ radius = 8.0
 [sub_resource type="Animation" id="Animation_7bnyd"]
 resource_name = "idle"
 
-[sub_resource type="Animation" id="Animation_eqxtm"]
-resource_name = "run"
-
 [sub_resource type="Animation" id="Animation_p6xsx"]
 resource_name = "roll"
 length = 0.3
 
-[sub_resource type="Animation" id="Animation_00xlg"]
-resource_name = "slash"
+[sub_resource type="Animation" id="Animation_eqxtm"]
+resource_name = "run"
+
+[sub_resource type="Animation" id="Animation_vw4p4"]
+resource_name = "parry"
+
+[sub_resource type="Animation" id="Animation_xeqs0"]
+resource_name = "bullet_parried"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e7ch1"]
 _data = {
+"bullet_parried": SubResource("Animation_xeqs0"),
 "idle": SubResource("Animation_7bnyd"),
+"parry": SubResource("Animation_vw4p4"),
 "roll": SubResource("Animation_p6xsx"),
-"run": SubResource("Animation_eqxtm"),
-"slash": SubResource("Animation_00xlg")
+"run": SubResource("Animation_eqxtm")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eio08"]
@@ -32,9 +36,10 @@ size = Vector2(16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_erq0d"]
 size = Vector2(16, 16)
 
-[node name="PlayerAnt" type="CharacterBody2D"]
+[node name="PlayerBeetle" type="CharacterBody2D"]
 collision_layer = 0
-script = ExtResource("1_2nvsa")
+script = ExtResource("1_ixamv")
+animal = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_j3vac")
