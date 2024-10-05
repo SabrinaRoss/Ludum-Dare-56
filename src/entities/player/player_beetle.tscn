@@ -5,8 +5,14 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_j3vac"]
 radius = 8.0
 
+[sub_resource type="Animation" id="Animation_xeqs0"]
+resource_name = "bullet_parried"
+
 [sub_resource type="Animation" id="Animation_7bnyd"]
 resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_vw4p4"]
+resource_name = "parry"
 
 [sub_resource type="Animation" id="Animation_p6xsx"]
 resource_name = "roll"
@@ -14,12 +20,6 @@ length = 0.3
 
 [sub_resource type="Animation" id="Animation_eqxtm"]
 resource_name = "run"
-
-[sub_resource type="Animation" id="Animation_vw4p4"]
-resource_name = "parry"
-
-[sub_resource type="Animation" id="Animation_xeqs0"]
-resource_name = "bullet_parried"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e7ch1"]
 _data = {

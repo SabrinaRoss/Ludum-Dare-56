@@ -29,7 +29,8 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
+	pass
 	
 	position += vel * delta * speed
 	position = position.clamp(Vector2.ZERO, screenSize)
@@ -85,6 +86,7 @@ func rapid_attack() -> void:
 	something_running = 0
 	
 func move() -> void:
+	pass
 	
 	var direction = rng.randi_range(0,4)
 	match direction:
