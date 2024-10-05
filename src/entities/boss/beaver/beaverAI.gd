@@ -36,6 +36,13 @@ func smite_player():
 
 func smite_random_position(count_number_smites: int):
 	for i in count_number_smites:
+		var timer = Timer.new()
+		timer.wait_time = .15
+		timer.one_shot = true
+		timer.connect("timeout", _on_timeout)
+		add_child(timer)
+		timer.start()
+		await timer.timeout
 		var instance = smite.instantiate()
 		var viewport = get_viewport().get_visible_rect()
 		instance.global_position = Vector2(randf_range(0, viewport.size.x), randf_range(0, viewport.size.y))
@@ -67,7 +74,6 @@ func _on_timeout(): #timeout for the smite
 func _on_body_entered(body) -> void:
 	$Timer_Player_Near.start()
 	cur_body = body
-
 
 func _on_body_exited(_body) -> void:
 	$Timer_Player_Near.stop()
