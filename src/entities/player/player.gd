@@ -6,9 +6,11 @@ class_name Player
 
 @onready var bullet_scene = preload("res://src/entities/player/player_bullet.tscn")
 
+var max_health = 1
+var cur_health = 1
+
 var max_vel = 0
 
-# max_vel / x where x is the num of seconds to reach max_vel
 var input_acc = 0
 var idle_deacc = 0
 var turn_acc = 0
@@ -17,6 +19,9 @@ var roll_vel = 0
 var bullet_speed = 200
 var bullet_cooldown = 0.2
 var bullet_timer = 0
+var slash_damage = 1
+var bullet_damage = 1
+var parry_damage = 1
 
 # 0 - ant
 # 1 - beetle
@@ -33,24 +38,30 @@ var rolling = false
 
 func _ready() -> void:
 	match animal:
+		# max_vel / x where x is the num of seconds to reach max_vel
 		0:
 			max_vel = 100
 			input_acc = max_vel / 0.05
 			idle_deacc = max_vel / 0.1
 			turn_acc = max_vel / 0.02
 			roll_vel = 200
+			max_health = 5
 		1:
 			max_vel = 100
 			input_acc = max_vel / 0.05
 			idle_deacc = max_vel / 0.1
 			turn_acc = max_vel / 0.02
 			roll_vel = 200
+			max_health = 100
 		2:
 			max_vel = 100
 			input_acc = max_vel / 0.05
 			idle_deacc = max_vel / 0.1
 			turn_acc = max_vel / 0.02
 			roll_vel = 200
+			max_health = 1000
+	
+	cur_health = max_health
 
 func _physics_process(delta: float) -> void:
 	get_input()
@@ -111,8 +122,12 @@ func parry():
 
 func bullet_parried(bullet_area : Area2D):
 	var bullet = bullet_area.owner
-	# if bullet is reflectable then reflect it
-	# else just stop it
+	if bullet is Acorn:
+		bullet.reflect()
+		bullet.dir = facing_dir
+		bullet.damage = parry_damage
+	else:
+		bullet.explode()
 
 func shoot():
 	animp.play("shoot")
@@ -121,11 +136,24 @@ func shoot():
 	new_bullet.global_rotation = transformables.global_rotation
 	new_bullet.dir = facing_dir
 	new_bullet.speed = bullet_speed
+	new_bullet.damage = bullet_damage
 	add_child(new_bullet)
 	bullet_timer = bullet_cooldown
 
+func slash_hit(target : Area2D):
+	var enemy = target.owner
+	enemy.take_damage(slash_damage)
+
 func tick_timers(delta):
 	bullet_timer -= delta
+
+func take_damage(damage):
+	cur_health -= damage
+	if cur_health <= max_health:
+		death()
+
+func death():
+	pass
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	match anim_name:

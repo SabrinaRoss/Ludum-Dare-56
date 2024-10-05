@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://ep7y72lycq5p"]
+
+[node name="Squirrel" type="CharacterBody2D"]

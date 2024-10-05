@@ -52,8 +52,8 @@ libraries = {
 [node name="transformables" type="Node2D" parent="."]
 
 [node name="Hitbox" type="Area2D" parent="transformables"]
-collision_layer = 0
-collision_mask = 4
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transformables/Hitbox"]
 shape = SubResource("RectangleShape2D_eio08")
