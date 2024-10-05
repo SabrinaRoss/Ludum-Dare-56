@@ -6,7 +6,7 @@ var velocity;
 #var player; 
 
 
-# Called when the node enters the scene tree for the first time.
+#General idea/framework for what we should use as boss AI
 
 func main_attack() -> void: 
 	pass
@@ -14,7 +14,7 @@ func main_attack() -> void:
 func aoe_attack() -> void:
 	pass
 	
-func projectile_attack() -> void:
+func second_attack() -> void:
 	pass
 	
 func move() -> void:
