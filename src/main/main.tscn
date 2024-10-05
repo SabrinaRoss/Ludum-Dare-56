@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://src/main/main.gd" id="1_wfnoq"]
 
 [node name="Main" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_wfnoq")
 
 [node name="MainMenu" parent="." instance=ExtResource("1_2i54g")]
