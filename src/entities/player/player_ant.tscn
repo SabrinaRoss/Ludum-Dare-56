@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmkjq2v77ou1d"]
+
+[ext_resource type="Script" path="res://src/entities/player/player.gd" id="1_2nvsa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j3vac"]
+
+[node name="PlayerAnt" type="CharacterBody2D"]
+script = ExtResource("1_2nvsa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_j3vac")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
