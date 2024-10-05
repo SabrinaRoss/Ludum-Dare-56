@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ch7qrikum5eyl"]
 
-[ext_resource type="Script" path="res://src/entities/boss/beaver/beaver.gd" id="1_nx4ex"]
-[ext_resource type="Script" path="res://src/entities/boss/beaver/beaverAI.gd" id="2_hruwg"]
+[ext_resource type="Script" path="res://src/entities/beaver/beaver.gd" id="1_d2i2x"]
+[ext_resource type="Script" path="res://src/entities/beaver/beaverAI.gd" id="2_553ta"]
 [ext_resource type="Texture2D" uid="uid://bdwkbjtjtu6tx" path="res://icon.svg" id="3_fr3dc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uybsu"]
@@ -11,10 +11,10 @@ radius = 165.387
 size = Vector2(121, 122)
 
 [node name="Beaver" type="CharacterBody2D"]
-script = ExtResource("1_nx4ex")
+script = ExtResource("1_d2i2x")
 
 [node name="Ai" type="Area2D" parent="."]
-script = ExtResource("2_hruwg")
+script = ExtResource("2_553ta")
 
 [node name="Player_near" type="CollisionShape2D" parent="Ai"]
 shape = SubResource("CircleShape2D_uybsu")
