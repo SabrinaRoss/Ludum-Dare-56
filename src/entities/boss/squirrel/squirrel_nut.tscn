@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://tg05ybpnh7os"]
+
+[ext_resource type="Script" path="res://src/entities/boss/squirrel/squirrel_nut.gd" id="1_osiau"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n0rys"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u1r27"]
+
+[node name="SquirrelNut" type="CharacterBody2D"]
+top_level = true
+collision_layer = 0
+script = ExtResource("1_osiau")
+damage = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_n0rys")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_u1r27")
+
+[connection signal="area_entered" from="Hurtbox" to="." method="deal_damage"]
