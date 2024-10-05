@@ -25,7 +25,7 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_erq0d"]
 
-[node name="PlayerAnt" type="CharacterBody2D"]
+[node name="PlayerBeaver" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_wgs6b")
 
