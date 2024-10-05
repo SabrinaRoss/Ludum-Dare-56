@@ -11,8 +11,9 @@ var health = 100
 # 6 - frenzy
 var state
 
+var jump_destination = Vector2.ZERO
 var nut_bounces = 0
-var jump_destination = Vector2()
+var move_tween : Tween
 
 var rest_timer = 0
 
@@ -48,10 +49,38 @@ func switch_states(new_state):
 	enter_state()
 
 func enter_state():
-	pass
+	match state:
+		0:
+			enter_jump_state()
+		1:
+			enter_dash_state()
+		2:
+			enter_shotgun_state()
+		3:
+			enter_spinning_ball_state()
+		4:
+			enter_spiral_state()
+		5:
+			enter_snipe_state()
+		6:
+			enter_frenzy_state()
 
 func exit_state():
-	pass
+	match state:
+		0:
+			exit_jump_state()
+		1:
+			exit_dash_state()
+		2:
+			exit_shotgun_state()
+		3:
+			exit_spinning_ball_state()
+		4:
+			exit_spiral_state()
+		5:
+			exit_snipe_state()
+		6:
+			exit_frenzy_state()
 
 func check_switch_state():
 	match state:
@@ -70,12 +99,15 @@ func check_switch_state():
 		6:
 			check_switch_frenzy_state()
 
-## PHYSICS FUNCTIONS
-
-func dash_state_physics():
+func shotgun():
 	pass
 
+## PHYSICS FUNCTIONS
+
 func jump_state_physics():
+	pass
+
+func dash_state_physics():
 	pass
 
 func shotgun_state_physics():
