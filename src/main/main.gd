@@ -7,7 +7,6 @@ var pauseMenu
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	mainMenu = get_node("MainMenu")
-	
 func startGame() -> void:
 	mainMenu.queue_free()
 
