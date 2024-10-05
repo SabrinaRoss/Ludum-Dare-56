@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ch7qrikum5eyl"]
 
-[ext_resource type="Script" path="res://src/entities/beaver/beaver.gd" id="1_d2i2x"]
-[ext_resource type="Script" path="res://src/entities/beaver/beaverAI.gd" id="2_553ta"]
+[ext_resource type="Script" path="res://src/entities/boss/beaver/beaver.gd" id="1_d2i2x"]
+[ext_resource type="Script" path="res://src/entities/boss/beaver/beaverAI.gd" id="2_553ta"]
 [ext_resource type="Texture2D" uid="uid://bdwkbjtjtu6tx" path="res://icon.svg" id="3_fr3dc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uybsu"]
@@ -21,8 +21,6 @@ shape = SubResource("CircleShape2D_uybsu")
 
 [node name="Timer_Player_Near" type="Timer" parent="Ai"]
 wait_time = 2.0
-
-[node name="Player" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_fr3dc")
