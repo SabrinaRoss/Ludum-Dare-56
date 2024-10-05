@@ -58,13 +58,14 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transformables/Hitbox"]
 shape = SubResource("RectangleShape2D_eio08")
 
-[node name="Hurtbox" type="Area2D" parent="transformables"]
-collision_layer = 2
-collision_mask = 0
+[node name="ParryBox" type="Area2D" parent="transformables"]
+collision_layer = 0
+collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="transformables/Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="transformables/ParryBox"]
 shape = SubResource("RectangleShape2D_erq0d")
 
 [node name="Sprite2D" type="Sprite2D" parent="transformables"]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="area_entered" from="transformables/ParryBox" to="." method="bullet_parried"]

@@ -63,4 +63,4 @@ roll={
 2d_physics/layer_1="enviroment"
 2d_physics/layer_2="player_hurtbox"
 2d_physics/layer_3="enemy_hurtbox"
-2d_physics/layer_4="player_reflect"
+2d_physics/layer_4="enemy_projectile"

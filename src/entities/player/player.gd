@@ -109,8 +109,10 @@ func slash():
 func parry():
 	animp.play("parry")
 
-func bullet_parried(bullet : Area2D):
-	pass
+func bullet_parried(bullet_area : Area2D):
+	var bullet = bullet_area.owner
+	# if bullet is reflectable then reflect it
+	# else just stop it
 
 func shoot():
 	animp.play("shoot")
