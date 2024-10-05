@@ -4,6 +4,7 @@ var mainMenu
 var paused = false
 var pauseMenuScene = load("res://src/main/Pause Menu.tscn")
 var pauseMenu
+<<<<<<< HEAD
 
 var level = 0
 var playerAntScene = load("res://src/entities/player/player_ant.tscn")
@@ -16,6 +17,8 @@ var bossSquirrelScene = load("res://src/entities/boss/squirrel/squirrel.tscn")
 var player
 var boss
 
+=======
+>>>>>>> ad5349082de128bf1df7ad97ebe7a46232223a87
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	mainMenu = get_node("MainMenu")
@@ -25,7 +28,7 @@ func startGame() -> void:
 	changeLevel(1,Vector2(0,0))
 
 func _input(_ev):
-	if Input.is_action_just_pressed("pause"):
+	if Input.is_key_pressed(KEY_ESCAPE):
 		togglePause()
 	
 func togglePause() -> void:
