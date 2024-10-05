@@ -23,9 +23,11 @@ func _physics_process(delta: float) -> void:
 	position = position.clamp(Vector2.ZERO, screenSize)
 	
 	
-	if state == 1 && ((position.x > screenSize.x or position.y > screenSize.y) or (position.x < 0 or position.y < 0)):
+	if state == 1 && (position.x > screenSize.x or position.x < 0):
 		velocity.x *= -1
+	elif state == 1 && (position.y > screenSize.y or position.y < 0):
 		velocity.y *= -1
+		
 	
 	if state == 0:
 		make_decisions()
@@ -84,24 +86,34 @@ func move() -> void:
 	state = 0
 	
 	
-func take_damage(float damage) -> void:
+func take_damage(damage: float) -> void:
 	health -= damage
 	
 func make_decisions() -> void:
 	match state:
 		0: #find new state
+			var stateper = rng.randi_range(0, 100)
+			if(stateper < health-50):
+				state = 1
+			elif (stateper < health-30):
+				state = 2
+			elif (stateper < health-10):
+				state = 3
+			elif (stateper < health + 10):
+				state = 4
+			elif (stateper < health + 30):
+				state = 5
+			else:
+				state = 0
 			
-			pass
 		1:	#default walking
 			move()
 		2:	#basic attack
 			main_attack()
 		3:	#flutter wings aoe
 			aoe_attack()
-		4:  #jump and land aoe
-			pass
+		4:  #jump and and aoe
+			second_attack()
 		5:  #rapid attack
-			pass
+			rapid_attack()
 		
-	
-	pass
