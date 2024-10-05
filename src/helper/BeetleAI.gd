@@ -6,6 +6,7 @@ var screenSize #Vector2
 var velocity #Vector2
 var rng = RandomNumberGenerator.new()
 var health #float
+var stage = 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -85,6 +86,21 @@ func move() -> void:
 	velocity = Vector2.ZERO
 	state = 0
 	
+func move_fast() -> void:
+	var direction = rng.randi_range(0,4)
+	match direction:
+		0:
+			velocity = Vector2(1.5,1.5)
+		1:
+			velocity = Vector2(-1.5,1.5)
+		2:
+			velocity = Vector2(1.5,-1.5)
+		3:
+			velocity = Vector2(-1.5,-1.5)
+	
+	await get_tree().create_timer(4.0).timeout
+	velocity = Vector2.ZERO
+	state = 0
 	
 func take_damage(damage: float) -> void:
 	health -= damage
@@ -92,19 +108,17 @@ func take_damage(damage: float) -> void:
 func make_decisions() -> void:
 	match state:
 		0: #find new state
-			var stateper = rng.randi_range(0, 100)
-			if(stateper < health-50):
-				state = 1
-			elif (stateper < health-30):
-				state = 2
-			elif (stateper < health-10):
-				state = 3
-			elif (stateper < health + 10):
+			if(stage == 0 && health < 50):
+				stage = 1
 				state = 4
-			elif (stateper < health + 30):
-				state = 5
+				
+			var stateper = rng.randi_range(0, 3)
+			if(stage == 0):
+				state = stateper
 			else:
-				state = 0
+				state = stateper + 3
+		
+		
 			
 		1:	#default walking
 			move()
@@ -116,4 +130,6 @@ func make_decisions() -> void:
 			second_attack()
 		5:  #rapid attack
 			rapid_attack()
+		6: #move 1.5x speed
+			move_fast()
 		
