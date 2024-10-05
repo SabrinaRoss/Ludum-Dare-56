@@ -5,12 +5,13 @@ var state = 0 #int
 var screenSize #Vector2
 var velocity #Vector2
 var rng = RandomNumberGenerator.new()
+var health #float
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screenSize = get_viewport_rect().size
-	
+	health = 100.0
 	
 	pass # Replace with function body.
 
@@ -26,6 +27,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x *= -1
 		velocity.y *= -1
 	
+	if state == 0:
+		make_decisions()
 	
 	
 
@@ -39,17 +42,29 @@ func main_attack() -> void:
 	
 func aoe_attack() -> void:
 	#start area of attack anim
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(0.5).timeout
 	#do damage
 	await get_tree().create_timer(1.0).timeout
 	#expose vulnerable
 	await get_tree().create_timer(3.0).timeout
+	state = 0
 	
 func second_attack() -> void:
-	pass
+	#start jump anim
+	#add target to player
+	await get_tree().create_timer(1.0).timeout
+	#ground slam
+	#vulnerable
+	await get_tree().create_timer(3.0).timeout
+	state = 0
+	
 	
 func rapid_attack() -> void:
-	pass
+	#activate rapid hit animation and attack box
+	await get_tree().create_timer(2.0).timeout
+	#expose vulnerable
+	await get_tree().create_timer(3.0).timeout
+	state = 0
 	
 func move() -> void:
 	
@@ -69,8 +84,8 @@ func move() -> void:
 	state = 0
 	
 	
-func take_damage() -> void:
-	pass
+func take_damage(float damage) -> void:
+	health -= damage
 	
 func make_decisions() -> void:
 	match state:
@@ -82,7 +97,7 @@ func make_decisions() -> void:
 		2:	#basic attack
 			main_attack()
 		3:	#flutter wings aoe
-			pass
+			aoe_attack()
 		4:  #jump and land aoe
 			pass
 		5:  #rapid attack
