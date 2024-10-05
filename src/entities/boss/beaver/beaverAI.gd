@@ -28,6 +28,7 @@ func main_attack():
 	add_child(instance)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 func smite_random_position(count_number_smites: int):
 	for i in count_number_smites:
@@ -53,6 +54,8 @@ func smite_random_position(count_number_smites: int):
 	await timer.timeout
 	count = false
 >>>>>>> fcb77a7d650997bbaaf971c45eb452d0ddf4303c
+=======
+>>>>>>> 3a58bdfb8c7305aad066c93bf7ca5b3015278243
 func second_attack(): # proximity attack
 	if cur_body.is_in_group("Player"):
 		#play the animation
@@ -69,11 +72,16 @@ func _on_body_entered(body) -> void:
 	cur_body = body
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 func _on_body_exited(body) -> void:
 =======
 func _on_body_exited(_body) -> void:
 >>>>>>> fcb77a7d650997bbaaf971c45eb452d0ddf4303c
+=======
+
+func _on_body_exited(body) -> void:
+>>>>>>> 3a58bdfb8c7305aad066c93bf7ca5b3015278243
 	$Timer_Player_Near.stop()
 
 func _on_timer_player_near_timeout(body) -> void:

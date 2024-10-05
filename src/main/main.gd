@@ -3,32 +3,25 @@ extends Node2D
 var mainMenu
 var paused = false
 var pauseMenuScene = load("res://src/main/Pause Menu.tscn")
+var level1Scene = load("res://src/main/Level 1.tscn")
+var level2Scene = load("res://src/main/Level 2.tscn")
+#var level3Scene = load("res://src/main/Level 3.tscn")
 var pauseMenu
-<<<<<<< HEAD
+var gameScene
 
 var level = 0
-var playerAntScene = load("res://src/entities/player/player_ant.tscn")
-var playerBeetleScene = load("res://src/entities/player/player_beetle.tscn")
-var playerSquirrelScene = load("res://src/entities/player/player_squirrel.tscn")
-var bossBeetleScene = load("res://src/entities/boss/Beetle.tscn")
-var bossSquirrelScene = load("res://src/entities/boss/squirrel/squirrel.tscn")
-#var bossBeaverScene = load("res://src/entities/boss/beaver/beaver.tscn")
 
 var player
 var boss
-
-=======
->>>>>>> ad5349082de128bf1df7ad97ebe7a46232223a87
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	mainMenu = get_node("MainMenu")
-	
 func startGame() -> void:
 	mainMenu.queue_free()
 	changeLevel(1,Vector2(0,0))
 
 func _input(_ev):
-	if Input.is_key_pressed(KEY_ESCAPE):
+	if Input.is_action_just_pressed("pause"):
 		togglePause()
 	
 func togglePause() -> void:
@@ -40,31 +33,17 @@ func togglePause() -> void:
 		pauseMenu.main = self
 		add_child(pauseMenu)
 		paused = true
+	get_tree().paused = paused
 
 func changeLevel(newLevel, spawnPoint) -> void:
-	clearScenes()
 	level = newLevel
-	spawnScenes(spawnPoint)
-
-func spawnScenes(spawnPoint) -> void:
+	if gameScene != null:
+		gameScene.queue_free()
 	if level == 1:
-		player = playerAntScene.instantiate()
-		boss = bossBeetleScene.instantiate()
+		gameScene = level1Scene.instantiate()
 	elif level == 2:
-		player = playerBeetleScene.instantiate()
-		boss = bossSquirrelScene.instantiate()
+		gameScene = level2Scene.instantiate()
 	#elif level == 3:
-		#player = playerSquirrelScene.instantiate()
-		#boss = bossBeaverScene.instantiate()
-	add_child(player)
-	add_child(boss)
-	player.position = spawnPoint
-		
-func clearScenes() -> void:
-	if player != null:
-		player.queue_free()
-	if boss != null:
-		boss.queue_free()
-	#put more specific cases for different levels when there are more things to destroy
-		
-		
+		#gameScene = level3Scene.instantiate()
+	add_child(gameScene)
+	gameScene.process_mode = Node.PROCESS_MODE_PAUSABLE
