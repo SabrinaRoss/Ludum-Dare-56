@@ -2,6 +2,10 @@ extends CharacterBody2D
 
 var health = 100
 
+## shotgun vars
+var shotgun_amount = 5
+var shutgun_spread = PI
+
 @onready var transformables = $Transformables
 
 @onready var nut_scene = preload("res://src/entities/boss/squirrel/squirrel_nut.tscn")
@@ -114,7 +118,7 @@ func update_facing(dir : Vector2):
 func shotgun():
 	var dir_vect = (Singleton.player.global_position - global_position).normalized()
 	update_facing(dir_vect)
-	
+	var cur_angle 
 
 ## PHYSICS FUNCTIONS
 
