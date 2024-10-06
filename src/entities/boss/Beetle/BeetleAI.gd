@@ -83,6 +83,19 @@ func go_to_player():
 	position = jumpLocation
 	face_player()
 	
+func fly_to_player():
+	var angleTo = get_angle_to(player)
+	var distance = position.distance_to(player.position)
+	face_player()
+	
+	#should add flying anim in here
+	await get_tree().create_timer(1.0).timeout
+	for i in range(4):
+		var jumpLocation = position.move_toward(player.position,distance*0.2)
+		position = jumpLocation
+		await get_tree().create_timer(0.125).timeout
+	face_player()
+	
 func update_direction_facing(dir: Vector2):
 	match dir:
 		Vector2(-1,-1):
@@ -133,6 +146,7 @@ func main_attack() -> void:
 func aoe_attack() -> void:
 	#start area of attack anim
 	
+	go_to_player()
 	await get_tree().create_timer(0.5).timeout
 	#do damage
 	await get_tree().create_timer(1.0).timeout
@@ -144,9 +158,10 @@ func aoe_attack() -> void:
 	something_running = 0
 	
 func second_attack() -> void:
-	#start jump anim
-	#add target to player
-	await get_tree().create_timer(1.0).timeout
+	
+	#activate
+	fly_to_player()
+	await get_tree().create_timer(1.5).timeout
 	#ground slam
 	await get_tree().create_timer(1.0).timeout
 	#vulnerable
