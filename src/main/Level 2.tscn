@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://mivgkrnbtiw3"]
+[gd_scene load_steps=6 format=3 uid="uid://mivgkrnbtiw3"]
 
 [ext_resource type="PackedScene" uid="uid://ep7y72lycq5p" path="res://src/entities/boss/squirrel/squirrel.tscn" id="1_7alo3"]
 [ext_resource type="PackedScene" uid="uid://t2oal6prg838" path="res://src/entities/player/player_beetle.tscn" id="2_lvcr3"]
 [ext_resource type="PackedScene" uid="uid://db4onktx5rhfw" path="res://src/main/Health Bar.tscn" id="3_ade2g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n8ndl"]
+size = Vector2(20, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0lrwo"]
+size = Vector2(320, 20)
 
 [node name="Level2" type="Node2D"]
 
@@ -16,3 +22,25 @@ process_mode = 1
 position = Vector2(56, 84)
 
 [node name="HealthBar" parent="." instance=ExtResource("3_ade2g")]
+
+[node name="Effects" type="Node" parent="."]
+
+[node name="Projectiles" type="Node" parent="."]
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-10, 90)
+shape = SubResource("RectangleShape2D_n8ndl")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(330, 90)
+shape = SubResource("RectangleShape2D_n8ndl")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+position = Vector2(160, -10)
+shape = SubResource("RectangleShape2D_0lrwo")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
+position = Vector2(160, 190)
+shape = SubResource("RectangleShape2D_0lrwo")

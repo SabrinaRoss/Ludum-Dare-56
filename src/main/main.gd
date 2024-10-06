@@ -13,6 +13,9 @@ var level2Scene = load("res://src/main/Level 2.tscn")
 var level3Scene = load("res://src/main/Level 3.tscn")
 var gameScene
 
+var curEffectsNode
+var curProjectilesNode
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
@@ -48,6 +51,8 @@ func setLevel(newLevel) -> void:
 		gameScene = level3Scene.instantiate()
 	add_child(gameScene)
 	gameScene.process_mode = PROCESS_MODE_PAUSABLE
+	curEffectsNode = gameScene.get_node("Effects")
+	curProjectilesNode = gameScene.get_node("Projectiles")
 	
 func death() -> void:
 	get_tree().paused = true
