@@ -46,3 +46,4 @@ func setLevel(newLevel) -> void:
 	elif level == 3:
 		gameScene = level3Scene.instantiate()
 	add_child(gameScene)
+	gameScene.process_mode = PROCESS_MODE_PAUSABLE

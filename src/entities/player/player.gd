@@ -150,7 +150,7 @@ func tick_timers(delta):
 
 func take_damage(damage):
 	cur_health -= damage
-	Singleton.health_bar_scene.healthUpdate()
+	Singleton.health_bar_scene.damageAnimation()
 	if cur_health <= max_health:
 		death()
 
