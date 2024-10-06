@@ -4,6 +4,8 @@ var bar
 var maxHealthColor = Color.GREEN
 var minHealthColor = Color.RED
 var maxDimensions = Vector2(40,40)
+var displayHealth
+var displayHealthChangeRate
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
