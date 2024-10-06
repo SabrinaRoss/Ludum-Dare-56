@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4xa54w83x20c"
-path="res://.godot/imported/acorn.png-064a752cd7475de6faa35beb6ec19c56.ctex"
+uid="uid://dnbbe3a7yxsnl"
+path="res://.godot/imported/Nut Explosion Sheet.png-18aa5792c6ac474f99f307834986b1ca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/acorn.png"
-dest_files=["res://.godot/imported/acorn.png-064a752cd7475de6faa35beb6ec19c56.ctex"]
+source_file="res://assets/sprites/Nut Explosion Sheet.png"
+dest_files=["res://.godot/imported/Nut Explosion Sheet.png-18aa5792c6ac474f99f307834986b1ca.ctex"]
 
 [params]
 
