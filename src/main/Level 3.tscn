@@ -1,11 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://bm7uxhkyas305"]
+[gd_scene load_steps=6 format=3 uid="uid://bm7uxhkyas305"]
 
+[ext_resource type="Shader" path="res://src/entities/boss/beaver/crt.gdshader" id="1_wb4ev"]
 [ext_resource type="PackedScene" uid="uid://ch7qrikum5eyl" path="res://src/entities/boss/beaver/beaver.tscn" id="1_yq5mi"]
 [ext_resource type="PackedScene" uid="uid://c4jh4lgv3yayj" path="res://src/entities/player/player_squirrel.tscn" id="2_0kfjj"]
 [ext_resource type="PackedScene" uid="uid://db4onktx5rhfw" path="res://src/main/Health Bar.tscn" id="3_6iqn2"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qxeix"]
+shader = ExtResource("1_wb4ev")
+
 [node name="Level3" type="Node2D"]
 process_mode = 1
+material = SubResource("ShaderMaterial_qxeix")
 
 [node name="Background" type="Sprite2D" parent="."]
 
