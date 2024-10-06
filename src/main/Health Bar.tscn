@@ -6,9 +6,8 @@
 script = ExtResource("1_m5qn6")
 
 [node name="Background" type="ColorRect" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(3, 0.5)
+offset_right = 120.0
+offset_bottom = 20.0
 color = Color(0, 0, 0, 1)
 
 [node name="Bar" type="ColorRect" parent="Background"]

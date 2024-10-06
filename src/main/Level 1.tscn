@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b441ummmk1l26"]
+
+[ext_resource type="PackedScene" uid="uid://bmkjq2v77ou1d" path="res://src/entities/player/player_ant.tscn" id="1_o7ecf"]
+[ext_resource type="PackedScene" uid="uid://db4onktx5rhfw" path="res://src/main/Health Bar.tscn" id="2_uqitk"]
+
+[node name="Level1" type="Node2D"]
+process_mode = 3
+
+[node name="PlayerAnt" parent="." instance=ExtResource("1_o7ecf")]
+position = Vector2(89, 95)
+
+[node name="HealthBar" parent="." instance=ExtResource("2_uqitk")]
