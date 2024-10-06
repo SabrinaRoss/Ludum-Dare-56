@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://bdwkbjtjtu6tx" path="res://icon.svg" id="3_fr3dc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uybsu"]
-radius = 165.387
+radius = 34.0147
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ij7q"]
-size = Vector2(121, 122)
+size = Vector2(40, 40)
 
 [node name="Beaver" type="CharacterBody2D"]
 script = ExtResource("1_d2i2x")
@@ -17,17 +17,21 @@ script = ExtResource("1_d2i2x")
 script = ExtResource("2_553ta")
 
 [node name="Player_near" type="CollisionShape2D" parent="Ai"]
+position = Vector2(-1, 0)
 shape = SubResource("CircleShape2D_uybsu")
 
 [node name="Timer_Player_Near" type="Timer" parent="Ai"]
 wait_time = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(0.3125, 0.304688)
 texture = ExtResource("3_fr3dc")
 
 [node name="Enemy_Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_7ij7q")
+metadata/_edit_lock_ = true
 
 [connection signal="body_entered" from="Ai" to="Ai" method="_on_body_entered"]
 [connection signal="body_exited" from="Ai" to="Ai" method="_on_body_exited"]

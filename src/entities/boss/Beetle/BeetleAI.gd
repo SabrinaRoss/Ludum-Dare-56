@@ -21,6 +21,17 @@ var isVulnerable = false #boolean
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+<<<<<<< HEAD:src/entities/boss/BeetleAI.gd
+=======
+	vel = Vector2.ZERO
+	screenSize = get_viewport_rect().size
+	health = 100.0
+	aoeCollider = $aoe
+	mainAttackCollider = $main_attack
+	weakCollider = $weak
+	
+	
+>>>>>>> d5b9d0fe214429e0e6537362d9127e94d1b219ec:src/entities/boss/Beetle/BeetleAI.gd
 	pass # Replace with function body.
 
 
