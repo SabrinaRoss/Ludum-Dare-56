@@ -14,6 +14,8 @@ size = Vector2(40, 40)
 script = ExtResource("1_d2i2x")
 
 [node name="Ai" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("2_553ta")
 
 [node name="Player_near" type="CollisionShape2D" parent="Ai"]

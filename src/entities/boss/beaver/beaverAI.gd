@@ -21,6 +21,7 @@ func _ready() -> void:
 # ace attack is where the player get tooo place and than they get chainsawed
 var count = false
 func _physics_process(_delta: float) -> void:
+	
 	if !count : main_attack()
 	count = true
 func main_attack():
@@ -63,11 +64,12 @@ func smite_random_position(count_number_smites: int):
 	await timer.timeout
 	count = false
 func second_attack(): # proximity attack
-	if cur_body.is_in_group("Player"):
-		#play the animation
-		# TODO: Do shit with the player when the player is more developed
-		pass
+	#play the animation
+	# TODO: Do shit with the player when the player is more developed
+	var player = cur_body.owner
+	player.take_damage(999999999)
 	pass
+
 	
 func ace_attack():
 	var num_of_shaders = shaders.size
