@@ -2,6 +2,12 @@ extends CharacterBody2D
 
 var health = 100
 
+@onready var transformables = $Transformables
+
+@onready var nut_scene = preload("res://src/entities/boss/squirrel/squirrel_nut.tscn")
+@onready var acorn_scene = preload("res://src/entities/boss/squirrel/squirrel_acorn.tscn")
+@onready var nut_circle = preload("res://src/entities/boss/squirrel/nut_circle.tscn")
+
 # 0 - jump
 # 1 - dash
 # 2 - shotgun
@@ -99,8 +105,16 @@ func check_switch_state():
 		6:
 			check_switch_frenzy_state()
 
+func update_facing(dir : Vector2):
+	if dir.dot(Vector2.RIGHT) < 0:
+		transformables.scale.x = -1
+	else:
+		transformables.scale.x = 1
+
 func shotgun():
-	pass
+	var dir_vect = (Singleton.player.global_position - global_position).normalized()
+	update_facing(dir_vect)
+	
 
 ## PHYSICS FUNCTIONS
 

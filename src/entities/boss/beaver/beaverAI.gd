@@ -1,13 +1,22 @@
 extends Node
 
+<<<<<<< HEAD
 @onready var smite = preload("res://src/entities/Smite.tscn")
+=======
+@onready var smite = preload("res://src/entities/boss/beaver/Smite.tscn")
+@export var num_of_smites: int = 10
+@export var crt_shader = load("res://src/entities/boss/beaver/crt.gdshader")
+@export var noise_shader = load("res://src/entities/boss/beaver/noise.gdshader")
+@export var pixelation_shader = load("res://src/entities/boss/beaver/noise.gdshader")
+@export var tunnel_vision_shader = load("res://src/entities/boss/beaver/tunnel_vision.gdshader")
+>>>>>>> 52af5873bfc7cd39c02ed8cc18c9490a6fff07ca
 
 var player_near
 var cur_body
-
+var shaders
 func _ready() -> void:
 	player_near = $Player_near
-	
+	shaders = [crt_shader, noise_shader, pixelation_shader, tunnel_vision_shader]
 # ace attack is gonna be the reality shift which is pretty hypers, and is gonna allow for manipulating the character and use some 
 # fun shaders 
 
@@ -63,6 +72,13 @@ func second_attack(): # proximity attack
 		pass
 	pass
 	
+<<<<<<< HEAD
+=======
+func ace_attack():
+	var num_of_shaders = shaders.size
+	var rand_shader = randi_range(0, num_of_shaders)
+	
+>>>>>>> 52af5873bfc7cd39c02ed8cc18c9490a6fff07ca
 func _on_timeout(): #timeout for the smite
 	pass
 	
