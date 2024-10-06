@@ -4,7 +4,7 @@ var health = 100
 
 ## shotgun vars
 var shotgun_amount = 5
-var shutgun_spread = PI
+var shotgun_spread = PI
 
 @onready var transformables = $Transformables
 
@@ -118,7 +118,7 @@ func update_facing(dir : Vector2):
 func shotgun():
 	var dir_vect = (Singleton.player.global_position - global_position).normalized()
 	update_facing(dir_vect)
-	var cur_angle 
+	var cur_angle = dir_vect.angle() - shotgun_spread
 
 ## PHYSICS FUNCTIONS
 
