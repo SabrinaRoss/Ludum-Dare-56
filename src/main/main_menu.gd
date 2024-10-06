@@ -8,4 +8,4 @@ func _ready() -> void:
 	startButton.pressed.connect(startButtonPressed)
 
 func startButtonPressed():
-	main.startGame()
+	main.setLevel(1)

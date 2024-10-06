@@ -33,7 +33,8 @@ func _ready() -> void:
 	aoeCollider = $Rotate/aoe
 	mainAttackCollider = $Rotate/main_attack
 	weakCollider = $Rotate/weak
-	player = Singleton.player
+	player = get_parent().get_node("Player")
+	print(player)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -43,10 +44,10 @@ func _physics_process(delta: float) -> void:
 	position = position.clamp(Vector2.ZERO, screenSize)
 	
 	
-	if state == 1 && (position.x > screenSize.x-10 or position.x < 10):
+	if (state == 1 || state == 6) && (position.x > screenSize.x-10 or position.x < 10):
 		vel.x *= -1
 		update_direction_facing(vel)
-	elif state == 1 && (position.y > screenSize.y-10 or position.y < 10):
+	elif (state == 1 || state == 6) && (position.y > screenSize.y-10 or position.y < 10):
 		vel.y *= -1
 		update_direction_facing(vel)
 		
@@ -57,23 +58,21 @@ func _physics_process(delta: float) -> void:
 	
 
 func face_player():
-	var angleTo = get_angle_to(player)
-	var angle = rad_to_deg(angleTo)
-	if(angle > 270):
-		curDirection = 3
-		$Rotate.set_rotation_degrees(315)
-	elif(angle > 180):
-		curDirection = 2
-		$Rotate.set_rotation_degrees(225)
-	elif(angle > 90):
-		curDirection = 1
-		$Rotate.set_rotation_degrees(135)
+	var angleTo = get_angle_to(player.position)
+	var angle = Vector2.from_angle(angleTo)
+	
+	if(angle.x > 0):
+		angle.x = 1
 	else:
-		curDirection = 0
-		$Rotate.set_rotation_degrees(45)
+		angle.x = -1
+	if(angle.y > 0):
+		angle.y = 1
+	else:
+		angle.y = -1
+	update_direction_facing(angle)
 	
 func go_to_player():
-	var angleTo = get_angle_to(player)
+	var angleTo = get_angle_to(player.position)
 	var distance = position.distance_to(player.position)
 	face_player()
 	
@@ -84,7 +83,7 @@ func go_to_player():
 	face_player()
 	
 func fly_to_player():
-	var angleTo = get_angle_to(player)
+	var angleTo = get_angle_to(player.position)
 	var distance = position.distance_to(player.position)
 	face_player()
 	
@@ -235,7 +234,7 @@ func make_decisions() -> void:
 				
 			var stateper = rng.randi_range(0, 3)
 			if(stage == 0):
-				state = 1
+				state = stateper
 			else:
 				state = stateper + 3
 		

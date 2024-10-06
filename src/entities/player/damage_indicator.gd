@@ -1,6 +1,7 @@
 extends Node2D
+var scaleMultiplier = 3
 var fade = 0.05
-var rateOfChange
+var opacityChange
 var intensity
 var goalScale
 var sprite
@@ -10,13 +11,13 @@ func _ready() -> void:
 
 func setIntensity(i) -> void:
 	intensity = i
-	goalScale = intensity
-	rateOfChange = goalScale/fade
+	goalScale = intensity*scaleMultiplier
+	opacityChange = fade/goalScale
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	sprite.modulate.a -= fade
+	sprite.modulate.a -= opacityChange
 	scale += Vector2(1,1) * fade
 	if scale.x > goalScale:
 		queue_free()
