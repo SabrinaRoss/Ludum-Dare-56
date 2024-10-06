@@ -20,6 +20,10 @@ func _ready() -> void:
 	vel = Vector2.ZERO
 	screenSize = get_viewport_rect().size
 	health = 100.0
+	aoeCollider = $aoe
+	mainAttackCollider = $main_attack
+	weakCollider = $weak
+	
 	
 	pass # Replace with function body.
 
