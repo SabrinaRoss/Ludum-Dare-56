@@ -19,7 +19,7 @@ process_mode = 1
 position = Vector2(56, 84)
 
 [node name="Squirrel" parent="." instance=ExtResource("1_7alo3")]
-position = Vector2(289, 84)
+position = Vector2(189, 84)
 
 [node name="HealthBar" parent="." instance=ExtResource("3_ade2g")]
 
