@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw8ue8gil36xc"
-path="res://.godot/imported/boss_squirrel.png-54ad612e888a5f13b52bd02c3eaba87d.ctex"
+uid="uid://cf5l6xsvr4fb0"
+path="res://.godot/imported/Itch Cover.png-b8b70c1cd991af11a7c46ee6e667c70b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/boss_squirrel.png"
-dest_files=["res://.godot/imported/boss_squirrel.png-54ad612e888a5f13b52bd02c3eaba87d.ctex"]
+source_file="res://assets/fonts/tinypixel/tinypixel/Itch Cover.png"
+dest_files=["res://.godot/imported/Itch Cover.png-b8b70c1cd991af11a7c46ee6e667c70b.ctex"]
 
 [params]
 
