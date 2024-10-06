@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://btet0d38ulqis"]
+
+[ext_resource type="PackedScene" uid="uid://ch7qrikum5eyl" path="res://src/entities/boss/beaver/beaver.tscn" id="1_yq5mi"]
+[ext_resource type="PackedScene" uid="uid://c4jh4lgv3yayj" path="res://src/entities/player/player_squirrel.tscn" id="2_0kfjj"]
+
+[node name="Level3" type="Node2D"]
+process_mode = 1
+
+[node name="Background" type="Sprite2D" parent="."]
+
+[node name="Beaver" parent="." instance=ExtResource("1_yq5mi")]
+position = Vector2(268, 85)
+
+[node name="PlayerSquirell" parent="." instance=ExtResource("2_0kfjj")]
+position = Vector2(34, 112)

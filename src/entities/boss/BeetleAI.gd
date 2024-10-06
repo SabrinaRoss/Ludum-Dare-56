@@ -18,28 +18,22 @@ var isVulnerable = false #boolean
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	vel = Vector2.ZERO
-	screenSize = get_viewport().get_visible_rect().size
+	screenSize = get_viewport_rect().size
 	health = 100.0
-	speed = 25.0
-	aoeCollider = $aoe
-	mainAttackCollider = $main_attack
-	weakCollider = $weak
-	
 	
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _physics_process(delta: float) -> void:
 	
-	position += vel * delta * speed
+	position += vel * delta
 	position = position.clamp(Vector2.ZERO, screenSize)
 	
 	
-	if (state == 1 || state == 6) && (position.x > screenSize.x or position.x < 0):
+	if state == 1 && (position.x > screenSize.x or position.x < 0):
 		vel.x *= -1
-	elif (state == 1 || state == 6) && (position.y > screenSize.y or position.y < 0):
+	elif state == 1 && (position.y > screenSize.y or position.y < 0):
 		vel.y *= -1
 		
 	
@@ -75,7 +69,6 @@ func main_attack() -> void:
 	await get_tree().create_timer(1.0).timeout
 	isVulnerable = false
 	state = 0
-	something_running = 0
 	
 	
 
@@ -92,7 +85,6 @@ func aoe_attack() -> void:
 	await get_tree().create_timer(3.0).timeout
 	isVulnerable = false
 	state = 0
-	something_running = 0
 	
 func second_attack() -> void:
 	#start jump anim
@@ -107,7 +99,6 @@ func second_attack() -> void:
 	await get_tree().create_timer(3.0).timeout
 	isVulnerable = false
 	state = 0
-	something_running = 0
 	
 	
 func rapid_attack() -> void:
@@ -123,10 +114,8 @@ func rapid_attack() -> void:
 	await get_tree().create_timer(3.0).timeout
 	isVulnerable = false
 	state = 0
-	something_running = 0
 	
 func move() -> void:
-	pass
 	
 	var direction = rng.randi_range(0,4)
 	match direction:
@@ -142,7 +131,6 @@ func move() -> void:
 	await get_tree().create_timer(4.0).timeout
 	vel = Vector2.ZERO
 	state = 0
-	something_running = 0
 	
 func move_fast() -> void:
 	var direction = rng.randi_range(0,4)
@@ -159,7 +147,6 @@ func move_fast() -> void:
 	await get_tree().create_timer(4.0).timeout
 	vel = Vector2.ZERO
 	state = 0
-	something_running = 0
 	
 func take_damage(damage: float) -> void:
 	health -= damage
@@ -171,7 +158,7 @@ func make_decisions() -> void:
 				stage = 1
 				state = 4
 				
-			var stateper = (randi() % 3) + 1
+			var stateper = rng.randi_range(0, 3)
 			if(stage == 0):
 				state = stateper
 			else:
@@ -197,4 +184,5 @@ func make_decisions() -> void:
 		6: #move 1.5x speed
 			something_running = 1
 			move_fast()
+	something_running = 0
 		

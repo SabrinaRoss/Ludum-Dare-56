@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dd3hn2nrvk4sd"]
 
-[ext_resource type="Script" path="res://src/entities/boss/beaver/smite.gd" id="1_i8psf"]
-[ext_resource type="Texture2D" uid="uid://bsn8pq3g8blq1" path="res://assets/sprites/smite_temp.png" id="2_4q1l1"]
+[ext_resource type="Script" path="res://src/entities/boss/beaver/smite.gd" id="1_gi71l"]
+[ext_resource type="Texture2D" uid="uid://bsn8pq3g8blq1" path="res://assets/sprites/smite_temp.png" id="2_cxhui"]
 
 [sub_resource type="Animation" id="Animation_7x7yt"]
 length = 0.001
@@ -29,22 +29,9 @@ tracks/1/keys = {
 "update": 1,
 "values": [0]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:player_can_be_hit")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_uv0va"]
 resource_name = "inirt"
-length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -64,36 +51,10 @@ tracks/1/path = NodePath("Sprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.133333, 0.3, 0.466667),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"anim_end"
-}]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:player_can_be_hit")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_set87"]
@@ -106,26 +67,24 @@ _data = {
 radius = 4.12311
 
 [node name="Smite" type="Area2D"]
-texture_filter = 1
-script = ExtResource("1_i8psf")
+script = ExtResource("1_gi71l")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-texture = ExtResource("2_4q1l1")
+texture = ExtResource("2_cxhui")
 hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_set87")
 }
+autoplay = "inirt"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_wsu4p")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.75
+wait_time = 2.0
 one_shot = true
-autostart = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

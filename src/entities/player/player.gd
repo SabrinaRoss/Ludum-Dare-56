@@ -37,6 +37,8 @@ var facing_dir = Vector2.DOWN
 var rolling = false
 
 func _ready() -> void:
+	Singleton.player = self
+	
 	match animal:
 		# max_vel / x where x is the num of seconds to reach max_vel
 		0:

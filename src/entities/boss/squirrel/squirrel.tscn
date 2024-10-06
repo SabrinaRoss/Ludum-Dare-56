@@ -1,3 +1,29 @@
-[gd_scene format=3 uid="uid://ep7y72lycq5p"]
+[gd_scene load_steps=5 format=3 uid="uid://ep7y72lycq5p"]
+
+[ext_resource type="Script" path="res://src/entities/boss/squirrel/squirrel.gd" id="1_2mrnn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ywi1a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_invof"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4qfvs"]
 
 [node name="Squirrel" type="CharacterBody2D"]
+script = ExtResource("1_2mrnn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ywi1a")
+
+[node name="Transformables" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Transformables"]
+
+[node name="CollisionHurtbox" type="Area2D" parent="Transformables"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transformables/CollisionHurtbox"]
+shape = SubResource("CircleShape2D_invof")
+
+[node name="Hitbox" type="Area2D" parent="Transformables"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transformables/Hitbox"]
+shape = SubResource("CircleShape2D_4qfvs")
