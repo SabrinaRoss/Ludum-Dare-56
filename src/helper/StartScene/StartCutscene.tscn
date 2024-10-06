@@ -180,7 +180,7 @@ offset_top = -6.0
 offset_right = 33.0
 offset_bottom = 34.0
 scale = Vector2(8.47043, 4.92)
-color = Color(0, 0, 0, 1)
+color = Color(0, 0, 0, 0)
 
 [node name="Label" type="Label" parent="."]
 offset_left = 72.0
@@ -189,6 +189,8 @@ offset_right = 132.0
 offset_bottom = 35.0
 text = "Damn..."
 label_settings = SubResource("LabelSettings_j1yfj")
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Label2" type="Label" parent="."]
 offset_left = 103.0
@@ -197,15 +199,16 @@ offset_right = 275.0
 offset_bottom = 64.0
 text = "I wish I was a beaver..."
 label_settings = SubResource("LabelSettings_fmyx2")
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="AntInfected" type="Sprite2D" parent="."]
 position = Vector2(158, 112)
 texture = ExtResource("1_25vgi")
 hframes = 2
 vframes = 2
-frame = 3
 
 [node name="Spore" type="Sprite2D" parent="."]
-position = Vector2(52.995, 2000)
+position = Vector2(30, 90)
 texture = ExtResource("2_3cnyy")
 vframes = 2
