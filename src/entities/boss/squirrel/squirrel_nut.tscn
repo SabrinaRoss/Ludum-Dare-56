@@ -3,8 +3,10 @@
 [ext_resource type="Script" path="res://src/entities/boss/squirrel/squirrel_nut.gd" id="1_osiau"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n0rys"]
+radius = 3.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u1r27"]
+radius = 3.0
 
 [node name="SquirrelNut" type="CharacterBody2D"]
 top_level = true

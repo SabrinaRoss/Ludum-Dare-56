@@ -41,10 +41,11 @@ func _physics_process(delta: float) -> void:
 	velocity = dir * speed
 	move_and_slide()
 	for nut in nuts:
-		if not nut or not nut.locked:
+		if not is_instance_valid(nut) or not nut.locked:
 			nuts.erase(nut)
 			if not nuts:
 				queue_free()
+			continue
 		nut.velocity = velocity
 		nut.move_and_slide()
 		var nut_vect = (nut.global_position - global_position).normalized()
