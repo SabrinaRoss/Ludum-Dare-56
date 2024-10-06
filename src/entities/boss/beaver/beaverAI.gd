@@ -1,7 +1,7 @@
 extends Node
 
 @onready var smite = preload("res://src/entities/boss/beaver/Smite.tscn")
-@export var num_of_smites: int = 10
+@export var num_of_smites: int = 50
 @export var crt_shader = load("res://src/entities/boss/beaver/crt.gdshader")
 @export var noise_shader = load("res://src/entities/boss/beaver/noise.gdshader")
 @export var pixelation_shader = load("res://src/entities/boss/beaver/noise.gdshader")
@@ -10,6 +10,8 @@ extends Node
 var player_near
 var cur_body
 var shaders
+var direction = Vector2(0, 0)
+var check_dir_border = 1
 func _ready() -> void:
 	player_near = $Player_near
 	shaders = [crt_shader, noise_shader, pixelation_shader, tunnel_vision_shader]
@@ -20,8 +22,8 @@ func _ready() -> void:
 
 # ace attack is where the player get tooo place and than they get chainsawed
 var count = false
-func _physics_process(_delta: float) -> void:
-	
+func _physics_process(delta: float) -> void:
+	$Player_near/Player_near_sprite.rotation_degrees += .5
 	if !count : main_attack()
 	count = true
 func main_attack():
@@ -30,7 +32,8 @@ func main_attack():
 	
 func smite_player():
 	var instance = smite.instantiate()
-	instance.global_position = get_tree().root.in_group("Player").position
+	instance.global_position = get_tree().get_root().in_group("Player").position
+	instance.scale *= 1.5
 	var timer = Timer.new()
 	timer.wait_time = 1
 	timer.one_shot = true
@@ -38,22 +41,23 @@ func smite_player():
 	await timer.timeout
 	add_child(timer)
 	timer.start()
-	add_child(instance)
+	get_tree().get_root().add_child(instance)
 
 func smite_random_position(count_number_smites: int):
 	for i in count_number_smites:
 		var timer = Timer.new()
-		timer.wait_time = .15
+		timer.wait_time = .1
 		timer.one_shot = true
 		timer.connect("timeout", _on_timeout)
 		add_child(timer)
 		timer.start()
 		await timer.timeout
 		var instance = smite.instantiate()
-		var viewport = get_viewport().get_visible_rect()
-		instance.global_position = Vector2(randf_range(0, viewport.size.x), randf_range(0, viewport.size.y))
+		instance.scale *= 1.5
+		var viewport = get_tree().get_root().get_viewport().get_visible_rect()
+		instance.global_position = Vector2(randf_range(10, viewport.size.x -10), randf_range(10, viewport.size.y - 10))
 		instance.rotation_degrees = randi_range(0, 360)
-		add_child(instance)
+		get_tree().get_root().add_child(instance)
 	
 	var timer = Timer.new()
 	timer.wait_time = 2
@@ -78,7 +82,6 @@ func ace_attack():
 func _on_timeout(): #timeout for the smite
 	pass
 	
-
 func _on_body_entered(body) -> void:
 	$Timer_Player_Near.start()
 	cur_body = body

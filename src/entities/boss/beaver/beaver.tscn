@@ -1,16 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://ch7qrikum5eyl"]
+[gd_scene load_steps=7 format=3 uid="uid://ch7qrikum5eyl"]
 
 [ext_resource type="Script" path="res://src/entities/boss/beaver/beaver.gd" id="1_d2i2x"]
 [ext_resource type="Script" path="res://src/entities/boss/beaver/beaverAI.gd" id="2_553ta"]
+[ext_resource type="Texture2D" uid="uid://badkiyyh0u7eb" path="res://assets/sprites/Beaver_Berrier.png" id="3_em727"]
 [ext_resource type="Texture2D" uid="uid://bdwkbjtjtu6tx" path="res://icon.svg" id="3_fr3dc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uybsu"]
-radius = 34.0147
+radius = 34.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ij7q"]
-size = Vector2(40, 40)
+size = Vector2(31, 30)
 
-[node name="Beaver" type="CharacterBody2D"]
+[node name="Beaver" type="Node2D"]
 script = ExtResource("1_d2i2x")
 
 [node name="Ai" type="Area2D" parent="."]
@@ -22,16 +23,22 @@ script = ExtResource("2_553ta")
 position = Vector2(-1, 0)
 shape = SubResource("CircleShape2D_uybsu")
 
+[node name="Player_near_sprite" type="Sprite2D" parent="Ai/Player_near"]
+texture_filter = 1
+position = Vector2(1.90735e-06, 1.90735e-06)
+scale = Vector2(2.1875, 2.1875)
+texture = ExtResource("3_em727")
+
 [node name="Timer_Player_Near" type="Timer" parent="Ai"]
 wait_time = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 1)
-scale = Vector2(0.3125, 0.304688)
+position = Vector2(-1.5, -0.625009)
+scale = Vector2(0.226562, 0.228516)
 texture = ExtResource("3_fr3dc")
 
 [node name="Enemy_Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
+position = Vector2(-1.5, -1)
 shape = SubResource("RectangleShape2D_7ij7q")
 metadata/_edit_lock_ = true
 
