@@ -55,7 +55,7 @@ func smite_random_position(count_number_smites: int):
 		var viewport = get_tree().get_root().get_viewport().get_visible_rect()
 		instance.global_position = Vector2(randf_range(10, viewport.size.x -10), randf_range(10, viewport.size.y - 10))
 		instance.rotation_degrees = randi_range(0, 360)
-		get_tree().get_root().add_child(instance)
+		get_parent().get_parent().get_node("Projectiles").add_child(instance)
 	
 	var timer = Timer.new()
 	timer.wait_time = 2

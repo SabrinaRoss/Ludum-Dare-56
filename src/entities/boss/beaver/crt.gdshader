@@ -1,46 +1,56 @@
 shader_type canvas_item;
 
-uniform int scanline_intensity : hint_range(0, 100) = 50; // Adjustable intensity of scanlines (0 to 100)
-uniform int screen_width : hint_range(1, 2000) = 800; // Screen width (integer)
-uniform int screen_height : hint_range(1, 2000) = 200; // Screen height (integer)
-uniform sampler2D texture0; // The texture being processed
-uniform float line_thickness : hint_range(0.0, 10.0) = 2.0; // Thickness of the scanlines (adjustable max thickness)
-uniform float second_scanline_frequency : hint_range(0.5, 5.0) = 3.0; // Frequency of the second scanline pattern
+uniform vec4 lightning_color : source_color = vec4(0.97, 0.89, 0.85, 0.65);
+uniform float size : hint_range(0.0, 1.0) = 0.01;
+uniform float width : hint_range(0.0, 1.0) = 0.8;
+uniform float speed = 1.0;
+uniform float cycle = 0.17;
+uniform float ratio = 3.0;
+uniform float time_shift = 0.005;
+uniform int strike_count = 10;
+uniform float strike_delay = 0.25;
+uniform float glow_intensity : hint_range(0.0, 1.0) = 0.9;
+
+float rand(float x) {
+    return fract(sin(x) * 100000.0);
+}
 
 void fragment() {
-    vec2 uv = UV;
+    float wave = 0.0;
+    float time = TIME * speed;
 
-    // Calculate the actual scanline index based on UV coordinates and screen height
-    float scanline = floor(uv.y * float(screen_height)); // Get the scanline index
+    for (int i = 0; i < strike_count; i++) {
+        float strike_offset = float(i) / float(strike_count);
+        float strike_time = floor(time / strike_delay) + strike_offset;
+        float strike_phase = mod(time, strike_delay) / strike_delay;
 
-    // Calculate the scanline effect with increased thickness
-    float scan_effect = 0.0;
-    for (int i = -int(line_thickness); i <= int(line_thickness); i++) {
-        float current_scanline = scanline + float(i);
-        scan_effect += 0.5 + 0.5 * sin(current_scanline * 3.14159 / float(screen_height));
-    }
-    scan_effect /= float(int(line_thickness) * 2 + 1); // Average over the thickness range
+        // Delay the strike based on its offset
+        if (strike_phase < strike_offset) {
+            continue;
+        }
 
-    // Calculate the second scanline effect with a different frequency
-    float second_scanline_effect = 0.5 + 0.5 * sin(scanline * second_scanline_frequency * 3.14159 / float(screen_height));
+        float bolt = abs(mod(UV.y * cycle + (rand(strike_time) + time_shift) * -1.0, 0.5) - 0.25) - 0.125;
+        bolt *= 4.0 * width;
 
-    // Combine the scanline effects
-    scan_effect = scan_effect * second_scanline_effect;
+        bolt *= (0.5 - abs(UV.y - 0.5)) * 2.0;
 
-    // Get the color from the texture
-    vec4 textureColor = texture(texture0, uv);
-
-    // Convert scanline intensity to a float between 0 and 1
-    float intensity = float(scanline_intensity) / 350.0;
-
-    // Calculate alpha for pitch-black scanlines
-    float alpha = intensity * (1.0 - scan_effect);
-
-    // Set the final color: pitch-black for lines, transparent for other areas
-    if (alpha < 0.05) {
-        discard; // Discard non-scanline areas to make them transparent
+        float strike_position = rand(strike_time * 10.0) - 0.5;
+        float lightning = 1.0 - step(size * 0.5, abs(UV.x - 0.5 + strike_position + bolt));
+        wave += lightning;
     }
 
-    // Set the color to pitch black for the scanlines with calculated alpha
-    COLOR = vec4(0.0, 0.0, 0.0, 1); // Output pitch-black lines with varying transparency
+    wave = clamp(wave, 0.0, 1.0);
+
+    // Make strikes blink on and off
+    float blink = step(rand(floor(time / strike_delay)) * ratio, 0.5);
+    wave *= blink;
+
+    // Create a radial gradient for the glow effect
+    float dist = distance(UV, vec2(0.5, 0.5));
+    float glow = smoothstep(0.0, glow_intensity, 1.0 - dist);
+
+    vec4 display = lightning_color * vec4(wave);
+    display.rgb += glow * lightning_color.rgb * wave;
+
+    COLOR = vec4(display.rgb, display.a * wave);
 }
