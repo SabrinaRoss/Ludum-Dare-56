@@ -3,8 +3,8 @@ extends CharacterBody2D
 @onready var nut_scene = preload("res://src/entities/boss/squirrel/squirrel_nut.tscn")
 @onready var acorn_scene = preload("res://src/entities/boss/squirrel/squirrel_acorn.tscn")
 
-var spawn_acorn = true
-var acorn_num = 20
+var spawn_acorn = false
+var nut_num = 20
 var rotation_speed = 100
 var radius = 100
 var speed = 10
@@ -17,9 +17,9 @@ var nuts = []
 
 func _ready() -> void:
 	global_position = Vector2(320/2,180/2)
-	var angle_inc = TAU / acorn_num
+	var angle_inc = TAU / nut_num
 	var start_angle = randf_range(0, angle_inc)
-	for i in range(acorn_num):
+	for i in range(nut_num):
 		var cur_angle = start_angle + i * angle_inc
 		var spawn_pos = global_position + Vector2.RIGHT.rotated(cur_angle) * radius
 		var new_nut = nut_scene.instantiate()

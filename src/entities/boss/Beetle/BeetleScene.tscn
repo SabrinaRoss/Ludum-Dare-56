@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvnme36cdfxnr"]
+[gd_scene load_steps=6 format=3 uid="uid://bvnme36cdfxnr"]
+
+[ext_resource type="Script" path="res://src/entities/boss/Beetle/BeetleAI.gd" id="1_f8qx2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tx4r1"]
 
@@ -14,6 +16,7 @@ radius = 25.0799
 
 [node name="Beetle" type="CharacterBody2D" parent="."]
 position = Vector2(197, 78)
+script = ExtResource("1_f8qx2")
 
 [node name="main_attack" type="Area2D" parent="Beetle"]
 

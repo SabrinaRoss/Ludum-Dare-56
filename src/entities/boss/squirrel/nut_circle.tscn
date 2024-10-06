@@ -10,5 +10,6 @@ collision_mask = 0
 script = ExtResource("1_qpq65")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+top_level = true
 shape = SubResource("CircleShape2D_wfqub")
 disabled = true

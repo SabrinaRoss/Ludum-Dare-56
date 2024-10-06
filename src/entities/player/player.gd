@@ -37,6 +37,7 @@ var facing_dir = Vector2.DOWN
 var rolling = false
 
 func _ready() -> void:
+	Singleton.player = self
 	match animal:
 		# max_vel / x where x is the num of seconds to reach max_vel
 		0:
@@ -149,6 +150,7 @@ func tick_timers(delta):
 
 func take_damage(damage):
 	cur_health -= damage
+	Singleton.health_bar_scene.healthUpdate()
 	if cur_health <= max_health:
 		death()
 
