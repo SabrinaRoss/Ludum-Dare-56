@@ -17,7 +17,7 @@ var idle_deacc = 0
 var turn_acc = 0
 
 var roll_vel = 0
-var bullet_speed = 200
+var bullet_speed = 300
 var bullet_cooldown = 0.2
 var bullet_timer = 0
 var slash_damage = 1
@@ -154,7 +154,8 @@ func take_damage(damage):
 	Singleton.health_bar_scene.damageAnimation()
 	var dmg_ind = damage_indicator.instantiate()
 	dmg_ind.setIntensity(damage)
-	add_child(dmg_ind)
+	Singleton.main.curEffectsNode.add_child(dmg_ind)
+	dmg_ind.position = position
 	if cur_health <= 0:
 		Singleton.main.death()
 

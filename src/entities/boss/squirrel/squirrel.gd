@@ -2,38 +2,43 @@ extends CharacterBody2D
 
 var health = 100
 
+## jump speed
+var jump_speed = 200
+
 ## dash vars
 var dash_dist = 60
+var dash_speed = 300
 
 ## shotgun vars
-var shotgun_amount = 10
+var shotgun_amount = 8
 var shotgun_spread = PI / 2
 var shotgun_spawn_radius = 0
 var shotgun_speed = 100
 var shotgun_acorn_chance = 0.1
 
 ## spinning ball vars
-var spinning_ball_amount = 10
+var spinning_ball_amount = 7
 var spinning_ball_acorn_chance = 0.5
 var spinning_ball_speed = 40
-var spinning_ball_rot_speed = 100
+var spinning_ball_rot_speed = 50
 var spinning_ball_spawn_dist = 0
+var spinning_ball_radius = 30
 
 ## burst vars
-var burst_amount = 15
+var burst_amount = 8
 var burst_acorn_chance = 0.1
 var burst_speed = 100
 var burst_spawn_dist = 0
 
 ## snipe vars
-var snipe_speed = 200
+var snipe_speed = 400
 var snipe_spawn_dist = 0
 
 ## frenzy vars
 var frenzy_speed = 50
-var frenzy_acorns_per_wave = 20
-var frenzy_wave_num = 20
-var frenzy_wave_cooldown = 0.5
+var frenzy_acorns_per_wave = 5
+var frenzy_wave_num = 100
+var frenzy_wave_cooldown = 0.1
 var frenzy_spawn_dist = 0
 var frenzy_turn = PI / 8
 
@@ -67,12 +72,16 @@ var frenzy_degree = 0
 var has_frenzied = false
 
 func _ready() -> void:
-	switch_states(6)
+	switch_states(0)
 
 func _physics_process(delta: float) -> void:
 	physics_process_state(delta)
 	move_and_slide()
 	last_slide_col = get_last_slide_collision()
+	if last_slide_col:
+		var col_dir = (last_slide_col.get_position() - global_position).normalized()
+		if col_dir.dot(move_destination - global_position) > 0:
+			move_destination = global_position
 	$Label.text = str(state)
 
 func physics_process_state(delta):
@@ -172,7 +181,6 @@ func dash_move():
 		orth_vect = Vector2(-player_vect.y, player_vect.x).normalized()
 	var move_vect = (mid_vect - player_vect + orth_vect * 75).normalized()
 	move_destination = global_position + move_vect.normalized() * dash_dist
-	global_position = move_destination
 
 func shotgun_attack():
 	var dir_vect = (Singleton.player.global_position - global_position).normalized()
@@ -189,7 +197,7 @@ func shotgun_attack():
 		new_projectile.global_position = global_position + cur_dir * shotgun_spawn_radius
 		new_projectile.dir = cur_dir
 		new_projectile.speed = shotgun_speed
-		add_child(new_projectile)
+		get_parent().get_node("Projectiles").call_deferred("add_child", new_projectile)
 
 func spinning_ball_attack():
 	var dir_vect = (Singleton.player.global_position - global_position).normalized()
@@ -200,8 +208,10 @@ func spinning_ball_attack():
 	new_spinning_ball.rotation_speed = spinning_ball_rot_speed
 	new_spinning_ball.speed = spinning_ball_speed
 	new_spinning_ball.dir = dir_vect
+	new_spinning_ball.radius = spinning_ball_radius
+	new_spinning_ball.bounces = nut_bounces
 	new_spinning_ball.global_position = global_position + dir_vect * spinning_ball_spawn_dist
-	add_child(new_spinning_ball)
+	get_parent().get_node("Projectiles").call_deferred("add_child", new_spinning_ball)
 
 func burst_attack():
 	var angle_inc = TAU / burst_amount
@@ -217,7 +227,7 @@ func burst_attack():
 		new_projectile.dir = dir_vect
 		new_projectile.speed = burst_speed
 		new_projectile.global_position = global_position + burst_spawn_dist * dir_vect
-		add_child(new_projectile)
+		get_parent().get_node("Projectiles").call_deferred("add_child", new_projectile)
 
 func snipe_attack():
 	var dir_vect = (Singleton.player.global_position - global_position).normalized()
@@ -226,7 +236,7 @@ func snipe_attack():
 	new_acorn.dir = dir_vect
 	new_acorn.speed = snipe_speed
 	new_acorn.global_position = global_position + dir_vect * snipe_spawn_dist
-	add_child(new_acorn)
+	get_parent().get_node("Projectiles").call_deferred("add_child", new_acorn)
 
 func spawn_frenzy_wave():
 	var start_angle = frenzy_degree
@@ -239,11 +249,16 @@ func spawn_frenzy_wave():
 		new_nut.speed = frenzy_speed
 		new_nut.bounces = nut_bounces
 		new_nut.global_position = global_position + nut_dir * frenzy_spawn_dist
-		add_child(new_nut)
+		get_parent().get_node("Projectiles").call_deferred("add_child", new_nut)
 
 func idle(time):
 	idle_timer = time
 	switch_states(-1)
+
+func move_to(speed):
+	var dir_vect = (move_destination - global_position).normalized()
+	velocity = dir_vect * speed
+	update_facing(dir_vect)
 
 func upgrade_stats():
 	pass
@@ -256,10 +271,14 @@ func idle_state_physics(delta):
 		check_switch_idle_state()
 
 func jump_state_physics():
-	pass
+	move_to(jump_speed)
+	if (move_destination - global_position).length() < 5:
+		check_switch_jump_state()
 
 func dash_state_physics():
-	pass
+	move_to(dash_speed)
+	if (move_destination - global_position).length() < 5:
+		check_switch_dash_state()
 
 func shotgun_state_physics():
 	pass
@@ -281,7 +300,6 @@ func frenzy_state_physics(delta):
 		frenzy_wave_timer = frenzy_wave_cooldown
 		if frenzy_waves == 0:
 			check_switch_frenzy_state()
-		print(frenzy_waves)
 	frenzy_wave_timer -= delta
 
 ## ENTER STATE FUNCTIONS
@@ -291,6 +309,7 @@ func enter_idle_state():
 
 func enter_jump_state():
 	animp.play("jump")
+	move_destination = Vector2(320, 180) / 2
 
 func enter_dash_state():
 	animp.play("dash")

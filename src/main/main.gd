@@ -1,17 +1,20 @@
 extends Node2D
 
 var paused = false
-var pauseMenuScene = load("res://src/main/Pause Menu.tscn")
+var pauseMenuScene = preload("res://src/main/Pause Menu.tscn")
 var pauseMenu
 var deathAnimationPlaying = false
 var deathAnimationShrinkSpeed = 0.01
 
 var level = 0
-var mainMenuScene = load("res://src/main/Main Menu.tscn")
-var level1Scene = load("res://src/main/Level 1.tscn")
-var level2Scene = load("res://src/main/Level 2.tscn")
-var level3Scene = load("res://src/main/Level 3.tscn")
+var mainMenuScene = preload("res://src/main/Main Menu.tscn")
+var level1Scene = preload("res://src/main/Level 1.tscn")
+var level2Scene = preload("res://src/main/Level 2.tscn")
+var level3Scene = preload("res://src/main/Level 3.tscn")
 var gameScene
+
+var curEffectsNode
+var curProjectilesNode
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -48,6 +51,9 @@ func setLevel(newLevel) -> void:
 		gameScene = level3Scene.instantiate()
 	add_child(gameScene)
 	gameScene.process_mode = PROCESS_MODE_PAUSABLE
+	if level != 0:
+		curEffectsNode = gameScene.get_node("Effects")
+		curProjectilesNode = gameScene.get_node("Projectiles")
 	
 func death() -> void:
 	get_tree().paused = true

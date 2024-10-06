@@ -10,7 +10,8 @@ func _ready() -> void:
 	explode()
 
 func _process(delta: float) -> void:
-	global_rotation = dir.angle()
+	#global_rotation = dir.angle()
+	pass
 
 func _physics_process(delta: float) -> void:
 	velocity = dir * speed
