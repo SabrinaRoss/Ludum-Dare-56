@@ -57,6 +57,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transformables/Hitbox"]
 shape = SubResource("RectangleShape2D_eio08")
+disabled = true
 
 [node name="ParryBox" type="Area2D" parent="transformables"]
 collision_layer = 0
@@ -64,6 +65,7 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transformables/ParryBox"]
 shape = SubResource("RectangleShape2D_erq0d")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="transformables"]
 
