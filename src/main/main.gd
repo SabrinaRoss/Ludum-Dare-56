@@ -51,8 +51,9 @@ func setLevel(newLevel) -> void:
 		gameScene = level3Scene.instantiate()
 	add_child(gameScene)
 	gameScene.process_mode = PROCESS_MODE_PAUSABLE
-	curEffectsNode = gameScene.get_node("Effects")
-	curProjectilesNode = gameScene.get_node("Projectiles")
+	if level != 0:
+		curEffectsNode = gameScene.get_node("Effects")
+		curProjectilesNode = gameScene.get_node("Projectiles")
 	
 func death() -> void:
 	get_tree().paused = true
