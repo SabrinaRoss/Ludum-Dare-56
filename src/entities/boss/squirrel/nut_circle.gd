@@ -12,6 +12,8 @@ var dir = Vector2.RIGHT
 var clockwise = true
 var bounces = 0
 
+var still = true
+
 var acorn = null
 
 var nuts = []
@@ -23,9 +25,10 @@ func _ready() -> void:
 	if spawn_acorn:
 		var new_acorn = acorn_scene.instantiate()
 		new_acorn.global_position = global_position
-		new_acorn.speed = speed
+		new_acorn.speed = 0
 		new_acorn.dir = dir
 		get_parent().call_deferred("add_child", new_acorn)
+		acorn = new_acorn
 	
 	for i in range(nut_num):
 		var cur_angle = start_angle + i * angle_inc
@@ -39,17 +42,20 @@ func _ready() -> void:
 		get_parent().call_deferred("add_child", new_nut)
 
 func _physics_process(delta: float) -> void:
-	velocity = dir * speed
-	move_and_slide()
-	for nut in nuts:
-		if not is_instance_valid(nut) or not nut.locked:
-			nuts.erase(nut)
-			if not nuts:
-				await get_tree().create_timer(10).timeout
-				queue_free()
-			continue
-		nut.velocity = velocity
-		nut.move_and_slide()
-		var nut_vect = (nut.global_position - global_position).normalized()
-		nut.dir = Vector2(-nut_vect.y, nut_vect.x) if clockwise else Vector2(nut_vect.y, -nut_vect.x)
-		nut.global_position += nut_vect * (radius - (nut.global_position - global_position).length())
+	if not still:
+		velocity = dir * speed
+		if is_instance_valid(acorn):
+			acorn.speed = speed
+		move_and_slide()
+		for nut in nuts:
+			if not is_instance_valid(nut) or not nut.locked:
+				nuts.erase(nut)
+				if not nuts:
+					await get_tree().create_timer(10).timeout
+					queue_free()
+				continue
+			nut.velocity = velocity
+			nut.move_and_slide()
+			var nut_vect = (nut.global_position - global_position).normalized()
+			nut.dir = Vector2(-nut_vect.y, nut_vect.x) if clockwise else Vector2(nut_vect.y, -nut_vect.x)
+			nut.global_position += nut_vect * (radius - (nut.global_position - global_position).length())

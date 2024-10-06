@@ -7,6 +7,10 @@ class_name Player
 @onready var bullet_scene = preload("res://src/entities/player/player_bullet.tscn")
 @onready var damage_indicator = preload("res://src/entities/player/Damage Indicator.tscn")
 
+var bullet_speed = 300
+var bullet_cooldown = 0.2
+var parry_speed = 300
+
 var max_health = 1
 var cur_health = 1
 
@@ -17,12 +21,10 @@ var idle_deacc = 0
 var turn_acc = 0
 
 var roll_vel = 0
-var bullet_speed = 300
-var bullet_cooldown = 0.2
 var bullet_timer = 0
 var slash_damage = 1
 var bullet_damage = 1
-var parry_damage = 1
+var parry_damage = 50
 
 # 0 - ant
 # 1 - beetle
@@ -128,7 +130,7 @@ func bullet_parried(bullet_area : Area2D):
 		bullet.reflect()
 		bullet.dir = facing_dir
 		bullet.damage = parry_damage
-		bullet.speed *= 4
+		bullet.speed = parry_speed
 	else:
 		bullet.explode()
 
@@ -153,12 +155,12 @@ func tick_timers(delta):
 func take_damage(damage):
 	cur_health -= damage
 	Singleton.health_bar_scene.damageAnimation()
-	var dmg_ind = damage_indicator.instantiate()
-	dmg_ind.setIntensity(damage)
-	Singleton.main.curEffectsNode.add_child(dmg_ind)
-	dmg_ind.position = position
-	if cur_health <= 0:
-		Singleton.main.death()
+	#var dmg_ind = damage_indicator.instantiate()
+	#dmg_ind.setIntensity(damage)
+	#Singleton.main.curEffectsNode.add_child(dmg_ind)
+	#dmg_ind.position = position
+	#if cur_health <= 0:
+		#Singleton.main.death()
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	match anim_name:
