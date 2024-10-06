@@ -33,7 +33,8 @@ func _ready() -> void:
 	aoeCollider = $Rotate/aoe
 	mainAttackCollider = $Rotate/main_attack
 	weakCollider = $Rotate/weak
-	player = Singleton.player
+	player = get_parent().get_node("Player")
+	print(player)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,7 +58,7 @@ func _physics_process(delta: float) -> void:
 	
 
 func face_player():
-	var angleTo = get_angle_to(player)
+	var angleTo = get_angle_to(player.position)
 	var angle = rad_to_deg(angleTo)
 	if(angle > 270):
 		curDirection = 3
@@ -73,7 +74,7 @@ func face_player():
 		$Rotate.set_rotation_degrees(45)
 	
 func go_to_player():
-	var angleTo = get_angle_to(player)
+	var angleTo = get_angle_to(player.position)
 	var distance = position.distance_to(player.position)
 	face_player()
 	
@@ -235,7 +236,7 @@ func make_decisions() -> void:
 				
 			var stateper = rng.randi_range(0, 3)
 			if(stage == 0):
-				state = 1
+				state = stateper
 			else:
 				state = stateper + 3
 		

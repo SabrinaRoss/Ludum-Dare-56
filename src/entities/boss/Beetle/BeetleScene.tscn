@@ -12,35 +12,33 @@ radius = 64.0703
 [sub_resource type="CircleShape2D" id="CircleShape2D_o35at"]
 radius = 25.0799
 
-[node name="BeetleScene" type="Node2D"]
-
-[node name="Beetle" type="CharacterBody2D" parent="."]
+[node name="Beetle" type="CharacterBody2D"]
 position = Vector2(197, 78)
 script = ExtResource("1_f8qx2")
 
-[node name="Rotate" type="Node2D" parent="Beetle"]
+[node name="Rotate" type="Node2D" parent="."]
 
-[node name="main_attack" type="Area2D" parent="Beetle/Rotate"]
+[node name="main_attack" type="Area2D" parent="Rotate"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Beetle/Rotate/main_attack"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rotate/main_attack"]
 position = Vector2(-36, 0)
 scale = Vector2(1.43574, 0.915876)
 shape = SubResource("CircleShape2D_tx4r1")
 debug_color = Color(0.958556, 0, 0.526491, 0.42)
 
-[node name="weak" type="Area2D" parent="Beetle/Rotate"]
+[node name="weak" type="Area2D" parent="Rotate"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Beetle/Rotate/weak"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rotate/weak"]
 position = Vector2(18, 0)
 scale = Vector2(-1.70902, 0.946719)
 shape = SubResource("CircleShape2D_hpywt")
 debug_color = Color(2.02149e-06, 0.641939, 0.326133, 0.42)
 
-[node name="aoe" type="Area2D" parent="Beetle/Rotate"]
+[node name="aoe" type="Area2D" parent="Rotate"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Beetle/Rotate/aoe"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rotate/aoe"]
 shape = SubResource("CircleShape2D_srtja")
 debug_color = Color(0.8, 0.423529, 0, 0.0705882)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Beetle"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_o35at")
