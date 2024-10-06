@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://detc4605bbpr3"]
+[gd_scene load_steps=4 format=3 uid="uid://detc4605bbpr3"]
 
 [ext_resource type="PackedScene" uid="uid://ep7y72lycq5p" path="res://src/entities/boss/squirrel/squirrel.tscn" id="1_lwoet"]
 [ext_resource type="PackedScene" uid="uid://t2oal6prg838" path="res://src/entities/player/player_beetle.tscn" id="2_4gp32"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qcnmq"]
+size = Vector2(328, 200)
 
 [node name="Test" type="Node2D"]
 
@@ -10,3 +13,23 @@ position = Vector2(208, 89)
 
 [node name="Squirrel" parent="." instance=ExtResource("1_lwoet")]
 position = Vector2(139.838, 83.9867)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-165, 93)
+shape = SubResource("RectangleShape2D_qcnmq")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(159, 281)
+shape = SubResource("RectangleShape2D_qcnmq")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(485, 86)
+shape = SubResource("RectangleShape2D_qcnmq")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(158, -101)
+shape = SubResource("RectangleShape2D_qcnmq")
+
+[node name="Projectiles" type="Node2D" parent="."]

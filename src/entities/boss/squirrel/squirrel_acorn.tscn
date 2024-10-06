@@ -1,12 +1,52 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5wu27h5e4exi"]
+[gd_scene load_steps=8 format=3 uid="uid://c5wu27h5e4exi"]
 
 [ext_resource type="Script" path="res://src/entities/boss/squirrel/squirrel_acorn.gd" id="1_tikn1"]
+[ext_resource type="Texture2D" uid="uid://ccq7ao27s8tuh" path="res://assets/sprites/acorn.png" id="2_5s3ia"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7oyjo"]
 radius = 8.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0f5uu"]
-radius = 8.0
+radius = 7.0
+
+[sub_resource type="Animation" id="Animation_awa2r"]
+resource_name = "idle"
+length = 0.2
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 0.9), Vector2(1, 1), Vector2(0.8, 1.2)]
+}
+
+[sub_resource type="Animation" id="Animation_evvb2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wkmdp"]
+_data = {
+"RESET": SubResource("Animation_evvb2"),
+"idle": SubResource("Animation_awa2r")
+}
 
 [node name="SquirrelAcorn" type="CharacterBody2D"]
 top_level = true
@@ -14,10 +54,12 @@ collision_layer = 0
 script = ExtResource("1_tikn1")
 damage = 5.0
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_5s3ia")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7oyjo")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 8
@@ -25,5 +67,12 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_0f5uu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wkmdp")
+}
+autoplay = "idle"
+speed_scale = 0.5
 
 [connection signal="area_entered" from="Hurtbox" to="." method="deal_damage"]

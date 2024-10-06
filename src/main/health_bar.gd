@@ -35,7 +35,7 @@ func healthUpdate() -> void:
 	
 func _input(_ev):
 	if Input.is_key_pressed(KEY_1):
-		Singleton.player.take_damage(1.25)
+		Singleton.player.take_damage(0.5)
 		healthUpdate()
 
 func _process(_delta: float) -> void:

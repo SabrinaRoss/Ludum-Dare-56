@@ -6,27 +6,28 @@ var health = 100
 var dash_dist = 60
 
 ## shotgun vars
-var shotgun_amount = 10
+var shotgun_amount = 8
 var shotgun_spread = PI / 2
 var shotgun_spawn_radius = 0
 var shotgun_speed = 100
 var shotgun_acorn_chance = 0.1
 
 ## spinning ball vars
-var spinning_ball_amount = 10
+var spinning_ball_amount = 7
 var spinning_ball_acorn_chance = 0.5
 var spinning_ball_speed = 40
-var spinning_ball_rot_speed = 100
+var spinning_ball_rot_speed = 50
 var spinning_ball_spawn_dist = 0
+var spinning_ball_radius = 30
 
 ## burst vars
-var burst_amount = 15
+var burst_amount = 8
 var burst_acorn_chance = 0.1
 var burst_speed = 100
 var burst_spawn_dist = 0
 
 ## snipe vars
-var snipe_speed = 200
+var snipe_speed = 400
 var snipe_spawn_dist = 0
 
 ## frenzy vars
@@ -55,7 +56,7 @@ var frenzy_turn = PI / 8
 var state
 
 var move_destination = Vector2.ZERO
-var nut_bounces = 0
+var nut_bounces = 1
 var last_slide_col : KinematicCollision2D = null
 
 var idle_timer = 0
@@ -67,7 +68,7 @@ var frenzy_degree = 0
 var has_frenzied = false
 
 func _ready() -> void:
-	switch_states(6)
+	switch_states(3)
 
 func _physics_process(delta: float) -> void:
 	physics_process_state(delta)
@@ -189,7 +190,7 @@ func shotgun_attack():
 		new_projectile.global_position = global_position + cur_dir * shotgun_spawn_radius
 		new_projectile.dir = cur_dir
 		new_projectile.speed = shotgun_speed
-		add_child(new_projectile)
+		get_parent().get_node("Projectiles").call_deferred("add_child", new_projectile)
 
 func spinning_ball_attack():
 	var dir_vect = (Singleton.player.global_position - global_position).normalized()
@@ -200,8 +201,10 @@ func spinning_ball_attack():
 	new_spinning_ball.rotation_speed = spinning_ball_rot_speed
 	new_spinning_ball.speed = spinning_ball_speed
 	new_spinning_ball.dir = dir_vect
+	new_spinning_ball.radius = spinning_ball_radius
+	new_spinning_ball.bounces = nut_bounces
 	new_spinning_ball.global_position = global_position + dir_vect * spinning_ball_spawn_dist
-	add_child(new_spinning_ball)
+	get_parent().get_node("Projectiles").call_deferred("add_child", new_spinning_ball)
 
 func burst_attack():
 	var angle_inc = TAU / burst_amount
@@ -217,7 +220,7 @@ func burst_attack():
 		new_projectile.dir = dir_vect
 		new_projectile.speed = burst_speed
 		new_projectile.global_position = global_position + burst_spawn_dist * dir_vect
-		add_child(new_projectile)
+		get_parent().get_node("Projectiles").call_deferred("add_child", new_projectile)
 
 func snipe_attack():
 	var dir_vect = (Singleton.player.global_position - global_position).normalized()
@@ -226,7 +229,7 @@ func snipe_attack():
 	new_acorn.dir = dir_vect
 	new_acorn.speed = snipe_speed
 	new_acorn.global_position = global_position + dir_vect * snipe_spawn_dist
-	add_child(new_acorn)
+	get_parent().get_node("Projectiles").call_deferred("add_child", new_acorn)
 
 func spawn_frenzy_wave():
 	var start_angle = frenzy_degree
@@ -239,7 +242,7 @@ func spawn_frenzy_wave():
 		new_nut.speed = frenzy_speed
 		new_nut.bounces = nut_bounces
 		new_nut.global_position = global_position + nut_dir * frenzy_spawn_dist
-		add_child(new_nut)
+		get_parent().get_node("Projectiles").call_deferred("add_child", new_nut)
 
 func idle(time):
 	idle_timer = time

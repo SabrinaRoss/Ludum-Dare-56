@@ -23,6 +23,12 @@ shader_parameter/second_scanline_frequency = 2.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gnp67"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xb80f"]
+size = Vector2(20, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dyxn6"]
+size = Vector2(320, 20)
+
 [node name="Level3" type="Node2D"]
 process_mode = 1
 material = SubResource("ShaderMaterial_qxeix")
@@ -39,6 +45,7 @@ position = Vector2(34, 112)
 
 [node name="HealthBar" parent="." instance=ExtResource("3_6iqn2")]
 
+<<<<<<< HEAD
 [node name="CRT_Shader" type="ColorRect" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_ou7el")
@@ -50,3 +57,26 @@ visible = false
 material = SubResource("ShaderMaterial_gnp67")
 offset_right = 323.0
 offset_bottom = 181.0
+=======
+[node name="Effects" type="Node" parent="."]
+
+[node name="Projectiles" type="Node" parent="."]
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-10, 90)
+shape = SubResource("RectangleShape2D_xb80f")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(330, 90)
+shape = SubResource("RectangleShape2D_xb80f")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+position = Vector2(160, -10)
+shape = SubResource("RectangleShape2D_dyxn6")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
+position = Vector2(160, 190)
+shape = SubResource("RectangleShape2D_dyxn6")
+>>>>>>> da61710072528dbbae4fa2801a32319676a536cc

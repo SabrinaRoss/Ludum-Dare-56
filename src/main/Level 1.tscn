@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://b441ummmk1l26"]
+[gd_scene load_steps=5 format=3 uid="uid://b441ummmk1l26"]
 
 [ext_resource type="PackedScene" uid="uid://bmkjq2v77ou1d" path="res://src/entities/player/player_ant.tscn" id="1_o7ecf"]
 [ext_resource type="PackedScene" uid="uid://db4onktx5rhfw" path="res://src/main/Health Bar.tscn" id="2_uqitk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ehqe3"]
+size = Vector2(20, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f656i"]
+size = Vector2(320, 20)
 
 [node name="Level1" type="Node2D"]
 process_mode = 3
@@ -10,3 +16,25 @@ process_mode = 3
 position = Vector2(89, 95)
 
 [node name="HealthBar" parent="." instance=ExtResource("2_uqitk")]
+
+[node name="Effects" type="Node" parent="."]
+
+[node name="Projectiles" type="Node" parent="."]
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-10, 90)
+shape = SubResource("RectangleShape2D_ehqe3")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(330, 90)
+shape = SubResource("RectangleShape2D_ehqe3")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+position = Vector2(160, -10)
+shape = SubResource("RectangleShape2D_f656i")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
+position = Vector2(160, 190)
+shape = SubResource("RectangleShape2D_f656i")
