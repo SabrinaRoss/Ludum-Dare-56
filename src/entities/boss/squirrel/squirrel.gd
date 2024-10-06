@@ -7,7 +7,7 @@ var jump_speed = 200
 
 ## dash vars
 var dash_dist = 60
-var dash_speed = 300
+var dash_speed = 1000
 
 ## shotgun vars
 var shotgun_amount = 8
@@ -36,9 +36,9 @@ var snipe_spawn_dist = 0
 
 ## frenzy vars
 var frenzy_speed = 50
-var frenzy_acorns_per_wave = 5
+var frenzy_acorns_per_wave = 3
 var frenzy_wave_num = 100
-var frenzy_wave_cooldown = 0.1
+var frenzy_wave_cooldown = 0.2
 var frenzy_spawn_dist = 0
 var frenzy_turn = PI / 8
 
@@ -72,7 +72,7 @@ var frenzy_degree = 0
 var has_frenzied = false
 
 func _ready() -> void:
-	switch_states(0)
+	switch_states(1)
 
 func _physics_process(delta: float) -> void:
 	physics_process_state(delta)
@@ -181,6 +181,7 @@ func dash_move():
 		orth_vect = Vector2(-player_vect.y, player_vect.x).normalized()
 	var move_vect = (mid_vect - player_vect + orth_vect * 75).normalized()
 	move_destination = global_position + move_vect.normalized() * dash_dist
+	update_facing(move_vect)
 
 func shotgun_attack():
 	var dir_vect = (Singleton.player.global_position - global_position).normalized()
@@ -258,7 +259,6 @@ func idle(time):
 func move_to(speed):
 	var dir_vect = (move_destination - global_position).normalized()
 	velocity = dir_vect * speed
-	update_facing(dir_vect)
 
 func upgrade_stats():
 	pass
@@ -272,12 +272,12 @@ func idle_state_physics(delta):
 
 func jump_state_physics():
 	move_to(jump_speed)
-	if (move_destination - global_position).length() < 5:
+	if (move_destination - global_position).length() < 10:
 		check_switch_jump_state()
 
 func dash_state_physics():
 	move_to(dash_speed)
-	if (move_destination - global_position).length() < 5:
+	if (move_destination - global_position).length() < 10:
 		check_switch_dash_state()
 
 func shotgun_state_physics():
@@ -310,6 +310,7 @@ func enter_idle_state():
 func enter_jump_state():
 	animp.play("jump")
 	move_destination = Vector2(320, 180) / 2
+	update_facing((move_destination - global_position).normalized())
 
 func enter_dash_state():
 	animp.play("dash")

@@ -128,6 +128,7 @@ func bullet_parried(bullet_area : Area2D):
 		bullet.reflect()
 		bullet.dir = facing_dir
 		bullet.damage = parry_damage
+		bullet.speed *= 4
 	else:
 		bullet.explode()
 

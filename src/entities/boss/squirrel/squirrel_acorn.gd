@@ -9,4 +9,5 @@ func _process(delta: float) -> void:
 
 func reflect():
 	$Hurtbox.set_collision_layer_value(4, false)
-	$Hurtbox.set_collision_layer_value(2, true)
+	$Hurtbox.set_collision_mask_value(2, false)
+	$Hurtbox.set_collision_mask_value(3, true)
