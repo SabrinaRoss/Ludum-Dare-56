@@ -60,7 +60,7 @@ var frenzy_turn = PI / 8
 var state
 
 var move_destination = Vector2.ZERO
-var nut_bounces = 0
+var nut_bounces = 1
 var last_slide_col : KinematicCollision2D = null
 
 var idle_timer = 0
@@ -82,7 +82,6 @@ func _physics_process(delta: float) -> void:
 		var col_dir = (last_slide_col.get_position() - global_position).normalized()
 		if col_dir.dot(move_destination - global_position) > 0:
 			move_destination = global_position
-	$Label.text = str(state)
 
 func physics_process_state(delta):
 	match state:
@@ -165,9 +164,9 @@ func check_switch_state():
 
 func update_facing(dir : Vector2):
 	if dir.dot(Vector2.RIGHT) < 0:
-		transformables.scale.x = -1
-	else:
 		transformables.scale.x = 1
+	else:
+		transformables.scale.x = -1
 
 func dash_move():
 	var stage_middle = Vector2(320,180) / 2
@@ -318,7 +317,6 @@ func enter_dash_state():
 
 func enter_shotgun_state():
 	animp.play("shotgun")
-	shotgun_attack()
 
 func enter_spinning_ball_state():
 	animp.play("spinning_ball")
@@ -326,7 +324,6 @@ func enter_spinning_ball_state():
 
 func enter_burst_state():
 	animp.play("burst")
-	burst_attack()
 
 func enter_snipe_state():
 	animp.play("snipe")

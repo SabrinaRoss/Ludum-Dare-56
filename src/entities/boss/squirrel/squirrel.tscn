@@ -1,35 +1,138 @@
 [gd_scene load_steps=16 format=3 uid="uid://ep7y72lycq5p"]
 
 [ext_resource type="Script" path="res://src/entities/boss/squirrel/squirrel.gd" id="1_2mrnn"]
+[ext_resource type="Texture2D" uid="uid://dt20fpf2woiso" path="res://assets/sprites/boss_squirrel.png" id="2_l6c7d"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ywi1a"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o6526"]
+radius = 5.0
+height = 20.0
 
-[sub_resource type="Gradient" id="Gradient_wkkvs"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_at56d"]
+radius = 5.0
+height = 20.0
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_3xcq6"]
-gradient = SubResource("Gradient_wkkvs")
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_invof"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_4qfvs"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dg0rt"]
+radius = 8.0
+height = 28.0
 
 [sub_resource type="Animation" id="Animation_f6hq5"]
 resource_name = "burst"
+length = 0.375
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transformables/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [7, 8, 9]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"burst_attack"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_0mqtx"]
 resource_name = "dash"
+length = 0.25
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transformables/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [10, 11]
+}
 
 [sub_resource type="Animation" id="Animation_pti6m"]
 resource_name = "frenzy"
+length = 0.375
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transformables/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [7, 8, 9]
+}
 
 [sub_resource type="Animation" id="Animation_ejnp4"]
 resource_name = "idle"
+length = 0.25
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transformables/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
 
 [sub_resource type="Animation" id="Animation_kbm22"]
 resource_name = "jump"
 
 [sub_resource type="Animation" id="Animation_7duby"]
 resource_name = "shotgun"
+length = 0.375
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transformables/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [7, 8, 9]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shotgun_attack"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_obsoe"]
 resource_name = "snipe"
@@ -37,8 +140,24 @@ resource_name = "snipe"
 [sub_resource type="Animation" id="Animation_mpwv8"]
 resource_name = "spinning_ball"
 
+[sub_resource type="Animation" id="Animation_1aaqa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transformables/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2u8nl"]
 _data = {
+"RESET": SubResource("Animation_1aaqa"),
 "burst": SubResource("Animation_f6hq5"),
 "dash": SubResource("Animation_0mqtx"),
 "frenzy": SubResource("Animation_pti6m"),
@@ -54,36 +173,35 @@ collision_layer = 0
 script = ExtResource("1_2mrnn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ywi1a")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_o6526")
 
 [node name="Transformables" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Transformables"]
-texture = SubResource("GradientTexture2D_3xcq6")
+texture_filter = 1
+position = Vector2(3, -27)
+texture = ExtResource("2_l6c7d")
+hframes = 3
+vframes = 4
 
 [node name="CollisionHurtbox" type="Area2D" parent="Transformables"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Transformables/CollisionHurtbox"]
-shape = SubResource("CircleShape2D_invof")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_at56d")
 
 [node name="Hitbox" type="Area2D" parent="Transformables"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Transformables/Hitbox"]
-shape = SubResource("CircleShape2D_4qfvs")
+position = Vector2(0, -2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_dg0rt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_2u8nl")
 }
-
-[node name="Label" type="Label" parent="."]
-offset_left = -20.0
-offset_top = -35.0
-offset_right = 20.0
-offset_bottom = -12.0
-
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 8.0
-offset_bottom = 8.0
+autoplay = "idle"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
