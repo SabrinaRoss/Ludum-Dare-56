@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://tt5n3ofcm1qn"]
+
+[ext_resource type="Script" path="res://src/entities/player/damage_indicator.gd" id="1_qp1ts"]
+[ext_resource type="Texture2D" uid="uid://cxosgog5eybtq" path="res://assets/sprites/Damage Indicator.png" id="2_vh0gn"]
+
+[node name="DamageIndicator" type="Node2D"]
+scale = Vector2(1e-05, 1e-05)
+script = ExtResource("1_qp1ts")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_vh0gn")

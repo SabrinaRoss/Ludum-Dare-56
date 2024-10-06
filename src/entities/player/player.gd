@@ -5,6 +5,7 @@ class_name Player
 @onready var transformables = $transformables
 
 @onready var bullet_scene = preload("res://src/entities/player/player_bullet.tscn")
+@onready var damage_indicator = preload("res://src/entities/player/Damage Indicator.tscn")
 
 var max_health = 1
 var cur_health = 1
@@ -151,6 +152,9 @@ func tick_timers(delta):
 func take_damage(damage):
 	cur_health -= damage
 	Singleton.health_bar_scene.damageAnimation()
+	var dmg_ind = damage_indicator.instantiate()
+	dmg_ind.setIntensity(damage)
+	add_child(dmg_ind)
 	if cur_health <= max_health:
 		death()
 
