@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://t2oal6prg838"]
+[gd_scene load_steps=14 format=3 uid="uid://t2oal6prg838"]
 
 [ext_resource type="Script" path="res://src/entities/player/player.gd" id="1_ixamv"]
 
@@ -16,13 +16,41 @@ resource_name = "parry"
 
 [sub_resource type="Animation" id="Animation_p6xsx"]
 resource_name = "roll"
-length = 0.3
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:debug_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(0.307126, 0.627169, 3.85046e-07, 0.42), Color(0, 0.6, 0.7, 0.42)]
+}
 
 [sub_resource type="Animation" id="Animation_eqxtm"]
 resource_name = "run"
 
+[sub_resource type="Animation" id="Animation_a1ais"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:debug_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.6, 0.7, 0.42)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e7ch1"]
 _data = {
+"RESET": SubResource("Animation_a1ais"),
 "bullet_parried": SubResource("Animation_xeqs0"),
 "idle": SubResource("Animation_7bnyd"),
 "parry": SubResource("Animation_vw4p4"),
@@ -35,6 +63,11 @@ size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_erq0d"]
 size = Vector2(16, 16)
+
+[sub_resource type="Gradient" id="Gradient_4mt7m"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qayep"]
+gradient = SubResource("Gradient_4mt7m")
 
 [node name="PlayerBeetle" type="CharacterBody2D"]
 collision_layer = 0
@@ -68,6 +101,8 @@ shape = SubResource("RectangleShape2D_erq0d")
 disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="transformables"]
+scale = Vector2(0.25, 0.25)
+texture = SubResource("GradientTexture2D_qayep")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="transformables/ParryBox" to="." method="bullet_parried"]

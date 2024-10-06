@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c5wu27h5e4exi"]
 
 [ext_resource type="Script" path="res://src/entities/boss/squirrel/squirrel_acorn.gd" id="1_tikn1"]
-[ext_resource type="Texture2D" uid="uid://ccq7ao27s8tuh" path="res://assets/sprites/acorn.png" id="2_5s3ia"]
+[ext_resource type="Texture2D" uid="uid://bdm5yc83dr0a6" path="res://assets/sprites/acorn.png" id="2_5s3ia"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7oyjo"]
 radius = 8.0

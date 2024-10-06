@@ -1,8 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://ep7y72lycq5p"]
+[gd_scene load_steps=16 format=3 uid="uid://ep7y72lycq5p"]
 
 [ext_resource type="Script" path="res://src/entities/boss/squirrel/squirrel.gd" id="1_2mrnn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ywi1a"]
+
+[sub_resource type="Gradient" id="Gradient_wkkvs"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3xcq6"]
+gradient = SubResource("Gradient_wkkvs")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_invof"]
 
@@ -54,6 +59,7 @@ shape = SubResource("CircleShape2D_ywi1a")
 [node name="Transformables" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Transformables"]
+texture = SubResource("GradientTexture2D_3xcq6")
 
 [node name="CollisionHurtbox" type="Area2D" parent="Transformables"]
 
