@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://tg05ybpnh7os"]
 
 [ext_resource type="Script" path="res://src/entities/boss/squirrel/squirrel_nut.gd" id="1_osiau"]
-[ext_resource type="Texture2D" uid="uid://c7amjfsok0hde" path="res://assets/sprites/nut.png" id="2_sxdav"]
+[ext_resource type="Texture2D" uid="uid://bidrsc123osr8" path="res://assets/sprites/nut.png" id="2_sxdav"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n0rys"]
 radius = 3.0
