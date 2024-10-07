@@ -28,7 +28,7 @@ func _ready() -> void:
 func _input(_ev):
 	if Input.is_action_just_pressed("pause"):
 		togglePause()
-	
+
 func togglePause() -> void:
 	if paused:
 		pauseMenu.queue_free()
@@ -81,29 +81,47 @@ func death() -> void:
 	get_tree().paused = false
 
 func bossDeath() -> void:
+	get_tree().paused = true
 	var boss = getBoss()
 	var infection = infectionScene.instantiate()
-	add_child(infection)
 	infection.destination = boss.position
+	add_child(infection)
 	infection.line.points[0] = Singleton.player.position
 	infection.line.points[1] = Singleton.player.position
-	get_tree().paused = true
+	await infection.done_stretching
+	infection.queue_free()
+	
+	var zoom_amount = 150
+	
+	var t = create_tween().set_ease(Tween.EASE_IN)
+	t.tween_property(gameScene, "scale", Vector2(zoom_amount, zoom_amount), 3)
+	t.parallel().tween_property(gameScene, "global_position", -boss.get_node("ZoomMarker").global_position * zoom_amount, 3)
+	
+	await t.finished
+	
 	var trans = Singleton.camera.get_node("TransitionBosses")
 	trans.cover_screen()
 	await trans.transition_finished
-	infection.queue_free()
 	setLevel(level+1)
+	gameScene.scale = Vector2(zoom_amount, zoom_amount)
+	gameScene.global_position = Vector2.ZERO
 	trans.reveal_screen()
-	Singleton.camera.position = Vector2(0,0)
 	await trans.transition_finished
-	zoomOutAnimationPlaying = true
+	
+	t = create_tween().set_ease(Tween.EASE_OUT)
+	t.tween_property(gameScene, "scale", Vector2(1, 1), 3)
+	await t.finished
 	get_tree().paused = false
 
 func _process(_delta: float) -> void:
 	if deathAnimationPlaying:
 		Singleton.player.scale -= Vector2(1,1) * deathAnimationShrinkSpeed
-	if zoomOutAnimationPlaying:
-		Singleton.camera.zoom -= Singleton.camera.zoom/4.0
-		if Singleton.camera.zoom.x < 1:
-			Singleton.camera.zoom = Vector2(1,1)
-			zoomOutAnimationPlaying = false
+	
+	## at least for now I'm switching this to tweens because I can use them better
+	## (I am of course willing to switch back!) - Avery
+	
+	#if zoomOutAnimationPlaying:
+		#Singleton.camera.zoom -= Singleton.camera.zoom/4.0
+		#if Singleton.camera.zoom.x < 1:
+			#Singleton.camera.zoom = Vector2(1,1)
+			#zoomOutAnimationPlaying = false

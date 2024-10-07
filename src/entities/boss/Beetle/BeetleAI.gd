@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+var max_health = 100
+
 var move_state_time = 4
 
 var main_attack_state_move_speed = 75
@@ -7,7 +9,7 @@ var main_attack_range = 120
 var main_attack_speed = 130
 var main_attack_spacing = 60
 
-var flutter_aoe_max_dist = 100
+var flutter_aoe_max_dist = 60
 
 var rapid_attack_state_move_speed = 75
 
@@ -54,7 +56,7 @@ Direction:
 func _ready() -> void:
 	vel = Vector2.ZERO
 	screenSize = Vector2(180, 180)
-	health = 1.0
+	health = max_health
 	speed = 45.0
 	aoeCollider = $Rotate/aoe
 	mainAttackCollider = $Rotate/main_attack
@@ -71,23 +73,23 @@ func _process(delta: float) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	# state = 5
-	
 	position += vel * delta * speed
 	#position = position.clamp(Vector2.ZERO, screenSize)
 	
+	if $AnimationPlayer.current_animation == "high_fly_mid":
+		var t = create_tween()
+		t.tween_property(self, "global_position", player.global_position, 0.1)
 	
-	if (state == 1 || state == 4) && (position.x > screenSize.x-10+70 or position.x - 70 < 10):
+	if (state == 1 || state == 4) && (position.x > screenSize.x/2. - 20 or position.x < -screenSize.x/2. + 20):
 		vel.x *= -1
-		position.x = clamp(position.x, 70, screenSize.x+70)
 		update_direction_facing(vel if state == 1 else vel / quick_walk_mult)
 		update_direction_walking()
-	elif (state == 1 || state == 4) && (position.y > screenSize.y-10 or position.y < 10):
+	elif (state == 1 || state == 4) && (position.y > screenSize.y/2. - 20 or position.y < -screenSize.y/2. + 20):
 		vel.y *= -1
-		position.y = clamp(position.y, 0, screenSize.y)
 		update_direction_facing(vel if state == 1 else vel / quick_walk_mult)
 		update_direction_walking()
-		
+	
+	position = pos_clamp(position)
 	
 	if something_running == 0 or state == 0:
 		make_decisions()
@@ -95,8 +97,8 @@ func _physics_process(delta: float) -> void:
 	
 
 func pos_clamp(pos):
-	pos.x = clamp(pos.x, 10 + 70, screenSize.x-10+70)
-	pos.y = clamp(pos.y, 10, screenSize.y-10 )
+	pos.x = clamp(pos.x, -screenSize.x/2. + 20, screenSize.x/2. - 20)
+	pos.y = clamp(pos.y, -screenSize.y/2. + 20, screenSize.y/2. - 20)
 	return pos
 
 func pick_between_four(anims):
@@ -200,7 +202,7 @@ func music_player(music):
 
 func lunge():
 	var new_lunge_indic = lunge_indicator_scene.instantiate()
-	get_parent().get_node("Effects").add_child(new_lunge_indic)
+	get_parent().get_node("BeatleTelegraphs").call_deferred("add_child", new_lunge_indic)
 	cur_lunge_indic = new_lunge_indic
 	var t = create_tween()
 	t.tween_property(new_lunge_indic.get_node("ColorRect"), "size", Vector2(main_attack_range, 20), 1)
@@ -324,6 +326,18 @@ func move_fast() -> void:
 	state = 0
 	something_running = 0
 
+func high_fly():
+	$AnimationPlayer.play("high_fly_start")
+	await $AnimationPlayer.animation_finished
+	$AnimationPlayer.play("high_fly_mid")
+	await $AnimationPlayer.animation_finished
+	$AnimationPlayer.play("high_fly_land")
+	await $AnimationPlayer.animation_finished
+	
+	
+	state = 0
+	something_running = 0
+
 func deal_main_attack(area : Area2D):
 	var target = area.owner
 	target.take_damage(main_attack_damage)
@@ -334,9 +348,10 @@ func deal_aoe_attack(area : Area2D):
 
 func take_damage(damage: float) -> void:
 	health -= damage
-	$DamageAnimp.play("damage")
 	if health <= 0:
 		death()
+	else:
+		$DamageAnimp.play("damage")
 
 func death():
 	Singleton.main.bossDeath()
@@ -345,10 +360,7 @@ func make_decisions() -> void:
 	match state:
 		0: #find new state
 			pick_between_two(["RESET_left","RESET"])
-			#if(stage == 0 && health < 50):
-				#stage = 1
-				#state = 4
-				
+			
 			var stateper = rng.randi_range(1, 2)
 			if(stage == 0):
 				state = stateper
@@ -358,6 +370,9 @@ func make_decisions() -> void:
 			if (player.global_position - global_position).length() < flutter_aoe_max_dist and randf() < 0.5:
 				state = 5
 			
+			if(stage == 0 && health <= max_health / 2.):
+				stage = 1
+				state = 6
 			
 			
 		1:	#default walking
@@ -379,3 +394,6 @@ func make_decisions() -> void:
 			something_running = 1
 			aoe_attack()
 		
+		6:	#high fly
+			something_running = 1
+			high_fly()

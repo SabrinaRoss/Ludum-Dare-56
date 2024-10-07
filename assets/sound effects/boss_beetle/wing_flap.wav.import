@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c57jyapc55m8h"
+path="res://.godot/imported/wing_flap.wav-66c13bd8dfd0cefef4fa3b768f42b168.sample"
+
+[deps]
+
+source_file="res://assets/sound effects/boss_beetle/wing_flap.wav"
+dest_files=["res://.godot/imported/wing_flap.wav-66c13bd8dfd0cefef4fa3b768f42b168.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

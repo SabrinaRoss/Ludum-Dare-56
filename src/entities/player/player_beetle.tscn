@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://t2oal6prg838"]
+[gd_scene load_steps=20 format=3 uid="uid://t2oal6prg838"]
 
 [ext_resource type="Script" path="res://src/entities/player/player.gd" id="1_ixamv"]
 [ext_resource type="Texture2D" uid="uid://dl0j2b23080kk" path="res://assets/sprites/beetle_player.png" id="2_3mwgu"]
@@ -46,6 +46,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [5]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("transformables/GPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_xeqs0"]
 resource_name = "bullet_parried"
@@ -69,7 +81,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_vw4p4"]
 resource_name = "parry"
-length = 0.2
+length = 0.4
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -78,7 +90,7 @@ tracks/0/path = NodePath("transformables/ParryBox/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15),
+"times": PackedFloat32Array(0, 0.35),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -90,10 +102,22 @@ tracks/1/path = NodePath("transformables/Sprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.35),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [2, 3, 4, 3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("transformables/GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_p6xsx"]
@@ -152,9 +176,30 @@ _data = {
 "run": SubResource("Animation_eqxtm")
 }
 
+[sub_resource type="Gradient" id="Gradient_lcl5t"]
+offsets = PackedFloat32Array(0, 0.180328, 0.795082, 1)
+colors = PackedColorArray(1, 0.776, 0.44, 0, 1, 0.773634, 0.437323, 1, 1, 0.773634, 0.437323, 1, 1, 0.776, 0.44, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_37hpr"]
+gradient = SubResource("Gradient_lcl5t")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0g40q"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1.5, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 20.0
+emission_ring_inner_radius = 0.0
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_37hpr")
+turbulence_enabled = true
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wtpms"]
-radius = 3.0
-height = 18.0
+radius = 1.0
+height = 8.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fl546"]
 radius = 11.0
@@ -203,10 +248,10 @@ script = ExtResource("1_ixamv")
 animal = 1
 
 [node name="Shadow" parent="." instance=ExtResource("2_u0sfy")]
-offset_left = -12.0
+offset_left = -7.0
 offset_top = -5.0
-offset_right = 12.0
-offset_bottom = 5.0
+offset_right = 5.0
+offset_bottom = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -221,9 +266,18 @@ autoplay = "idle"
 
 [node name="transformables" type="Node2D" parent="."]
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="transformables"]
+position = Vector2(0, -1)
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_0g40q")
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+
 [node name="Sprite2D" type="Sprite2D" parent="transformables"]
 texture_filter = 1
-position = Vector2(0, -3)
+position = Vector2(1, -3)
 texture = ExtResource("2_3mwgu")
 hframes = 3
 vframes = 3
@@ -234,7 +288,6 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transformables/Hitbox"]
-visible = false
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_wtpms")
 
@@ -243,7 +296,6 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transformables/ParryBox"]
-visible = false
 position = Vector2(0, -2)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_fl546")

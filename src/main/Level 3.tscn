@@ -1,9 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://bm7uxhkyas305"]
+[gd_scene load_steps=20 format=3 uid="uid://bm7uxhkyas305"]
 
 [ext_resource type="Shader" path="res://src/entities/boss/beaver/crt.gdshader" id="1_wb4ev"]
 [ext_resource type="PackedScene" uid="uid://ch7qrikum5eyl" path="res://src/entities/boss/beaver/beaver.tscn" id="1_yq5mi"]
 [ext_resource type="PackedScene" uid="uid://c4jh4lgv3yayj" path="res://src/entities/player/player_squirrel.tscn" id="2_0kfjj"]
+[ext_resource type="Texture2D" uid="uid://buj07ejvktt4x" path="res://assets/sprites/Backgrounds/Player_Squirrel/player_squirrel_backround.png" id="2_cw87o"]
 [ext_resource type="PackedScene" uid="uid://db4onktx5rhfw" path="res://src/main/Health Bar.tscn" id="3_6iqn2"]
+[ext_resource type="Texture2D" uid="uid://dnqu3hj1nhqhu" path="res://assets/sprites/Backgrounds/Player_Squirrel/player_squirrel_log.png" id="3_msr5a"]
+[ext_resource type="Texture2D" uid="uid://mcgub1nub6x4" path="res://assets/sprites/Backgrounds/Player_Squirrel/player_squirrel_tree-Sheet.png" id="4_b0hbn"]
 [ext_resource type="Shader" path="res://src/entities/boss/beaver/180p_shader.gdshader" id="5_abpn8"]
 [ext_resource type="Shader" path="res://src/entities/boss/beaver/greyscale_shader.gdshader" id="5_ko1vy"]
 [ext_resource type="Shader" path="res://src/entities/boss/beaver/screen_shake_shader.gdshader" id="6_78bee"]
@@ -56,56 +59,109 @@ shader = ExtResource("8_qksuk")
 shader_parameter/rows = 2
 shader_parameter/columns = 2
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4fj0w"]
+size = Vector2(20, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m3c27"]
+size = Vector2(320, 20)
+
 [node name="Level3" type="Node2D"]
 process_mode = 1
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_qxeix")
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="Background" type="Node2D" parent="."]
+z_index = -100
+
+[node name="grass" type="Sprite2D" parent="Background"]
+self_modulate = Color(0, 0.666667, 0.329412, 1)
+texture_filter = 1
+texture = ExtResource("2_cw87o")
+
+[node name="log" type="Sprite2D" parent="Background"]
+texture_filter = 1
+position = Vector2(-141, -80)
+texture = ExtResource("3_msr5a")
+
+[node name="tree" type="Sprite2D" parent="Background"]
+texture_filter = 1
+position = Vector2(130, -75)
+texture = ExtResource("4_b0hbn")
+hframes = 2
 
 [node name="Projectiles" type="Node2D" parent="."]
 
 [node name="Effects" type="Node2D" parent="."]
 
-[node name="Beaver" parent="." instance=ExtResource("1_yq5mi")]
-position = Vector2(268, 85)
-
 [node name="PlayerSquirell" parent="." instance=ExtResource("2_0kfjj")]
-position = Vector2(160, 90)
+position = Vector2(0, 4)
+
+[node name="Beaver" parent="." instance=ExtResource("1_yq5mi")]
+position = Vector2(96, -43)
 
 [node name="HealthBar" parent="." instance=ExtResource("3_6iqn2")]
+position = Vector2(-160, -90)
 
 [node name="CRT_Shader" type="ColorRect" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_ou7el")
-offset_right = 320.0
-offset_bottom = 180.0
+offset_left = -160.0
+offset_top = -90.0
+offset_right = 160.0
+offset_bottom = 90.0
 
 [node name="180p_Shader" type="ColorRect" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_gnp67")
-offset_right = 323.0
-offset_bottom = 181.0
+offset_left = -160.0
+offset_top = -90.0
+offset_right = 163.0
+offset_bottom = 91.0
 
 [node name="GreyScale_Shader" type="ColorRect" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_5d0nm")
-offset_right = 319.0
-offset_bottom = 182.0
+offset_left = -160.0
+offset_top = -90.0
+offset_right = 159.0
+offset_bottom = 92.0
 
 [node name="Screenshake_Shader" type="ColorRect" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_thyg0")
-offset_right = 320.0
-offset_bottom = 180.0
+offset_left = -160.0
+offset_top = -90.0
+offset_right = 160.0
+offset_bottom = 90.0
 
 [node name="FlipScreen_Shader" type="ColorRect" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_vq1p7")
-offset_right = 321.0
-offset_bottom = 182.0
+offset_left = -160.0
+offset_top = -90.0
+offset_right = 161.0
+offset_bottom = 92.0
 
 [node name="State_changer" type="Timer" parent="."]
 wait_time = 4.0
 autostart = true
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-170, 0)
+shape = SubResource("RectangleShape2D_4fj0w")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(170, 0)
+shape = SubResource("RectangleShape2D_4fj0w")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, -83)
+shape = SubResource("RectangleShape2D_m3c27")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, 100)
+shape = SubResource("RectangleShape2D_m3c27")
 
 [connection signal="timeout" from="State_changer" to="Beaver" method="_on_state_changer_timeout"]

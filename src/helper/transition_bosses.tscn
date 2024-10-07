@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bejcshhck5gqq"]
+[gd_scene load_steps=7 format=3 uid="uid://dswtanmknngbk"]
 
 [ext_resource type="Script" path="res://src/helper/transition_bosses.gd" id="1_hngox"]
 [ext_resource type="Texture2D" uid="uid://c06d6o0nwymlx" path="res://assets/sprites/Brain_Swap_Sheet.png" id="2_nuu1l"]
@@ -75,7 +75,7 @@ resource_name = "transtion_to_normal"
 length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath("ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -118,25 +118,23 @@ _data = {
 }
 
 [node name="TransitionBosses" type="Node2D"]
+z_index = 100
 script = ExtResource("1_hngox")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 320.0
-offset_bottom = 180.0
+visible = false
 color = Color(0, 0, 0, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
-top_level = true
 texture_filter = 1
-position = Vector2(160, 90)
 texture = ExtResource("2_nuu1l")
 hframes = 4
 vframes = 6
-frame = 21
+frame = 20
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_drmdi")
 }
-speed_scale = 0.1
+speed_scale = 0.3

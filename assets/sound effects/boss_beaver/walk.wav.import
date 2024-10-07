@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bcad3mtxc7xgs"
+path="res://.godot/imported/walk.wav-7fbc3e847e0f294decdaf0083ba4cf23.sample"
+
+[deps]
+
+source_file="res://assets/sound effects/boss_beaver/walk.wav"
+dest_files=["res://.godot/imported/walk.wav-7fbc3e847e0f294decdaf0083ba4cf23.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

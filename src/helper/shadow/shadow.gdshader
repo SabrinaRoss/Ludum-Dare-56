@@ -15,7 +15,7 @@ void fragment() {
 	circ_mask = step(0., circ_mask);
 	circ_mask = 1. - circ_mask;
 	
-	COLOR.a = circ_mask;
+	COLOR.a = circ_mask * 0.2;
 }
 
 //void light() {

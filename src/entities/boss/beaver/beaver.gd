@@ -32,11 +32,11 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if (!attacking):
 		position += vel * delta * 30
-		position = position.clamp(Vector2.ZERO, screenSize)
+		position = position.clamp(-screenSize/2, screenSize/2)
 		
-		if (position.x > screenSize.x -20 or position.x < 20):
+		if (position.x > screenSize.x/2 - 20 or position.x < -screenSize.x/2 + 20):
 			vel.x *= -1
-		elif (position.y > screenSize.y - 20 or position.y < 20):
+		elif (position.y > screenSize.y/2 - 20 or position.y < -screenSize.y/2 + 20):
 			vel.y *= -1
 		var dir_vect = vel.normalized()
 		update_facing(dir_vect)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ep7y72lycq5p"]
+[gd_scene load_steps=19 format=3 uid="uid://inp4doqni07v"]
 
 [ext_resource type="Script" path="res://src/entities/boss/squirrel/squirrel.gd" id="1_2mrnn"]
 [ext_resource type="Texture2D" uid="uid://bw8ue8gil36xc" path="res://assets/sprites/boss_squirrel.png" id="2_l6c7d"]
@@ -334,6 +334,8 @@ hframes = 3
 vframes = 4
 
 [node name="CollisionHurtbox" type="Area2D" parent="Transformables"]
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Transformables/CollisionHurtbox"]
 visible = false
@@ -341,6 +343,8 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_at56d")
 
 [node name="Hitbox" type="Area2D" parent="Transformables"]
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Transformables/Hitbox"]
 visible = false
@@ -348,10 +352,14 @@ position = Vector2(0, -2)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_dg0rt")
 
+[node name="ZoomMarker" type="Marker2D" parent="Transformables"]
+position = Vector2(-8, -21)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_2u8nl")
 }
 autoplay = "idle"
 
+[connection signal="area_entered" from="Transformables/CollisionHurtbox" to="." method="deal_collision_damage"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

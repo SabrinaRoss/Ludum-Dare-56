@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bvjoib5y1jdc4"
+path="res://.godot/imported/hurt.wav-b01ed7e2ff65b5ea71caf9768021acd6.sample"
+
+[deps]
+
+source_file="res://assets/sound effects/boss_beetle/hurt.wav"
+dest_files=["res://.godot/imported/hurt.wav-b01ed7e2ff65b5ea71caf9768021acd6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

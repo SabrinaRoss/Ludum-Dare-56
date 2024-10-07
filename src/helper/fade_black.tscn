@@ -1,21 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://cg7v2wrqjceec"]
+[gd_scene load_steps=6 format=3 uid="uid://dntckn7tl7y1q"]
 
 [ext_resource type="Script" path="res://src/helper/fade_black.gd" id="1_fitxo"]
-
-[sub_resource type="Animation" id="Animation_xlnt5"]
-resource_name = "fadeToBlack"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_h6xwi"]
 length = 0.001
@@ -47,6 +32,21 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_xlnt5"]
+resource_name = "fadeToBlack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xare5"]
 _data = {
 "RESET": SubResource("Animation_h6xwi"),
@@ -55,10 +55,10 @@ _data = {
 }
 
 [node name="FadeBlack" type="Node2D"]
+z_index = 100
 script = ExtResource("1_fitxo")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-top_level = true
 offset_right = 320.0
 offset_bottom = 180.0
 color = Color(0, 0, 0, 0)

@@ -7,6 +7,9 @@ class_name Player
 @onready var bullet_scene = preload("res://src/entities/player/player_bullet.tscn")
 @onready var damage_indicator = preload("res://src/entities/player/Damage Indicator.tscn")
 
+var roll_cooldown = 0.2
+var roll_timer = 0
+
 var bullet_speed = 300
 var bullet_cooldown = 0.2
 var parry_speed = 300
@@ -22,7 +25,7 @@ var turn_acc = 0
 
 var roll_vel = 0
 var bullet_timer = 0
-var slash_damage = 1
+var slash_damage = 50
 var bullet_damage = 1
 var parry_damage = 50
 
@@ -50,21 +53,21 @@ func _ready() -> void:
 			input_acc = max_vel / 0.05
 			idle_deacc = max_vel / 0.1
 			turn_acc = max_vel / 0.02
-			roll_vel = 250
+			roll_vel = 125
 			max_health = 5
 		1:
 			max_vel = 90
 			input_acc = max_vel / 0.05
 			idle_deacc = max_vel / 0.1
 			turn_acc = max_vel / 0.02
-			roll_vel = 500
+			roll_vel = 250
 			max_health = 100
 		2:
 			max_vel = 100
 			input_acc = max_vel / 0.05
 			idle_deacc = max_vel / 0.1
 			turn_acc = max_vel / 0.02
-			roll_vel = 500
+			roll_vel = 250
 			max_health = 1000
 	
 	cur_health = max_health
@@ -112,12 +115,13 @@ func is_turning(axis):
 	 (input_vect[axis] > 0 and velocity[axis] < 0)
 
 func do_actions():
-	if roll_just_pressed:
+	if roll_just_pressed and roll_timer <= 0:
 		rolling = true
 		velocity = roll_vel * input_vect
 		if input_vect == Vector2.ZERO:
 			velocity = roll_vel * facing_dir
 		old_roll_dir = facing_dir if input_vect == Vector2.ZERO else input_vect
+		roll_timer = roll_cooldown
 		animp.play("RESET")
 		animp.advance(0)
 		update_facing(old_roll_dir)
@@ -141,7 +145,6 @@ func slash():
 
 func parry():
 	var mouse_vect = (get_global_mouse_position() - global_position).normalized()
-	$transformables/ParryBox/CollisionShape2D.position = mouse_vect * 10
 	parrying = true
 	velocity = Vector2.ZERO
 	update_facing(mouse_vect)
@@ -176,6 +179,7 @@ func slash_hit(target : Area2D):
 
 func tick_timers(delta):
 	bullet_timer -= delta
+	roll_timer -= delta
 
 func take_damage(damage):
 	cur_health -= damage
