@@ -10,8 +10,9 @@ var health
 var shaders
 var camera
 var texture_rect
-
-
+var attacking: bool
+var can_player_be_hit: bool = true
+var state_on: bool = false
 var second_phase: bool = true
 
 var can_shader_bend: bool = true
@@ -19,6 +20,7 @@ var lo_shaders = []
 var last_shader = ColorRect
 func _ready() -> void:
 	vel = Vector2.ZERO
+	attacking = true
 	health = 100.0 #make more later idk
 	screenSize = get_viewport_rect().size
 	$Ai/Player_near/Player_near_sprite.modulate.a = .50
@@ -27,17 +29,18 @@ func _ready() -> void:
 	lo_shaders.append(get_parent().get_node("Screenshake_Shader"))
 	lo_shaders.append(get_parent().get_node("FlipScreen_Shader"))
 func _physics_process(delta: float) -> void:
-	position += vel * delta * 20
-	position = position.clamp(Vector2.ZERO, screenSize)
+	if (!attacking):
+		position += vel * delta * 20
+		position = position.clamp(Vector2.ZERO, screenSize)
+		
+		if (position.x > screenSize.x -10 or position.x < 10):
+			vel.x *= -1
+		elif (position.y > screenSize.y - 10 or position.y < 10):
+			vel.y *= -1
+		if !re_move:
+			re_move = true
+			move()
 	
-	if (position.x > screenSize.x -10 or position.x < 10):
-		vel.x *= -1
-	elif (position.y > screenSize.y - 10 or position.y < 10):
-		vel.y *= -1
-	if !re_move:
-		re_move = true
-		move()
-
 func ace_attack():
 	if can_shader_bend && second_phase: shader_include()
 	pass
@@ -55,7 +58,16 @@ func move():
 	
 	await get_tree().create_timer(4.0).timeout
 	vel = Vector2.ZERO
-	re_move = false
+
+func change_state():
+	await get_tree().create_timer(4.0).timeout
+	if (!state_on):
+		if (attacking):
+			attacking = false
+			re_move = false
+		else:
+			attacking = true
+		state_on = true
 
 func shader_include():
 	can_shader_bend = false
@@ -77,3 +89,13 @@ func _on_timeout(rand_shader):
 func take_damage(damage):
 	health -= damage
 	print(health)
+	
+func player_hit_restart():
+	can_player_be_hit = false
+	var timer = Timer.new()
+	timer.wait_time = 1
+	timer.one_shot = true
+	add_child(timer)
+	timer.start()
+	await timer.timeout
+	can_player_be_hit = true

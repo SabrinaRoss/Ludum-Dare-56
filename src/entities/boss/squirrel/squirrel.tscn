@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ep7y72lycq5p"]
+[gd_scene load_steps=16 format=3 uid="uid://ep7y72lycq5p"]
 
 [ext_resource type="Script" path="res://src/entities/boss/squirrel/squirrel.gd" id="1_2mrnn"]
 [ext_resource type="Texture2D" uid="uid://bw8ue8gil36xc" path="res://assets/sprites/boss_squirrel.png" id="2_l6c7d"]
@@ -115,6 +115,9 @@ tracks/0/keys = {
 "values": [0, 1]
 }
 
+[sub_resource type="Animation" id="Animation_kbm22"]
+resource_name = "jump"
+
 [sub_resource type="Animation" id="Animation_7duby"]
 resource_name = "shotgun"
 length = 0.375
@@ -230,96 +233,6 @@ tracks/1/keys = {
 }]
 }
 
-<<<<<<< HEAD
-=======
-[sub_resource type="Animation" id="Animation_1aaqa"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Transformables/Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Transformables/Sprite2D:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Transformables/Sprite2D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(3, -27)]
-}
-
-[sub_resource type="Animation" id="Animation_kbm22"]
-resource_name = "jump_start"
-length = 0.25
-step = 0.125
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Transformables/Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.125),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [3, 4]
-}
-
-[sub_resource type="Animation" id="Animation_0b77p"]
-resource_name = "jump_air"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Transformables/Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [5]
-}
-
-[sub_resource type="Animation" id="Animation_8fgfh"]
-resource_name = "jump_land"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Transformables/Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [6]
-}
-
->>>>>>> 60595f1d87b67bad993831f47248b8965a3718c0
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2u8nl"]
 _data = {
 "RESET": SubResource("Animation_1aaqa"),
@@ -327,9 +240,7 @@ _data = {
 "dash": SubResource("Animation_0mqtx"),
 "frenzy": SubResource("Animation_pti6m"),
 "idle": SubResource("Animation_ejnp4"),
-"jump_air": SubResource("Animation_0b77p"),
-"jump_land": SubResource("Animation_8fgfh"),
-"jump_start": SubResource("Animation_kbm22"),
+"jump": SubResource("Animation_kbm22"),
 "shotgun": SubResource("Animation_7duby"),
 "snipe": SubResource("Animation_obsoe"),
 "spinning_ball": SubResource("Animation_mpwv8")
@@ -353,16 +264,12 @@ hframes = 3
 vframes = 4
 
 [node name="CollisionHurtbox" type="Area2D" parent="Transformables"]
-collision_layer = 0
-collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Transformables/CollisionHurtbox"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_at56d")
 
 [node name="Hitbox" type="Area2D" parent="Transformables"]
-collision_layer = 4
-collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Transformables/Hitbox"]
 position = Vector2(0, -2)
@@ -375,5 +282,4 @@ libraries = {
 }
 autoplay = "idle"
 
-[connection signal="area_entered" from="Transformables/CollisionHurtbox" to="." method="deal_collision_damage"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
