@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4jh4lgv3yayj"]
+[gd_scene load_steps=12 format=3 uid="uid://c4jh4lgv3yayj"]
 
 [ext_resource type="Script" path="res://src/entities/player/player.gd" id="1_3q28p"]
 
@@ -29,6 +29,44 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eio08"]
 size = Vector2(16, 16)
 
+[sub_resource type="Animation" id="Animation_ivgjf"]
+resource_name = "damage"
+length = 0.05
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("transformables/Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(3, 5, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jad2v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("transformables/Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wg3ar"]
+_data = {
+"RESET": SubResource("Animation_jad2v"),
+"damage": SubResource("Animation_ivgjf")
+}
+
 [node name="PlayerSquirell" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_3q28p")
@@ -52,7 +90,13 @@ collision_mask = 0
 shape = SubResource("RectangleShape2D_eio08")
 
 [node name="Sprite2D" type="Sprite2D" parent="transformables"]
+texture_filter = 1
 
 [node name="BulletSpawn" type="Marker2D" parent="transformables"]
+
+[node name="DamageAnimp" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wg3ar")
+}
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
