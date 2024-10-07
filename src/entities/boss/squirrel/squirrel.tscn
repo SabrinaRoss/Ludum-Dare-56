@@ -313,6 +313,9 @@ _data = {
 collision_layer = 0
 script = ExtResource("1_2mrnn")
 
+[node name="ZoomMarker" type="Marker2D" parent="."]
+position = Vector2(0, -21)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 rotation = 1.5708
@@ -351,9 +354,6 @@ visible = false
 position = Vector2(0, -2)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_dg0rt")
-
-[node name="ZoomMarker" type="Marker2D" parent="Transformables"]
-position = Vector2(-8, -21)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

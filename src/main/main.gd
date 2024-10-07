@@ -13,6 +13,7 @@ var mainMenuScene = preload("res://src/main/Main Menu.tscn")
 var level1Scene = preload("res://src/main/Level 1.tscn")
 var level2Scene = preload("res://src/main/Level 2.tscn")
 var level3Scene = preload("res://src/main/Level 3.tscn")
+var win_scene = preload("res://src/main/win_scene.tscn")
 var gameScene
 
 var curEffectsNode
@@ -54,6 +55,8 @@ func setLevel(newLevel) -> void:
 		gameScene = level2Scene.instantiate()
 	elif level == 3:
 		gameScene = level3Scene.instantiate()
+	elif level == 4:
+		gameScene = win_scene.instantiate()
 	add_child(gameScene)
 	gameScene.process_mode = PROCESS_MODE_PAUSABLE
 	if level != 0:

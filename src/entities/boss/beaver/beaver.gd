@@ -49,7 +49,7 @@ func _physics_process(delta: float) -> void:
 			ace_attack()
 		ai.main_attack()		
 		re_move = false
-	if (health <= 0): queue_free()
+
 func ace_attack():
 	if re_move && can_shader_bend && second_phase: shader_include()
 	pass
@@ -88,8 +88,12 @@ func _on_timeout(rand_shader):
 	
 func take_damage(damage):
 	health -= damage
-	print(health)
-	
+	if health <= 0:
+		death()
+
+func death():
+	Singleton.main.bossDeath()
+
 func player_hit_restart():
 	can_player_be_hit = false
 	var timer = Timer.new()

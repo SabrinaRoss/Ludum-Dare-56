@@ -53,21 +53,21 @@ func _ready() -> void:
 			input_acc = max_vel / 0.05
 			idle_deacc = max_vel / 0.1
 			turn_acc = max_vel / 0.02
-			roll_vel = 125
+			roll_vel = 250
 			max_health = 5
 		1:
 			max_vel = 90
 			input_acc = max_vel / 0.05
 			idle_deacc = max_vel / 0.1
 			turn_acc = max_vel / 0.02
-			roll_vel = 250
+			roll_vel = 500
 			max_health = 100
 		2:
 			max_vel = 100
 			input_acc = max_vel / 0.05
 			idle_deacc = max_vel / 0.1
 			turn_acc = max_vel / 0.02
-			roll_vel = 250
+			roll_vel = 500
 			max_health = 1000
 	
 	cur_health = max_health
@@ -169,7 +169,7 @@ func shoot():
 	new_bullet.dir = facing_dir
 	new_bullet.speed = bullet_speed
 	new_bullet.damage = bullet_damage
-	add_child(new_bullet)
+	get_parent().get_node("Effects").call_deferred("add_child", new_bullet)
 	#get_parent().get_node("Projectiles").call_deferred("add_child", new_bullet)
 	bullet_timer = bullet_cooldown
 

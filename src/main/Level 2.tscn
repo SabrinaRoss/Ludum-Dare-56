@@ -245,5 +245,3 @@ shape = SubResource("RectangleShape2D_0lrwo")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
 position = Vector2(0, 100)
 shape = SubResource("RectangleShape2D_0lrwo")
-
-[node name="Camera2D" type="Camera2D" parent="."]

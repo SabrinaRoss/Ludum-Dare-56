@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3juftoe3ui8e"]
+
+[ext_resource type="Texture2D" uid="uid://ddaylbry8mxst" path="res://assets/sprites/End_Scene.png" id="1_r2fsx"]
+[ext_resource type="FontFile" uid="uid://ouq63g53tqfi" path="res://assets/fonts/tinypixel/tinypixel/tinypixel.otf" id="2_orgoh"]
+
+[sub_resource type="Animation" id="Animation_eope8"]
+resource_name = "default"
+length = 2.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_66prq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oektg"]
+_data = {
+"RESET": SubResource("Animation_66prq"),
+"default": SubResource("Animation_eope8")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_51rck"]
+font = ExtResource("2_orgoh")
+font_size = 24
+
+[node name="WinScene" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -160.0
+offset_top = -90.0
+offset_right = 160.0
+offset_bottom = 90.0
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2.815, 2.815)
+texture = ExtResource("1_r2fsx")
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_oektg")
+}
+autoplay = "default"
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+offset_left = -59.0
+offset_right = 58.0
+offset_bottom = 28.0
+text = "You Win!!"
+label_settings = SubResource("LabelSettings_51rck")

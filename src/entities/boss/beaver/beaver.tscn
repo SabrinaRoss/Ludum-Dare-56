@@ -66,8 +66,8 @@ _data = {
 "summon": SubResource("Animation_y0g7d")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ij7q"]
-size = Vector2(64, 49)
+[sub_resource type="CircleShape2D" id="CircleShape2D_asbw4"]
+radius = 23.2648
 
 [node name="Beaver" type="Node2D"]
 script = ExtResource("1_d2i2x")
@@ -111,8 +111,10 @@ hframes = 3
 vframes = 4
 
 [node name="Enemy_Collision" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-2, 5.5)
-shape = SubResource("RectangleShape2D_7ij7q")
+position = Vector2(4, 6.5)
+shape = SubResource("CircleShape2D_asbw4")
+
+[node name="ZoomMarker" type="Marker2D" parent="."]
 
 [connection signal="area_entered" from="Ai" to="Ai" method="_on_area_entered"]
 [connection signal="area_shape_entered" from="Ai" to="." method="_on_ai_area_shape_entered"]
