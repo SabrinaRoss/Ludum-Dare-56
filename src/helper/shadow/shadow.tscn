@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dj77jvs4c3x0c"]
+
+[ext_resource type="Shader" path="res://src/helper/shadow/shadow.gdshader" id="1_aga4e"]
+[ext_resource type="Script" path="res://src/helper/shadow/shadow.gd" id="2_35ivb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kpsqs"]
+shader = ExtResource("1_aga4e")
+shader_parameter/rect = Vector2(33, 12)
+
+[node name="Shadow" type="ColorRect"]
+material = SubResource("ShaderMaterial_kpsqs")
+offset_right = 24.0
+offset_bottom = 10.0
+color = Color(0.201527, 0.201527, 0.201527, 1)
+script = ExtResource("2_35ivb")
+
+[connection signal="item_rect_changed" from="." to="." method="_on_item_rect_changed"]
