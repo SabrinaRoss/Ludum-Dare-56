@@ -103,6 +103,7 @@ func bossDeath() -> void:
 	var boss = getBoss()
 	var infection = infectionScene.instantiate()
 	infection.destination = boss.position
+	infection.speed *= (infection.destination - Singleton.player.position).length()
 	add_child(infection)
 	infection.line.points[0] = Singleton.player.position
 	infection.line.points[1] = Singleton.player.position

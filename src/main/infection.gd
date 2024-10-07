@@ -1,5 +1,5 @@
 extends Node2D
-var speed = 0.5
+var speed = 0.05
 var destination
 var line
 var stretching = true
