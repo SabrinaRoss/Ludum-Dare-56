@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cxosgog5eybtq" path="res://assets/sprites/Damage Indicator.png" id="2_vh0gn"]
 
 [node name="DamageIndicator" type="Node2D"]
+top_level = true
 scale = Vector2(1e-05, 1e-05)
 script = ExtResource("1_qp1ts")
 
