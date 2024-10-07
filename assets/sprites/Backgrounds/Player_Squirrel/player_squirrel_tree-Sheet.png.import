@@ -2,7 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
+<<<<<<< HEAD
 uid="uid://bi1ib7wnyltyl"
+=======
+uid="uid://chn6j67k4nog3"
+>>>>>>> 4b41a322e1888f309709fcfe375beeafbd71e62a
 path="res://.godot/imported/player_squirrel_tree-Sheet.png-384b7e35d08ad4f241a879a49fb08e51.ctex"
 metadata={
 "vram_texture": false

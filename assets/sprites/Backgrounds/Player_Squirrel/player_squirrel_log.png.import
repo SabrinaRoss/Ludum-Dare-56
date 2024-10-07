@@ -2,7 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
+<<<<<<< HEAD
 uid="uid://4soen6yqbj3v"
+=======
+uid="uid://chde38b6f1r3a"
+>>>>>>> 4b41a322e1888f309709fcfe375beeafbd71e62a
 path="res://.godot/imported/player_squirrel_log.png-a0cee5700ceb94142d8ad970f3652d49.ctex"
 metadata={
 "vram_texture": false
