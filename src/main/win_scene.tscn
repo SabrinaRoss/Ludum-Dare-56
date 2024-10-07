@@ -1,7 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3juftoe3ui8e"]
+[gd_scene load_steps=10 format=3 uid="uid://c3juftoe3ui8e"]
 
+[ext_resource type="Script" path="res://src/main/win_scene.gd" id="1_d663e"]
 [ext_resource type="Texture2D" uid="uid://ddaylbry8mxst" path="res://assets/sprites/End_Scene.png" id="1_r2fsx"]
 [ext_resource type="FontFile" uid="uid://ouq63g53tqfi" path="res://assets/fonts/tinypixel/tinypixel/tinypixel.otf" id="2_orgoh"]
+[ext_resource type="Texture2D" uid="uid://cfkq77g3rr6mq" path="res://assets/sprites/ant menu art/start_button.png" id="3_l6cy6"]
+[ext_resource type="Texture2D" uid="uid://c7vmqqlqr2lui" path="res://assets/sprites/ant menu art/start_button(pressed).png" id="4_swg5k"]
+
+[sub_resource type="Animation" id="Animation_66prq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_eope8"]
 resource_name = "default"
@@ -21,21 +39,6 @@ tracks/0/keys = {
 "values": [0, 1]
 }
 
-[sub_resource type="Animation" id="Animation_66prq"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oektg"]
 _data = {
 "RESET": SubResource("Animation_66prq"),
@@ -47,6 +50,7 @@ font = ExtResource("2_orgoh")
 font_size = 24
 
 [node name="WinScene" type="Node2D"]
+script = ExtResource("1_d663e")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -160.0
@@ -74,3 +78,14 @@ offset_right = 58.0
 offset_bottom = 28.0
 text = "You Win!!"
 label_settings = SubResource("LabelSettings_51rck")
+
+[node name="Button" type="TextureButton" parent="."]
+texture_filter = 1
+offset_left = -12.0
+offset_top = 59.0
+offset_right = 96.0
+offset_bottom = 127.0
+texture_normal = ExtResource("3_l6cy6")
+texture_hover = ExtResource("4_swg5k")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
