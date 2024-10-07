@@ -1,46 +1,49 @@
 extends CharacterBody2D
 
-var health = 100
+var max_health = 100
+
+var collision_damage = 10
 
 ## jump speed
-var jump_speed = 200
+var jump_speed = 100
 
 ## dash vars
 var dash_dist = 60
-var dash_speed = 1000
+var dash_speed = 150
 
 ## shotgun vars
-var shotgun_amount = 8
+var shotgun_amount = 6
 var shotgun_spread = PI / 2
-var shotgun_spawn_radius = 0
-var shotgun_speed = 100
-var shotgun_acorn_chance = 0.1
+var shotgun_spawn_radius = 2
+var shotgun_speed = 150
+var shotgun_acorn_chance = 0.05
+var shotgun_speed_change = 60
 
 ## spinning ball vars
-var spinning_ball_amount = 7
-var spinning_ball_acorn_chance = 0.5
-var spinning_ball_speed = 40
-var spinning_ball_rot_speed = 50
-var spinning_ball_spawn_dist = 0
-var spinning_ball_radius = 30
+var spinning_ball_amount = 6
+var spinning_ball_acorn_chance = 1
+var spinning_ball_speed = 100
+var spinning_ball_rot_speed = 40
+var spinning_ball_spawn_dist = 2
+var spinning_ball_radius = 60
 
 ## burst vars
-var burst_amount = 8
+var burst_amount = 12
 var burst_acorn_chance = 0.1
-var burst_speed = 100
-var burst_spawn_dist = 0
+var burst_speed = 125
+var burst_spawn_dist = 2
 
 ## snipe vars
-var snipe_speed = 400
-var snipe_spawn_dist = 0
+var snipe_speed = 300
+var snipe_spawn_dist = 2
 
 ## frenzy vars
-var frenzy_speed = 50
-var frenzy_acorns_per_wave = 3
-var frenzy_wave_num = 100
+var frenzy_speed = 75
+var frenzy_acorns_per_wave = 8
+var frenzy_wave_num = 60
 var frenzy_wave_cooldown = 0.2
-var frenzy_spawn_dist = 0
-var frenzy_turn = PI / 8
+var frenzy_spawn_dist = 2
+var frenzy_turn = PI / 32
 
 @onready var transformables = $Transformables
 @onready var animp = $AnimationPlayer
@@ -60,7 +63,7 @@ var frenzy_turn = PI / 8
 var state
 
 var move_destination = Vector2.ZERO
-var nut_bounces = 1
+var nut_bounces = 0
 var last_slide_col : KinematicCollision2D = null
 
 var idle_timer = 0
@@ -68,11 +71,16 @@ var idle_next_state = 0
 var frenzy_wave_timer = 0
 var frenzy_waves = 0
 var frenzy_degree = 0
+var jump_starting = false
+var jump_start_dist = 0
+var health = 1
+var idle_mult = 1
 
 var has_frenzied = false
 
 func _ready() -> void:
-	switch_states(1)
+	health = max_health
+	switch_states(3)
 
 func _physics_process(delta: float) -> void:
 	physics_process_state(delta)
@@ -82,6 +90,18 @@ func _physics_process(delta: float) -> void:
 		var col_dir = (last_slide_col.get_position() - global_position).normalized()
 		if col_dir.dot(move_destination - global_position) > 0:
 			move_destination = global_position
+
+func take_damage(damage):
+	health -= damage
+	if health <= 0:
+		death()
+
+func death():
+	pass
+
+func deal_collision_damage(area : Area2D):
+	var target = area.owner
+	target.take_damage(collision_damage)
 
 func physics_process_state(delta):
 	match state:
@@ -103,6 +123,10 @@ func physics_process_state(delta):
 			frenzy_state_physics(delta)
 
 func switch_states(new_state):
+	if health <= max_health / 2 and not has_frenzied and state != -1:
+		has_frenzied = true
+		switch_states(0)
+		return
 	velocity = Vector2.ZERO
 	if state:
 		exit_state()
@@ -185,9 +209,8 @@ func dash_move():
 func shotgun_attack():
 	var dir_vect = (Singleton.player.global_position - global_position).normalized()
 	update_facing(dir_vect)
-	var start_angle = dir_vect.angle() - shotgun_spread / 2 + shotgun_spread / shotgun_amount / 2
 	for i in range(shotgun_amount):
-		var cur_dir = Vector2.RIGHT.rotated(start_angle + i * shotgun_spread / shotgun_amount)
+		var cur_dir = dir_vect.rotated(randf_range(-shotgun_spread/2, shotgun_spread/2))
 		var new_projectile
 		if randf() < shotgun_acorn_chance:
 			new_projectile = acorn_scene.instantiate()
@@ -196,7 +219,7 @@ func shotgun_attack():
 			new_projectile.bounces = nut_bounces
 		new_projectile.global_position = global_position + cur_dir * shotgun_spawn_radius
 		new_projectile.dir = cur_dir
-		new_projectile.speed = shotgun_speed
+		new_projectile.speed = shotgun_speed + randf_range(-shotgun_speed_change/2, shotgun_speed_change/2)
 		get_parent().get_node("Projectiles").call_deferred("add_child", new_projectile)
 
 func spinning_ball_attack():
@@ -212,6 +235,8 @@ func spinning_ball_attack():
 	new_spinning_ball.bounces = nut_bounces
 	new_spinning_ball.global_position = global_position + dir_vect * spinning_ball_spawn_dist
 	get_parent().get_node("Projectiles").call_deferred("add_child", new_spinning_ball)
+	await get_tree().create_timer(1 * idle_mult).timeout
+	new_spinning_ball.still = false
 
 func burst_attack():
 	var angle_inc = TAU / burst_amount
@@ -252,7 +277,7 @@ func spawn_frenzy_wave():
 		get_parent().get_node("Projectiles").call_deferred("add_child", new_nut)
 
 func idle(time):
-	idle_timer = time
+	idle_timer = time * idle_mult
 	switch_states(-1)
 
 func move_to(speed):
@@ -260,7 +285,8 @@ func move_to(speed):
 	velocity = dir_vect * speed
 
 func upgrade_stats():
-	pass
+	nut_bounces = 1
+	idle_mult = 0.5
 
 ## PHYSICS FUNCTIONS
 
@@ -270,14 +296,28 @@ func idle_state_physics(delta):
 		check_switch_idle_state()
 
 func jump_state_physics():
-	move_to(jump_speed)
-	if (move_destination - global_position).length() < 10:
-		check_switch_jump_state()
+	if not jump_starting:
+		move_to(jump_speed)
+		
+		if (move_destination - global_position).length() < jump_start_dist / 2:
+			animp.play("jump_land")
+		
+		if (move_destination - global_position).length() < 10:
+			check_switch_jump_state()
 
 func dash_state_physics():
-	move_to(dash_speed)
-	if (move_destination - global_position).length() < 10:
-		check_switch_dash_state()
+	#move_to(dash_speed)
+	#if (move_destination - global_position).length() < 10:
+		#check_switch_dash_state()
+	
+	if not jump_starting:
+		move_to(dash_speed)
+		
+		if (move_destination - global_position).length() < dash_dist / 2:
+			animp.play("jump_land")
+		
+		if (move_destination - global_position).length() < 10:
+			check_switch_dash_state()
 
 func shotgun_state_physics():
 	pass
@@ -307,27 +347,30 @@ func enter_idle_state():
 	animp.play("idle")
 
 func enter_jump_state():
-	animp.play("jump")
+	animp.play("jump_start")
+	jump_starting = true
 	move_destination = Vector2(320, 180) / 2
 	update_facing((move_destination - global_position).normalized())
+	jump_start_dist = (move_destination - global_position).length()
 
 func enter_dash_state():
-	animp.play("dash")
-	dash_move()
+	#animp.play("dash")
+	#dash_move()
+	
+	animp.play("jump_start")
+	jump_starting = true
 
 func enter_shotgun_state():
 	animp.play("shotgun")
 
 func enter_spinning_ball_state():
 	animp.play("spinning_ball")
-	spinning_ball_attack()
 
 func enter_burst_state():
 	animp.play("burst")
 
 func enter_snipe_state():
 	animp.play("snipe")
-	snipe_attack()
 
 func enter_frenzy_state():
 	animp.play("frenzy")
@@ -363,7 +406,7 @@ func check_switch_idle_state():
 
 func check_switch_jump_state():
 	idle_next_state = 6
-	idle(1)
+	idle(0.5)
 
 func check_switch_dash_state():
 	var p = randf()
@@ -375,7 +418,7 @@ func check_switch_dash_state():
 		idle_next_state = 3
 	else:
 		idle_next_state = 4
-	idle(1)
+	idle(0.1)
 
 func check_switch_shotgun_state():
 	var p = randf()
@@ -383,7 +426,7 @@ func check_switch_shotgun_state():
 		idle_next_state = 1
 	else:
 		idle_next_state = 5
-	idle(1)
+	idle(0.4)
 
 func check_switch_spinning_ball_state():
 	var p = randf()
@@ -393,7 +436,7 @@ func check_switch_spinning_ball_state():
 		idle_next_state = 2
 	else:
 		idle_next_state = 5
-	idle(1)
+	idle(0.8)
 
 func check_switch_burst_state():
 	var p = randf()
@@ -403,7 +446,7 @@ func check_switch_burst_state():
 		idle_next_state = 2
 	else:
 		idle_next_state = 5
-	idle(1)
+	idle(0.4)
 
 func check_switch_snipe_state():
 	idle_next_state = 1
@@ -415,10 +458,13 @@ func check_switch_frenzy_state():
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	match anim_name:
-		"idle":
-			pass
-		"jump":
-			check_switch_jump_state()
+		"jump_start":
+			jump_starting = false
+			animp.play("jump_air")
+			
+			#
+			if state == 1:
+				dash_move()
 		"dash":
 			check_switch_dash_state()
 		"shotgun":

@@ -7,6 +7,10 @@ class_name Player
 @onready var bullet_scene = preload("res://src/entities/player/player_bullet.tscn")
 @onready var damage_indicator = preload("res://src/entities/player/Damage Indicator.tscn")
 
+var bullet_speed = 300
+var bullet_cooldown = 0.2
+var parry_speed = 300
+
 var max_health = 1
 var cur_health = 1
 
@@ -17,12 +21,10 @@ var idle_deacc = 0
 var turn_acc = 0
 
 var roll_vel = 0
-var bullet_speed = 300
-var bullet_cooldown = 0.2
 var bullet_timer = 0
 var slash_damage = 1
 var bullet_damage = 1
-var parry_damage = 1
+var parry_damage = 50
 
 # 0 - ant
 # 1 - beetle
@@ -36,6 +38,8 @@ var roll_just_pressed = false
 
 var facing_dir = Vector2.DOWN
 var rolling = false
+var parrying = false
+var old_roll_dir = Vector2.DOWN
 
 func _ready() -> void:
 	Singleton.player = self
@@ -46,28 +50,28 @@ func _ready() -> void:
 			input_acc = max_vel / 0.05
 			idle_deacc = max_vel / 0.1
 			turn_acc = max_vel / 0.02
-			roll_vel = 200
+			roll_vel = 500
 			max_health = 5
 		1:
 			max_vel = 100
 			input_acc = max_vel / 0.05
 			idle_deacc = max_vel / 0.1
 			turn_acc = max_vel / 0.02
-			roll_vel = 200
+			roll_vel = 500
 			max_health = 100
 		2:
 			max_vel = 100
 			input_acc = max_vel / 0.05
 			idle_deacc = max_vel / 0.1
 			turn_acc = max_vel / 0.02
-			roll_vel = 200
+			roll_vel = 500
 			max_health = 1000
 	
 	cur_health = max_health
 
 func _physics_process(delta: float) -> void:
 	get_input()
-	if not rolling:
+	if not rolling and not parrying:
 		calc_movement_physics(delta)
 		do_actions()
 	move_and_slide()
@@ -83,8 +87,6 @@ func get_input():
 func calc_movement_physics(delta):
 	compute_axis("x", delta)
 	compute_axis("y", delta)
-	
-	transformables.global_rotation = facing_dir.angle()
 
 func compute_axis(axis, delta):
 	if input_vect[axis] == 0:
@@ -104,6 +106,8 @@ func do_actions():
 		velocity = roll_vel * input_vect
 		if input_vect == Vector2.ZERO:
 			velocity = roll_vel * facing_dir
+		old_roll_dir = facing_dir if input_vect == Vector2.ZERO else input_vect
+		animp.play("RESET")
 		animp.play("roll")
 	
 	if action_just_pressed:
@@ -120,6 +124,10 @@ func slash():
 	animp.play("slash")
 
 func parry():
+	var mouse_vect = (get_global_mouse_position() - global_position).normalized()
+	$transformables/ParryBox/CollisionShape2D.position = mouse_vect * 10
+	parrying = true
+	velocity = Vector2.ZERO
 	animp.play("parry")
 
 func bullet_parried(bullet_area : Area2D):
@@ -128,15 +136,15 @@ func bullet_parried(bullet_area : Area2D):
 		bullet.reflect()
 		bullet.dir = facing_dir
 		bullet.damage = parry_damage
-		bullet.speed *= 4
+		bullet.speed = parry_speed
 	else:
 		bullet.explode()
 
 func shoot():
 	animp.play("shoot")
 	var new_bullet = bullet_scene.instantiate()
-	new_bullet.global_position = $transformables/BulletSpawn.global_position
-	new_bullet.global_rotation = transformables.global_rotation
+	var mouse_vect = (get_global_mouse_position() - global_position).normalized()
+	new_bullet.global_position = global_position + mouse_vect * 10
 	new_bullet.dir = facing_dir
 	new_bullet.speed = bullet_speed
 	new_bullet.damage = bullet_damage
@@ -153,14 +161,17 @@ func tick_timers(delta):
 func take_damage(damage):
 	cur_health -= damage
 	Singleton.health_bar_scene.damageAnimation()
-	var dmg_ind = damage_indicator.instantiate()
-	dmg_ind.setIntensity(damage)
-	Singleton.main.curEffectsNode.add_child(dmg_ind)
-	dmg_ind.position = position
-	if cur_health <= 0:
-		Singleton.main.death()
+	#var dmg_ind = damage_indicator.instantiate()
+	#dmg_ind.setIntensity(damage)
+	#Singleton.main.curEffectsNode.add_child(dmg_ind)
+	#dmg_ind.position = position
+	#if cur_health <= 0:
+		#Singleton.main.death()
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	match anim_name:
 		"roll":
 			rolling = false
+			velocity = old_roll_dir * max_vel
+		"parry":
+			parrying = false

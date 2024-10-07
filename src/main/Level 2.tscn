@@ -11,6 +11,7 @@ size = Vector2(20, 180)
 size = Vector2(320, 20)
 
 [node name="Level2" type="Node2D"]
+y_sort_enabled = true
 
 [node name="Background" type="Sprite2D" parent="."]
 
@@ -21,11 +22,12 @@ position = Vector2(56, 84)
 [node name="Squirrel" parent="." instance=ExtResource("1_7alo3")]
 position = Vector2(289, 84)
 
+[node name="Effects" type="Node2D" parent="."]
+
+[node name="Projectiles" type="Node2D" parent="."]
+y_sort_enabled = true
+
 [node name="HealthBar" parent="." instance=ExtResource("3_ade2g")]
-
-[node name="Effects" type="Node" parent="."]
-
-[node name="Projectiles" type="Node" parent="."]
 
 [node name="Walls" type="StaticBody2D" parent="."]
 

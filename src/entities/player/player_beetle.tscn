@@ -10,26 +10,26 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape2D:debug_color")
+tracks/0/path = NodePath("transformables/ParryBox/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0.6, 0.7, 0.42)]
+"update": 1,
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("transformables/ParryBox/CollisionShape2D:disabled")
+tracks/1/path = NodePath("transformables/Hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_xeqs0"]
@@ -56,18 +56,18 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_p6xsx"]
 resource_name = "roll"
-length = 0.2
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape2D:debug_color")
+tracks/0/path = NodePath("transformables/Hitbox/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Color(0.307126, 0.627169, 3.85046e-07, 0.42), Color(0, 0.6, 0.7, 0.42)]
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_eqxtm"]
@@ -83,16 +83,16 @@ _data = {
 "run": SubResource("Animation_eqxtm")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_eio08"]
-size = Vector2(16, 16)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ktt20"]
-radius = 14.0
-
 [sub_resource type="Gradient" id="Gradient_4mt7m"]
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_qayep"]
 gradient = SubResource("Gradient_4mt7m")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fhctf"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ktt20"]
+radius = 14.0
 
 [node name="PlayerBeetle" type="CharacterBody2D"]
 collision_layer = 0
@@ -101,6 +101,7 @@ animal = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_j3vac")
+debug_color = Color(0.307126, 0.627169, 3.85046e-07, 0.42)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -109,13 +110,16 @@ libraries = {
 
 [node name="transformables" type="Node2D" parent="."]
 
+[node name="Sprite2D" type="Sprite2D" parent="transformables"]
+scale = Vector2(0.25, 0.25)
+texture = SubResource("GradientTexture2D_qayep")
+
 [node name="Hitbox" type="Area2D" parent="transformables"]
 collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transformables/Hitbox"]
-shape = SubResource("RectangleShape2D_eio08")
-disabled = true
+shape = SubResource("CircleShape2D_fhctf")
 
 [node name="ParryBox" type="Area2D" parent="transformables"]
 collision_layer = 0
@@ -124,10 +128,6 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transformables/ParryBox"]
 shape = SubResource("CircleShape2D_ktt20")
 disabled = true
-
-[node name="Sprite2D" type="Sprite2D" parent="transformables"]
-scale = Vector2(0.25, 0.25)
-texture = SubResource("GradientTexture2D_qayep")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="transformables/ParryBox" to="." method="bullet_parried"]
