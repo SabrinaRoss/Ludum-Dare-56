@@ -327,6 +327,7 @@ func move_fast() -> void:
 	something_running = 0
 
 func high_fly():
+	Singleton.main.phase_change()
 	$AnimationPlayer.play("high_fly_start")
 	await $AnimationPlayer.animation_finished
 	$AnimationPlayer.play("high_fly_mid")

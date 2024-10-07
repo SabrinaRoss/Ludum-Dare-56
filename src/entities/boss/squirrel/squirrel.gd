@@ -194,9 +194,10 @@ func update_facing(dir : Vector2):
 
 func dash_move():
 	var stage_middle = Vector2.ZERO
-	var mid_vect = stage_middle - global_position
+	var mid_vect : Vector2 = stage_middle - global_position
 	mid_vect /= 6
-	mid_vect = mid_vect * mid_vect
+	mid_vect = mid_vect.length_squared() * mid_vect.normalized()
+	print(mid_vect)
 	var player_vect = Singleton.player.global_position - global_position
 	player_vect = (200 - player_vect.length()) * player_vect.normalized()
 	var orth_vect = Vector2(player_vect.y, -player_vect.x).normalized()
@@ -347,6 +348,7 @@ func enter_idle_state():
 	animp.play("idle")
 
 func enter_jump_state():
+	Singleton.main.phase_change()
 	animp.play("jump_start")
 	jump_starting = true
 	move_destination = Vector2.ZERO

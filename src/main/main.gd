@@ -1,5 +1,7 @@
 extends Node2D
 
+var cur_music
+
 var paused = false
 var pauseMenuScene = preload("res://src/main/Pause Menu.tscn")
 var pauseMenu
@@ -58,6 +60,17 @@ func setLevel(newLevel) -> void:
 		curEffectsNode = gameScene.get_node("Effects")
 		curProjectilesNode = gameScene.get_node("Projectiles")
 	
+	match level:
+		1:
+			$Music/BeetleIntro.play()
+			cur_music = $Music/BeetleIntro
+		2:
+			$Music/SquirrelIntro1.play()
+			cur_music = $Music/SquirrelIntro1
+		3:
+			$Music/BeaverLoop.play()
+			cur_music = $Music/BeaverLoop
+	
 func getBoss():
 	if level == 1:
 		return gameScene.get_node("Beetle")
@@ -67,6 +80,7 @@ func getBoss():
 		return gameScene.get_node("Beaver")
 	
 func death() -> void:
+	fade_out_music()
 	Engine.time_scale = 0.5
 	deathAnimationPlaying = true
 	var fb = Singleton.camera.get_node("FadeBlack")
@@ -82,6 +96,7 @@ func death() -> void:
 
 func bossDeath() -> void:
 	get_tree().paused = true
+	await fade_out_music()
 	var boss = getBoss()
 	var infection = infectionScene.instantiate()
 	infection.destination = boss.position
@@ -125,3 +140,32 @@ func _process(_delta: float) -> void:
 		#if Singleton.camera.zoom.x < 1:
 			#Singleton.camera.zoom = Vector2(1,1)
 			#zoomOutAnimationPlaying = false
+
+func fade_out_music():
+	var old_val = cur_music.volume_db
+	var t = create_tween()
+	t.tween_property(cur_music, "volume_db", -30, 1)
+	await t.finished
+	cur_music.stop()
+	cur_music.volume_db = old_val
+
+func phase_change():
+	await fade_out_music()
+	match level:
+		1:
+			$Music/BeetleLoop2.play()
+			cur_music = $Music/BeetleLoop2
+		2:
+			$Music/SquirrelIntro2.play()
+			cur_music = $Music/SquirrelIntro2
+			await cur_music.finished
+			$Music/SquirrelLoop2.play()
+			cur_music = $Music/SquirrelLoop2
+
+func _on_beetle_intro_finished() -> void:
+	$Music/BeetleLoop1.play()
+	cur_music = $Music/BeetleLoop1
+
+func _on_squirrel_intro_1_finished() -> void:
+	$Music/SquirrelLoop1.play()
+	cur_music = $Music/SquirrelLoop1
