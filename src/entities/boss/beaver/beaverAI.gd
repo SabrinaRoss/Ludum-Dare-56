@@ -20,15 +20,21 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	$Player_near/Player_near_sprite.rotation_degrees += .5
-	if !count : 
-		$"..".ace_attack()
-		main_attack()
-	count = true
+	if ($"..".attacking):
+		if ($"..".health < 20):
+			$"..".ace_attack()
+		await main_attack()
+
+		$"..".attacking = false
+		$"..".re_move = false
 func main_attack():
 	smite_player()
-	smite_grid_lines_vertical()
-	smite_grid_lines_horizontal()
-	await smite_random_position(num_of_smites)
+	if ($"..".health < 80):	
+		smite_grid_lines_vertical()
+	if ($"..".health < 60):
+		smite_grid_lines_horizontal()
+	if ($"..".health < 40):
+		await smite_random_position(num_of_smites)
 	return true
 	
 func smite_player():
@@ -48,7 +54,7 @@ func smite_player():
 func smite_grid_lines_vertical():
 	var viewport = get_tree().get_root().get_viewport().get_visible_rect()
 	for i in roundi(viewport.end.x):
-		if (i % 50 == randi_range(0, 50)):
+		if (i % 200 == randi_range(0, 50)):
 			for j in roundi(viewport.end.y):
 				if (j % 5 == 0):
 					var timer = Timer.new()
@@ -66,7 +72,7 @@ func smite_grid_lines_vertical():
 func smite_grid_lines_horizontal():
 	var viewport = get_tree().get_root().get_viewport().get_visible_rect()
 	for i in roundi(viewport.end.y):
-		if (i % 50 == randi_range(0, 50)):
+		if (i % 200 == randi_range(0, 50)):
 			for j in roundi(viewport.end.x):
 				if (j % 5 == 0):
 					var timer = Timer.new()
@@ -97,19 +103,11 @@ func smite_random_position(count_number_smites: int):
 		instance.rotation_degrees = randi_range(0, 360)
 		get_parent().get_parent().get_node("Projectiles").add_child(instance)
 
-	var timer = Timer.new()
-	timer.wait_time = 1.5
-	timer.one_shot = true
-	timer.connect("timeout", _on_timeout)
-	add_child(timer)
-	timer.start()
-	await timer.timeout
-	count = false
 func second_attack(): # proximity attack
 	#play the animation
 	# TODO: Do shit with the player when the player is more developed
-	#var player = cur_body.owner
-	#player.take_damage(999999999)
+	var player = cur_body.owner
+	player.take_damage(999999999)
 	pass
 
 	
