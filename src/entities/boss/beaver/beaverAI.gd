@@ -1,7 +1,7 @@
 extends Node
 
 @onready var smite = preload("res://src/entities/boss/beaver/Smite.tscn")
-@export var num_of_smites: int = 30
+@export var num_of_smites: int = 40
 
 
 var player_near
@@ -20,45 +20,40 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	$Player_near/Player_near_sprite.rotation_degrees += .5
-	if ($"..".attacking):
-		if ($"..".health < 20):
-			$"..".ace_attack()
-		await main_attack()
-
-		$"..".attacking = false
-		$"..".re_move = false
 func main_attack():
-	smite_player()
-	if ($"..".health < 80):	
-		smite_grid_lines_vertical()
-	if ($"..".health < 60):
-		smite_grid_lines_horizontal()
-	if ($"..".health < 40):
-		await smite_random_position(num_of_smites)
-	return true
+	if $"..".re_move:
+		smite_player()
+		if ($"..".health < 200):	
+			smite_grid_lines_vertical()
+		if ($"..".health < 150):
+			smite_grid_lines_horizontal()
+		if ($"..".health < 100):
+			smite_random_position()
 	
 func smite_player():
 	for i in num_of_smites:
+		if (!$"..".attacking): return
 		var instance = smite.instantiate()
-		instance.global_position = get_parent().get_parent().get_node("PlayerSquirell").position
 		instance.scale *= .5
 		instance.rotation_degrees = randi_range(0, 360)
 		var timer = Timer.new()
-		timer.wait_time = .1
+		timer.wait_time = .2
 		timer.one_shot = true
 		add_child(timer)
 		timer.start()
 		await timer.timeout
+		instance.global_position = get_parent().get_parent().get_node("PlayerSquirell").position
 		get_parent().get_parent().get_node("Projectiles").add_child(instance)
 
 func smite_grid_lines_vertical():
 	var viewport = get_tree().get_root().get_viewport().get_visible_rect()
 	for i in roundi(viewport.end.x):
-		if (i % 200 == randi_range(0, 50)):
+		if (!$"..".attacking): return
+		if (i % 50 == randi_range(0, 50)):
 			for j in roundi(viewport.end.y):
 				if (j % 5 == 0):
 					var timer = Timer.new()
-					timer.wait_time = .02
+					timer.wait_time = .005
 					timer.one_shot = true
 					add_child(timer)
 					timer.start()
@@ -72,11 +67,12 @@ func smite_grid_lines_vertical():
 func smite_grid_lines_horizontal():
 	var viewport = get_tree().get_root().get_viewport().get_visible_rect()
 	for i in roundi(viewport.end.y):
-		if (i % 200 == randi_range(0, 50)):
+		if (!$"..".attacking): return
+		if (i % 50 == randi_range(0, 50)):
 			for j in roundi(viewport.end.x):
 				if (j % 5 == 0):
 					var timer = Timer.new()
-					timer.wait_time = .01
+					timer.wait_time = .005
 					timer.one_shot = true
 					add_child(timer)
 					timer.start()
@@ -87,8 +83,9 @@ func smite_grid_lines_horizontal():
 					instance.rotation_degrees = randi_range(0, 360)
 					get_parent().get_parent().get_node("Projectiles").add_child(instance)
 					
-func smite_random_position(count_number_smites: int):
-	for i in count_number_smites:
+func smite_random_position():
+	for i in num_of_smites:
+		if (!$"..".attacking): return
 		var timer = Timer.new()
 		timer.wait_time = .02
 		timer.one_shot = true
