@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://8p3a7d4w7km5"]
+
+[node name="BrainSwapScene" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

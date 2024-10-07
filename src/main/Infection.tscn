@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://duydu13cfmaeh"]
+[gd_scene load_steps=3 format=3 uid="uid://duydu13cfmaeh"]
 
 [ext_resource type="Script" path="res://src/main/infection.gd" id="1_g3pdj"]
+[ext_resource type="Texture2D" uid="uid://bmpoxp5qso5de" path="res://assets/sprites/Infection.png" id="2_5cejp"]
 
 [node name="Infection" type="Node2D"]
 script = ExtResource("1_g3pdj")
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 0, 0)
+texture = ExtResource("2_5cejp")
+texture_mode = 2
