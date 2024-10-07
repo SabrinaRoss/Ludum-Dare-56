@@ -4,6 +4,10 @@ extends Area2D
 @export var player_been_hit: bool = true
 var area_player
 
+func boom():
+	$Sounds/blast.pitch_scale = randf_range(0.9, 1.1)
+	$Sounds/blast.play()
+
 func _ready() -> void:
 	area_player = get_parent().get_parent().get_node("PlayerSquirell")
 

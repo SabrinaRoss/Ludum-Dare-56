@@ -44,6 +44,16 @@ func togglePause() -> void:
 		paused = true
 	get_tree().paused = paused
 
+func do_intro():
+	var intro = introScene.instantiate()
+	call_deferred("add_child", intro)
+	intro.playAnimation()
+	$Music/BeaverIntro.play()
+	cur_music = $Music/BeaverIntro
+	await intro.animationFinished
+	intro.call_deferred("queue_free")
+	setLevel(1)
+
 func setLevel(newLevel) -> void:
 	if gameScene != null:
 		gameScene.call_deferred("queue_free")
@@ -51,13 +61,6 @@ func setLevel(newLevel) -> void:
 	if level == 0:
 		gameScene = mainMenuScene.instantiate()
 	elif level == 1:
-		var intro = introScene.instantiate()
-		call_deferred("add_child", intro)
-		intro.playAnimation()
-		$Music/BeaverIntro.play()
-		cur_music = $Music/BeaverIntro
-		await intro.animationFinished
-		intro.call_deferred("queue_free")
 		gameScene = level1Scene.instantiate()
 	elif level == 2:
 		gameScene = level2Scene.instantiate()

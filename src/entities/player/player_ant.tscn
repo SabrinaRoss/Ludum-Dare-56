@@ -357,7 +357,7 @@ pitch_scale = 1.2
 
 [node name="footstep" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("6_wh6p6")
-volume_db = 24.0
+volume_db = 10.0
 pitch_scale = 0.9
 
 [node name="slash" type="AudioStreamPlayer" parent="Sound"]

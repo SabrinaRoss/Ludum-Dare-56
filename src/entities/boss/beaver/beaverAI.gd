@@ -45,6 +45,10 @@ func smite_player():
 		instance.global_position = get_parent().get_parent().get_node("PlayerSquirell").position
 		get_parent().get_parent().get_node("Projectiles").add_child(instance)
 
+func smite_ind_sound():
+	var n = get_parent().get_node("Sound").get_node("smite_ind")
+	n.pitch_scale = randf_range(0.9, 1.1)
+
 func smite_grid_lines_vertical():
 	var viewport = get_tree().get_root().get_viewport().get_visible_rect()
 	for i in roundi(viewport.end.x):

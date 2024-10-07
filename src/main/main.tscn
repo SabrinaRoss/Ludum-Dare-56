@@ -31,12 +31,15 @@ script = ExtResource("1_wfnoq")
 
 [node name="BeetleIntro" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("4_y7ecr")
+volume_db = 10.0
 
 [node name="BeetleLoop1" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("5_te6s1")
+volume_db = 10.0
 
 [node name="BeetleLoop2" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("6_acn5o")
+volume_db = 10.0
 
 [node name="SquirrelIntro1" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("7_h37ax")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ch7qrikum5eyl"]
+[gd_scene load_steps=15 format=3 uid="uid://ch7qrikum5eyl"]
 
 [ext_resource type="Script" path="res://src/entities/boss/beaver/beaver.gd" id="1_d2i2x"]
 [ext_resource type="Script" path="res://src/entities/boss/beaver/beaverAI.gd" id="2_553ta"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://bcad3mtxc7xgs" path="res://assets/sound effects/boss_beaver/walk.wav" id="5_ad8fa"]
 [ext_resource type="AudioStream" uid="uid://0v3ba6ngpxsr" path="res://assets/sound effects/boss_beaver/hurt.wav" id="5_v73xy"]
 [ext_resource type="AudioStream" uid="uid://bgarde1gkwpji" path="res://assets/sound effects/boss_beaver/scream_attack.wav" id="6_2hmdm"]
+[ext_resource type="AudioStream" uid="uid://bktdj587unl8v" path="res://assets/sound effects/boss_beaver/smite_marker.wav" id="8_tjl40"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uybsu"]
 radius = 26.5047
@@ -171,6 +172,11 @@ stream = ExtResource("6_2hmdm")
 
 [node name="walk" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("5_ad8fa")
+volume_db = 10.0
+pitch_scale = 0.9
+
+[node name="smite_ind" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("8_tjl40")
 volume_db = 10.0
 pitch_scale = 0.9
 
