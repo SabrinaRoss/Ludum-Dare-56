@@ -36,7 +36,7 @@ func togglePause() -> void:
 	if paused:
 		pauseMenu.queue_free()
 		paused = false
-	elif level == 0:
+	elif level != 0:
 		pauseMenu = pauseMenuScene.instantiate()
 		pauseMenu.main = self
 		add_child(pauseMenu)
