@@ -35,7 +35,7 @@ func _ready() -> void:
 	weakCollider = $Rotate/weak
 	aPlayer = $AnimationPlayer
 	
-	player = get_parent().get_node("Player")
+	player = get_parent().get_node("PlayerAnt")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
