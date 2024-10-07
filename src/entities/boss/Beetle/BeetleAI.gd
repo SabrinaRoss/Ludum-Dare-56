@@ -65,6 +65,16 @@ func _ready() -> void:
 	
 	player = get_parent().get_node("PlayerAnt")
 
+func play_footstep():
+	var pitch = randf_range(0.9, 1.1)
+	$Sounds/walk.pitch_scale = pitch
+	$Sounds/walk.play()
+
+func play_flutter():
+	var pitch = randf_range(0.9, 1.1)
+	$Sounds/wing_flap.pitch_scale = pitch
+	$Sounds/wing_flap.play()
+
 func _process(delta: float) -> void:
 	if cur_lunge_indic != null:
 		var dir_vect = (player.global_position - global_position).normalized()
@@ -218,6 +228,7 @@ func lunge():
 	pick_between_four(["Attack_up_left","Attack_up","Attack_down","Attack_down_left"])
 	var target_pos = global_position + dir_vect * main_attack_range
 	target_pos = pos_clamp(target_pos)
+	$Sounds/bite.play()
 	t = create_tween()
 	t.tween_property(self, "global_position", target_pos, (target_pos - global_position).length() / main_attack_speed)
 	
@@ -328,6 +339,7 @@ func move_fast() -> void:
 
 func high_fly():
 	Singleton.main.phase_change()
+	$Sounds/phase_change.play()
 	$AnimationPlayer.play("high_fly_start")
 	await $AnimationPlayer.animation_finished
 	$AnimationPlayer.play("high_fly_mid")
@@ -349,6 +361,7 @@ func deal_aoe_attack(area : Area2D):
 
 func take_damage(damage: float) -> void:
 	health -= damage
+	$Sounds/hurt.play()
 	if health <= 0:
 		death()
 	else:

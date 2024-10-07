@@ -138,3 +138,5 @@ libraries = {
 "": SubResource("AnimationLibrary_drmdi")
 }
 speed_scale = 0.3
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
