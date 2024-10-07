@@ -59,6 +59,9 @@ func death() -> void:
 	get_tree().paused = true
 	deathAnimationPlaying = true
 
+func bossDeath() -> void:
+	print("hello")
+
 func _process(_delta: float) -> void:
 	if deathAnimationPlaying:
 		Singleton.player.scale -= Vector2(1,1) * deathAnimationShrinkSpeed

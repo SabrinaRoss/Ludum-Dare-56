@@ -279,7 +279,7 @@ func take_damage(damage: float) -> void:
 		death()
 
 func death():
-	pass
+	Singleton.main.bossDeath()
 
 func make_decisions() -> void:
 	match state:
