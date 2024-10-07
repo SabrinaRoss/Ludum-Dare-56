@@ -70,7 +70,7 @@ material = SubResource("ShaderMaterial_qxeix")
 position = Vector2(268, 85)
 
 [node name="PlayerSquirell" parent="." instance=ExtResource("2_0kfjj")]
-position = Vector2(34, 112)
+position = Vector2(160, 90)
 
 [node name="HealthBar" parent="." instance=ExtResource("3_6iqn2")]
 

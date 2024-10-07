@@ -15,7 +15,7 @@ process_mode = 3
 y_sort_enabled = true
 
 [node name="PlayerAnt" parent="." instance=ExtResource("1_o7ecf")]
-position = Vector2(89, 95)
+position = Vector2(160, 90)
 
 [node name="HealthBar" parent="." instance=ExtResource("2_uqitk")]
 
@@ -44,4 +44,4 @@ position = Vector2(160, 190)
 shape = SubResource("RectangleShape2D_f656i")
 
 [node name="Beetle" parent="." instance=ExtResource("3_ms3k3")]
-position = Vector2(220, 106)
+position = Vector2(267, 51)

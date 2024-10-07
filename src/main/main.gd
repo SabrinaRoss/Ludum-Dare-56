@@ -17,6 +17,7 @@ var curEffectsNode
 var curProjectilesNode
 
 var infectionScene = preload("res://src/main/Infection.tscn")
+var zoomOutAnimationPlaying = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
@@ -82,8 +83,8 @@ func bossDeath() -> void:
 	setLevel(level+1)
 	trans.reveal_screen()
 	Singleton.camera.position = Vector2(0,0)
-	Singleton.camera.zoom = Vector2(1,1)
 	await trans.transition_finished
+	zoomOutAnimationPlaying = true
 	get_tree().paused = false
 
 func _process(_delta: float) -> void:
@@ -93,3 +94,8 @@ func _process(_delta: float) -> void:
 			deathAnimationPlaying = false
 			get_tree().paused = false
 			setLevel(0)
+	if zoomOutAnimationPlaying:
+		Singleton.camera.zoom -= Singleton.camera.zoom/4.0
+		if Singleton.camera.zoom.x < 1:
+			Singleton.camera.zoom = Vector2(1,1)
+			zoomOutAnimationPlaying = false
