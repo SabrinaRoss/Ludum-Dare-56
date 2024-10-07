@@ -1,9 +1,12 @@
 [gd_scene load_steps=17 format=3 uid="uid://t2oal6prg838"]
 
 [ext_resource type="Script" path="res://src/entities/player/player.gd" id="1_ixamv"]
+[ext_resource type="Texture2D" uid="uid://dl0j2b23080kk" path="res://assets/sprites/beetle_player.png" id="2_3mwgu"]
+[ext_resource type="PackedScene" uid="uid://dj77jvs4c3x0c" path="res://src/helper/shadow/shadow.tscn" id="2_u0sfy"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_j3vac"]
-radius = 8.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ffyxr"]
+radius = 2.0
+height = 16.0
 
 [sub_resource type="Animation" id="Animation_a1ais"]
 length = 0.001
@@ -31,16 +34,43 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("transformables/Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
 
 [sub_resource type="Animation" id="Animation_xeqs0"]
 resource_name = "bullet_parried"
 
 [sub_resource type="Animation" id="Animation_7bnyd"]
 resource_name = "idle"
+length = 0.5
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("transformables/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
 
 [sub_resource type="Animation" id="Animation_vw4p4"]
 resource_name = "parry"
 length = 0.2
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -48,10 +78,22 @@ tracks/0/path = NodePath("transformables/ParryBox/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.15),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("transformables/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 4, 3]
 }
 
 [sub_resource type="Animation" id="Animation_p6xsx"]
@@ -69,9 +111,36 @@ tracks/0/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("transformables/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [5, 6, 7]
+}
 
 [sub_resource type="Animation" id="Animation_eqxtm"]
 resource_name = "run"
+length = 0.25
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("transformables/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e7ch1"]
 _data = {
@@ -83,16 +152,27 @@ _data = {
 "run": SubResource("Animation_eqxtm")
 }
 
-[sub_resource type="Gradient" id="Gradient_4mt7m"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wtpms"]
+radius = 3.0
+height = 18.0
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_qayep"]
-gradient = SubResource("Gradient_4mt7m")
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fl546"]
+radius = 11.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fhctf"]
-radius = 6.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ktt20"]
-radius = 14.0
+[sub_resource type="Animation" id="Animation_axwjm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("transformables/Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_y6s6g"]
 resource_name = "damage"
@@ -111,21 +191,6 @@ tracks/0/keys = {
 "values": [Color(3, 5, 1, 1), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_axwjm"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("transformables/Sprite2D:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3q5q6"]
 _data = {
 "RESET": SubResource("Animation_axwjm"),
@@ -137,34 +202,51 @@ collision_layer = 0
 script = ExtResource("1_ixamv")
 animal = 1
 
+[node name="Shadow" parent="." instance=ExtResource("2_u0sfy")]
+offset_left = -12.0
+offset_top = -5.0
+offset_right = 12.0
+offset_bottom = 5.0
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_j3vac")
-debug_color = Color(0.307126, 0.627169, 3.85046e-07, 0.42)
+visible = false
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ffyxr")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_e7ch1")
 }
+autoplay = "idle"
 
 [node name="transformables" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="transformables"]
-scale = Vector2(0.25, 0.25)
-texture = SubResource("GradientTexture2D_qayep")
+texture_filter = 1
+position = Vector2(0, -3)
+texture = ExtResource("2_3mwgu")
+hframes = 3
+vframes = 3
+frame = 5
 
 [node name="Hitbox" type="Area2D" parent="transformables"]
 collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transformables/Hitbox"]
-shape = SubResource("CircleShape2D_fhctf")
+visible = false
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_wtpms")
 
 [node name="ParryBox" type="Area2D" parent="transformables"]
 collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transformables/ParryBox"]
-shape = SubResource("CircleShape2D_ktt20")
+visible = false
+position = Vector2(0, -2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_fl546")
 disabled = true
 
 [node name="DamageAnimp" type="AnimationPlayer" parent="."]
