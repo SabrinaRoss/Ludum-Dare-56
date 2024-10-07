@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+[gd_scene load_steps=16 format=3 uid="uid://ep7y72lycq5p"]
+=======
 [gd_scene load_steps=19 format=3 uid="uid://ep7y72lycq5p"]
+>>>>>>> 3456c8418f53ad63288668c535654ed5d7b80ef7
 
 [ext_resource type="Script" path="res://src/entities/boss/squirrel/squirrel.gd" id="1_2mrnn"]
 [ext_resource type="Texture2D" uid="uid://bw8ue8gil36xc" path="res://assets/sprites/boss_squirrel.png" id="2_l6c7d"]
@@ -140,6 +144,10 @@ tracks/0/keys = {
 "values": [0, 1]
 }
 
+<<<<<<< HEAD
+[sub_resource type="Animation" id="Animation_kbm22"]
+resource_name = "jump"
+=======
 [sub_resource type="Animation" id="Animation_0b77p"]
 resource_name = "jump_air"
 tracks/0/type = "value"
@@ -187,6 +195,7 @@ tracks/0/keys = {
 "update": 1,
 "values": [3, 4]
 }
+>>>>>>> 3456c8418f53ad63288668c535654ed5d7b80ef7
 
 [sub_resource type="Animation" id="Animation_7duby"]
 resource_name = "shotgun"
@@ -310,9 +319,7 @@ _data = {
 "dash": SubResource("Animation_0mqtx"),
 "frenzy": SubResource("Animation_pti6m"),
 "idle": SubResource("Animation_ejnp4"),
-"jump_air": SubResource("Animation_0b77p"),
-"jump_land": SubResource("Animation_8fgfh"),
-"jump_start": SubResource("Animation_kbm22"),
+"jump": SubResource("Animation_kbm22"),
 "shotgun": SubResource("Animation_7duby"),
 "snipe": SubResource("Animation_obsoe"),
 "spinning_ball": SubResource("Animation_mpwv8")
@@ -342,16 +349,12 @@ hframes = 3
 vframes = 4
 
 [node name="CollisionHurtbox" type="Area2D" parent="Transformables"]
-collision_layer = 0
-collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Transformables/CollisionHurtbox"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_at56d")
 
 [node name="Hitbox" type="Area2D" parent="Transformables"]
-collision_layer = 4
-collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Transformables/Hitbox"]
 rotation = 1.5708
@@ -363,5 +366,4 @@ libraries = {
 }
 autoplay = "idle"
 
-[connection signal="area_entered" from="Transformables/CollisionHurtbox" to="." method="deal_collision_damage"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
