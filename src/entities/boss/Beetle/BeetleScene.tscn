@@ -21,8 +21,8 @@ spread = 180.0
 initial_velocity_min = 50.0
 initial_velocity_max = 50.0
 gravity = Vector3(0, 0, 0)
-scale_min = 2.0
-scale_max = 2.0
+scale_min = 16.0
+scale_max = 16.0
 color = Color(0.962573, 0.676299, 0, 1)
 turbulence_enabled = true
 
@@ -49,7 +49,7 @@ radius = 12.4224
 radius = 13.2311
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_srtja"]
-radius = 80.0
+radius = 64.3817
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o35at"]
 radius = 25.0799
@@ -2370,7 +2370,6 @@ script = ExtResource("1_f8qx2")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 emitting = false
-amount = 100
 process_material = SubResource("ParticleProcessMaterial_1pclv")
 lifetime = 0.1
 one_shot = true
@@ -2378,7 +2377,6 @@ explosiveness = 1.0
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
 emitting = false
-amount = 100
 process_material = SubResource("ParticleProcessMaterial_p43s8")
 lifetime = 0.1
 one_shot = true
@@ -2430,7 +2428,6 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rotate/aoe"]
-visible = false
 shape = SubResource("CircleShape2D_srtja")
 disabled = true
 debug_color = Color(0.8, 0.423529, 0, 0.0705882)

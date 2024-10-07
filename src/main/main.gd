@@ -35,29 +35,29 @@ func _input(_ev):
 
 func togglePause() -> void:
 	if paused:
-		pauseMenu.queue_free()
+		pauseMenu.call_deffered("queue_free")
 		paused = false
 	elif level != 0:
 		pauseMenu = pauseMenuScene.instantiate()
 		pauseMenu.main = self
-		add_child(pauseMenu)
+		call_deferred("add_child", pauseMenu)
 		paused = true
 	get_tree().paused = paused
 
 func setLevel(newLevel) -> void:
 	if gameScene != null:
-		gameScene.queue_free()
+		gameScene.call_deferred("queue_free")
 	level = newLevel
 	if level == 0:
 		gameScene = mainMenuScene.instantiate()
 	elif level == 1:
 		var intro = introScene.instantiate()
-		add_child(intro)
+		call_deferred("add_child", intro)
 		intro.playAnimation()
 		$Music/BeaverIntro.play()
 		cur_music = $Music/BeaverIntro
 		await intro.animationFinished
-		intro.queue_free()
+		intro.call_deferred("queue_free")
 		gameScene = level1Scene.instantiate()
 	elif level == 2:
 		gameScene = level2Scene.instantiate()
@@ -65,9 +65,9 @@ func setLevel(newLevel) -> void:
 		gameScene = level3Scene.instantiate()
 	elif level == 4:
 		gameScene = win_scene.instantiate()
-	add_child(gameScene)
+	call_deferred("add_child", gameScene)
 	gameScene.process_mode = PROCESS_MODE_PAUSABLE
-	if level != 0:
+	if level != 0 and level != 4:
 		curEffectsNode = gameScene.get_node("Effects")
 		curProjectilesNode = gameScene.get_node("Projectiles")
 	
@@ -81,6 +81,10 @@ func setLevel(newLevel) -> void:
 		3:
 			$Music/BeaverLoop.play()
 			cur_music = $Music/BeaverLoop
+		4:
+			$Music/EndingTheme.play()
+			cur_music = $Music/EndingTheme
+		
 	
 func getBoss():
 	if level == 1:
@@ -117,7 +121,7 @@ func bossDeath() -> void:
 	infection.line.points[0] = Singleton.player.position
 	infection.line.points[1] = Singleton.player.position
 	await infection.done_stretching
-	infection.queue_free()
+	infection.call_deferred("queue_free")
 	
 	var zoom_amount = 150
 	

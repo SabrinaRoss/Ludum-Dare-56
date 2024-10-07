@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bfhgmxtiyw5is"]
+[gd_scene load_steps=18 format=3 uid="uid://bfhgmxtiyw5is"]
 
 [ext_resource type="Script" path="res://src/main/main.gd" id="1_wfnoq"]
 [ext_resource type="PackedScene" uid="uid://dswtanmknngbk" path="res://src/helper/transition_bosses.tscn" id="2_b3ls1"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://dgpx4gd48p72i" path="res://assets/music/beetle_ost/p2_loop.wav" id="10_uchde"]
 [ext_resource type="AudioStream" uid="uid://brqbqk8g7x7ff" path="res://assets/music/beaver_ost/loop.mp3" id="11_ba0e3"]
 [ext_resource type="AudioStream" uid="uid://771o7otmqboj" path="res://assets/music/Beaver Opening Theme.mp3" id="11_yjf1o"]
+[ext_resource type="AudioStream" uid="uid://kgdnhktoymsq" path="res://assets/music/Ending Theme.mp3" id="13_7t7ml"]
 [ext_resource type="AudioStream" uid="uid://cv6otpoqf214b" path="res://assets/sound effects/menu/hover.wav" id="13_oeswf"]
 [ext_resource type="AudioStream" uid="uid://b17odcbshqgii" path="res://assets/sound effects/menu/select.wav" id="14_3lghm"]
 [ext_resource type="AudioStream" uid="uid://cw70sxuwcv6ss" path="res://assets/sound effects/player/boss_kill.wav" id="15_m3xdw"]
@@ -54,6 +55,9 @@ stream = ExtResource("11_yjf1o")
 
 [node name="BeaverLoop" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("11_ba0e3")
+
+[node name="EndingTheme" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("13_7t7ml")
 
 [node name="Sound" type="Node2D" parent="."]
 
