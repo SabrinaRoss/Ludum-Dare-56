@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cush5ahywu4eh"
+path="res://.godot/imported/field_zap.wav-ad05b399804cb0f4bb590909af4b9a67.sample"
+
+[deps]
+
+source_file="res://assets/sound effects/boss_beaver/field_zap.wav"
+dest_files=["res://.godot/imported/field_zap.wav-ad05b399804cb0f4bb590909af4b9a67.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

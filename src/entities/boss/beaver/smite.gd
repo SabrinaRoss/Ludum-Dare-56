@@ -2,10 +2,11 @@ extends Area2D
 
 @export var player_can_be_hit: bool = false
 @export var player_been_hit: bool = true
-var area_player: Area2D
+var area_player
 
 func _ready() -> void:
-	area_player = get_parent().get_node("PlayerSquirell")
+	area_player = get_parent().get_parent().get_node("PlayerSquirell")
+
 func _physics_process(delta: float) -> void:
 	scale *= 1.018
 	attack_player(area_player)

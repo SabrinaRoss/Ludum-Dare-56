@@ -97,7 +97,7 @@ func take_damage(damage):
 		death()
 
 func death():
-	pass
+	Singleton.main.bossDeath()
 
 func deal_collision_damage(area : Area2D):
 	var target = area.owner
@@ -123,7 +123,7 @@ func physics_process_state(delta):
 			frenzy_state_physics(delta)
 
 func switch_states(new_state):
-	if health <= max_health / 2 and not has_frenzied and state != -1:
+	if health <= max_health / 2. and not has_frenzied and state != -1:
 		has_frenzied = true
 		switch_states(0)
 		return
@@ -193,10 +193,11 @@ func update_facing(dir : Vector2):
 		transformables.scale.x = -1
 
 func dash_move():
-	var stage_middle = Vector2(320,180) / 2
-	var mid_vect = stage_middle - global_position
+	var stage_middle = Vector2.ZERO
+	var mid_vect : Vector2 = stage_middle - global_position
 	mid_vect /= 6
-	mid_vect = mid_vect * mid_vect * (mid_vect / abs(mid_vect))
+	mid_vect = mid_vect.length_squared() * mid_vect.normalized()
+	print(mid_vect)
 	var player_vect = Singleton.player.global_position - global_position
 	player_vect = (200 - player_vect.length()) * player_vect.normalized()
 	var orth_vect = Vector2(player_vect.y, -player_vect.x).normalized()
@@ -219,7 +220,7 @@ func shotgun_attack():
 			new_projectile.bounces = nut_bounces
 		new_projectile.global_position = global_position + cur_dir * shotgun_spawn_radius
 		new_projectile.dir = cur_dir
-		new_projectile.speed = shotgun_speed + randf_range(-shotgun_speed_change/2, shotgun_speed_change/2)
+		new_projectile.speed = shotgun_speed + randf_range(-shotgun_speed_change/2., shotgun_speed_change/2.)
 		get_parent().get_node("Projectiles").call_deferred("add_child", new_projectile)
 
 func spinning_ball_attack():
@@ -299,7 +300,7 @@ func jump_state_physics():
 	if not jump_starting:
 		move_to(jump_speed)
 		
-		if (move_destination - global_position).length() < jump_start_dist / 2:
+		if (move_destination - global_position).length() < jump_start_dist / 2.:
 			animp.play("jump_land")
 		
 		if (move_destination - global_position).length() < 10:
@@ -313,7 +314,7 @@ func dash_state_physics():
 	if not jump_starting:
 		move_to(dash_speed)
 		
-		if (move_destination - global_position).length() < dash_dist / 2:
+		if (move_destination - global_position).length() < dash_dist / 2.:
 			animp.play("jump_land")
 		
 		if (move_destination - global_position).length() < 10:
@@ -347,9 +348,10 @@ func enter_idle_state():
 	animp.play("idle")
 
 func enter_jump_state():
+	Singleton.main.phase_change()
 	animp.play("jump_start")
 	jump_starting = true
-	move_destination = Vector2(320, 180) / 2
+	move_destination = Vector2.ZERO
 	update_facing((move_destination - global_position).normalized())
 	jump_start_dist = (move_destination - global_position).length()
 

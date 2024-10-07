@@ -1,9 +1,9 @@
 extends Node2D
-var scaleMultiplier = 3
+var scaleMultiplier = 5
 var fade = 0.05
-var opacityChange
+var opacityChange:float
 var intensity
-var goalScale
+var goalScale:float
 var sprite
 
 func _ready() -> void:
@@ -11,9 +11,8 @@ func _ready() -> void:
 
 func setIntensity(i) -> void:
 	intensity = i
-	goalScale = intensity*scaleMultiplier
-	opacityChange = fade/goalScale
-	
+	goalScale = float(intensity)*float(scaleMultiplier)/float(Singleton.player.max_health)
+	opacityChange = float(fade)/float(goalScale)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

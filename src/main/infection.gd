@@ -1,8 +1,10 @@
 extends Node2D
-var speed = 0.5
+var speed = 0.05
 var destination
 var line
 var stretching = true
+
+signal done_stretching
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,12 +20,17 @@ func _process(delta: float) -> void:
 			else:
 				stretching = false
 		else:
-			var diff = destination - line.points[0]
-			if diff.length() > 1:
-				line.points[0] += diff.normalized() * speed
-			else:
-				Singleton.camera.zoom += Vector2(0.1,0.1)
-				var camDiff = destination - Singleton.camera.position - Vector2(160,90)
-				Singleton.camera.position += camDiff/30.0 #ik the variable is hardcoded, stfu
-				if Singleton.camera.zoom.x > 30:
-					get_parent().queue_free()
+			emit_signal("done_stretching")
+			destination = null
+			
+			## moving this to main script and using a signal to get when stretching is done
+			
+			#var diff = destination - line.points[0]
+			#if diff.length() > 1:
+				#line.points[0] += diff.normalized() * speed
+			#else:
+				#Singleton.camera.zoom += Vector2(0.1,0.1)
+				#var camDiff = destination - Singleton.camera.position - Vector2(160,90)
+				#Singleton.camera.position += camDiff/30.0 #ik the variable is hardcoded, stfu
+				#Singleton.camera.get_node("TransitionBosses").get_node("Sprite2D").scale = Vector2(1.0,1.0)/Singleton.camera.zoom.x
+				#Singleton.camera.get_node("TransitionBosses").get_node("Sprite2D").position = Singleton.camera.position + Singleton.camera.offset# - Vector2(80,45)

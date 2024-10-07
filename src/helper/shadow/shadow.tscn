@@ -5,13 +5,13 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kpsqs"]
 shader = ExtResource("1_aga4e")
-shader_parameter/rect = Vector2(24, 10)
+shader_parameter/rect = Vector2(27.2, 16.3)
 
 [node name="Shadow" type="ColorRect"]
 material = SubResource("ShaderMaterial_kpsqs")
 offset_right = 24.0
 offset_bottom = 10.0
-color = Color(0.201527, 0.201527, 0.201527, 1)
+color = Color(0, 0, 0, 1)
 script = ExtResource("2_35ivb")
 
 [connection signal="item_rect_changed" from="." to="." method="_on_item_rect_changed"]

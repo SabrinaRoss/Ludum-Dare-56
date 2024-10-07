@@ -7,6 +7,9 @@ class_name Player
 @onready var bullet_scene = preload("res://src/entities/player/player_bullet.tscn")
 @onready var damage_indicator = preload("res://src/entities/player/Damage Indicator.tscn")
 
+var roll_cooldown = 0.2
+var roll_timer = 0
+
 var bullet_speed = 300
 var bullet_cooldown = 0.2
 var parry_speed = 300
@@ -22,7 +25,7 @@ var turn_acc = 0
 
 var roll_vel = 0
 var bullet_timer = 0
-var slash_damage = 1
+var slash_damage = 50
 var bullet_damage = 1
 var parry_damage = 50
 
@@ -112,12 +115,13 @@ func is_turning(axis):
 	 (input_vect[axis] > 0 and velocity[axis] < 0)
 
 func do_actions():
-	if roll_just_pressed:
+	if roll_just_pressed and roll_timer <= 0:
 		rolling = true
 		velocity = roll_vel * input_vect
 		if input_vect == Vector2.ZERO:
 			velocity = roll_vel * facing_dir
 		old_roll_dir = facing_dir if input_vect == Vector2.ZERO else input_vect
+		roll_timer = roll_cooldown
 		animp.play("RESET")
 		animp.advance(0)
 		update_facing(old_roll_dir)
@@ -141,7 +145,6 @@ func slash():
 
 func parry():
 	var mouse_vect = (get_global_mouse_position() - global_position).normalized()
-	$transformables/ParryBox/CollisionShape2D.position = mouse_vect * 10
 	parrying = true
 	velocity = Vector2.ZERO
 	update_facing(mouse_vect)
@@ -166,7 +169,7 @@ func shoot():
 	new_bullet.dir = facing_dir
 	new_bullet.speed = bullet_speed
 	new_bullet.damage = bullet_damage
-	add_child(new_bullet)
+	get_parent().get_node("Effects").call_deferred("add_child", new_bullet)
 	#get_parent().get_node("Projectiles").call_deferred("add_child", new_bullet)
 	bullet_timer = bullet_cooldown
 
@@ -176,17 +179,19 @@ func slash_hit(target : Area2D):
 
 func tick_timers(delta):
 	bullet_timer -= delta
+	roll_timer -= delta
 
 func take_damage(damage):
 	cur_health -= damage
 	Singleton.health_bar_scene.damageAnimation()
 	$DamageAnimp.play("damage")
-	#var dmg_ind = damage_indicator.instantiate()
-	#dmg_ind.setIntensity(damage)
-	#Singleton.main.curEffectsNode.add_child(dmg_ind)
-	#dmg_ind.position = position
-	#if cur_health <= 0:
-		#Singleton.main.death()
+	var dmg_ind = damage_indicator.instantiate()
+	dmg_ind.setIntensity(damage)
+	Singleton.main.curEffectsNode.add_child(dmg_ind)
+	dmg_ind.position = position
+	if cur_health <= 0:
+		Singleton.main.death()
+		dmg_ind.setIntensity(damage*2)
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	match anim_name:

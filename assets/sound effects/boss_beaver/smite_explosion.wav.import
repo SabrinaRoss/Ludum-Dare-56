@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://eq18v26dec5a"
+path="res://.godot/imported/smite_explosion.wav-0fc3800807925b7e35d0a53d5d15e33b.sample"
+
+[deps]
+
+source_file="res://assets/sound effects/boss_beaver/smite_explosion.wav"
+dest_files=["res://.godot/imported/smite_explosion.wav-0fc3800807925b7e35d0a53d5d15e33b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

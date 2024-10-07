@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dd6v7pypex615"]
+[gd_scene load_steps=8 format=3 uid="uid://dd6v7pypex615"]
 
 [ext_resource type="PackedScene" uid="uid://bmkjq2v77ou1d" path="res://src/entities/player/player_ant.tscn" id="1_o7ecf"]
 [ext_resource type="PackedScene" uid="uid://db4onktx5rhfw" path="res://src/main/Health Bar.tscn" id="2_uqitk"]
 [ext_resource type="PackedScene" uid="uid://bvnme36cdfxnr" path="res://src/entities/boss/Beetle/BeetleScene.tscn" id="3_ms3k3"]
+[ext_resource type="Texture2D" uid="uid://dj58q315mxle4" path="res://assets/sprites/Backgrounds/Player_Ant/player_ant_layout.png" id="4_f3638"]
+[ext_resource type="Texture2D" uid="uid://c1srps3a6rxjn" path="res://assets/sprites/Backgrounds/Player_Ant/player_ant_flower_arena.png" id="5_ehikq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ehqe3"]
 size = Vector2(20, 180)
@@ -14,10 +16,24 @@ size = Vector2(320, 20)
 process_mode = 3
 y_sort_enabled = true
 
+[node name="Background" type="Node2D" parent="."]
+z_index = -100
+
+[node name="Sprite2D" type="Sprite2D" parent="Background"]
+texture_filter = 1
+texture = ExtResource("4_f3638")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Background"]
+texture_filter = 1
+texture = ExtResource("5_ehikq")
+
+[node name="BeatleTelegraphs" type="Node2D" parent="."]
+z_index = -10
+
 [node name="PlayerAnt" parent="." instance=ExtResource("1_o7ecf")]
-position = Vector2(89, 95)
 
 [node name="HealthBar" parent="." instance=ExtResource("2_uqitk")]
+position = Vector2(-160, -93)
 
 [node name="Effects" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -28,20 +44,20 @@ y_sort_enabled = true
 [node name="Walls" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
-position = Vector2(-10, 90)
+position = Vector2(-100, -3)
 shape = SubResource("RectangleShape2D_ehqe3")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
-position = Vector2(330, 90)
+position = Vector2(100, -3)
 shape = SubResource("RectangleShape2D_ehqe3")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
-position = Vector2(160, -10)
+position = Vector2(0, -103)
 shape = SubResource("RectangleShape2D_f656i")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
-position = Vector2(160, 190)
+position = Vector2(0, 97)
 shape = SubResource("RectangleShape2D_f656i")
 
 [node name="Beetle" parent="." instance=ExtResource("3_ms3k3")]
-position = Vector2(220, 106)
+position = Vector2(0, -63)
