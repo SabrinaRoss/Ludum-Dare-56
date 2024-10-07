@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bvnme36cdfxnr"]
+[gd_scene load_steps=40 format=3 uid="uid://bvnme36cdfxnr"]
 
 [ext_resource type="Script" path="res://src/entities/boss/Beetle/BeetleAI.gd" id="1_f8qx2"]
 [ext_resource type="Texture2D" uid="uid://by2nre4c1g8qy" path="res://assets/sprites/BeetleBoss-Sheet.png" id="2_kv3ci"]
@@ -10,7 +10,7 @@ radius = 12.4224
 radius = 8.66864
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_srtja"]
-radius = 52.345
+radius = 87.9659
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o35at"]
 radius = 25.0799
@@ -21,7 +21,7 @@ step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -69,7 +69,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/4/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -85,7 +85,7 @@ step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -133,7 +133,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/4/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -150,7 +150,7 @@ step = 0.125
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -198,7 +198,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/4/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -215,7 +215,7 @@ step = 0.125
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -263,7 +263,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/4/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -280,7 +280,7 @@ step = 0.125
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -328,7 +328,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/4/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -345,7 +345,7 @@ step = 0.125
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -393,7 +393,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/4/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -409,7 +409,7 @@ step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -457,7 +457,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/4/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -473,7 +473,7 @@ step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -521,20 +521,19 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_cp0dr"]
 resource_name = "Fly"
-length = 0.375
-loop_mode = 1
+length = 1.125
 step = 0.125
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [11, 12, 10]
+"values": [11, 12, 10, 11, 12, 10, 11, 12, 10]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -543,7 +542,7 @@ tracks/1/path = NodePath("Rotate/aoe/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25),
+"times": PackedFloat32Array(0, 1.125),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -551,19 +550,19 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("BeetleBoss-sheet:scale")
+tracks/2/path = NodePath("Spasm/BeetleBoss-sheet:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.25, 0.375, 0.625, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1.3, 1.3)]
+"values": [Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1, 1), Vector2(1.3, 1.3)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/3/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -575,20 +574,19 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_i1h8n"]
 resource_name = "Fly"
-length = 0.375
-loop_mode = 1
+length = 1.125
 step = 0.125
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [11, 12, 10]
+"values": [11, 12, 10, 11, 12, 10, 11, 12, 10]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -597,7 +595,7 @@ tracks/1/path = NodePath("Rotate/aoe/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25),
+"times": PackedFloat32Array(0, 1.125),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -605,19 +603,19 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("BeetleBoss-sheet:scale")
+tracks/2/path = NodePath("Spasm/BeetleBoss-sheet:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.25, 0.375, 0.625, 0.75, 1, 1.125),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1.3, 1.3)]
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/3/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -633,7 +631,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -705,19 +703,19 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("BeetleBoss-sheet:scale")
+tracks/6/path = NodePath("Spasm/BeetleBoss-sheet:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1.3, 1.3)]
+"values": [Vector2(1, 1)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/7/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -725,6 +723,18 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Spasm:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_i70j5"]
@@ -733,7 +743,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -805,134 +815,22 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("BeetleBoss-sheet:scale")
+tracks/6/path = NodePath("Spasm/BeetleBoss-sheet:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1.3, 1.3)]
+"values": [Vector2(1, 1)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/7/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_lh8mh"]
-resource_name = "Telegraph_attack_down"
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [7, 8, 7, 8]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BeetleBoss-sheet:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_3x1br"]
-resource_name = "Telegraph_attack_down"
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [7, 8, 7, 8]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BeetleBoss-sheet:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_1fp0t"]
-resource_name = "Telegraph_attack"
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [22, 23, 22, 23]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BeetleBoss-sheet:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_xuohy"]
-resource_name = "Telegraph_attack"
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [22, 23, 22, 23]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BeetleBoss-sheet:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -942,23 +840,23 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_qjfe5"]
 resource_name = "Telegraph_fly"
 length = 0.75
-step = 0.25
+step = 0.0626
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, 0.5625, 0.625, 0.6875),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [8, 9, 10]
+"values": [8, 9, 10, 9, 8, 9, 10, 9, 8, 9, 10, 9]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/1/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -966,6 +864,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Spasm:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.1252, 0.1877, 0.2504, 0.3129, 0.3756, 0.4381, 0.5008, 0.5633, 0.626, 0.6885, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-0.2, 0), Vector2(0.2, 0), Vector2(-0.2, 0), Vector2(0.2, 0), Vector2(-0.4, 0), Vector2(0.4, 0), Vector2(-0.4, 0), Vector2(0.4, 0), Vector2(-0.6, 0), Vector2(0.6, 0), Vector2(-0.6, 0), Vector2(0.6, 0), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_546fc"]
@@ -975,19 +885,19 @@ step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, 0.5625, 0.625, 0.6875),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [8, 9, 10]
+"values": [8, 9, 10, 9, 8, 9, 10, 9, 8, 9, 10, 9]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/1/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -995,6 +905,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Spasm:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.1252, 0.1877, 0.2504, 0.3129, 0.3756, 0.4381, 0.5008, 0.5633, 0.626, 0.6885, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-0.2, 0), Vector2(0.2, 0), Vector2(-0.2, 0), Vector2(0.2, 0), Vector2(-0.4, 0), Vector2(0.4, 0), Vector2(-0.4, 0), Vector2(0.4, 0), Vector2(-0.6, 0), Vector2(0.6, 0), Vector2(-0.6, 0), Vector2(0.6, 0), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_e1h1e"]
@@ -1004,7 +926,7 @@ step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1016,7 +938,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/1/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1033,7 +955,7 @@ step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1045,7 +967,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/1/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1062,7 +984,7 @@ step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1074,7 +996,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/1/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1091,7 +1013,7 @@ step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:frame")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1103,7 +1025,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/1/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1144,7 +1066,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("BeetleBoss-sheet:frame")
+tracks/2/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1156,7 +1078,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/3/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -1209,7 +1131,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("BeetleBoss-sheet:frame")
+tracks/2/path = NodePath("Spasm/BeetleBoss-sheet:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1221,10 +1143,210 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("BeetleBoss-sheet:flip_h")
+tracks/3/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_lh8mh"]
+resource_name = "Telegraph_move_down"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 7, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_3x1br"]
+resource_name = "Telegraph_move_down_left"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 7, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_1fp0t"]
+resource_name = "Telegraph_move_up"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [22, 23, 22, 23]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_xuohy"]
+resource_name = "Telegraph_move_up_left"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [22, 23, 22, 23]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_2idfl"]
+resource_name = "Telegraph_lunge_down"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [26, 25, 26, 27]
+}
+
+[sub_resource type="Animation" id="Animation_im5hn"]
+resource_name = "Telegraph_lunge_down_left"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [26, 25, 26, 25]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_smxiu"]
+resource_name = "Telegraph_lunge_up"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [31, 30, 31, 30]
+}
+
+[sub_resource type="Animation" id="Animation_udjg2"]
+resource_name = "Telegraph_lunge_up_left"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [31, 30, 31, 30]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spasm/BeetleBoss-sheet:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -1245,12 +1367,16 @@ _data = {
 "Fly_left": SubResource("Animation_i1h8n"),
 "RESET": SubResource("Animation_ih2mq"),
 "RESET_left": SubResource("Animation_i70j5"),
-"Telegraph_attack_down": SubResource("Animation_lh8mh"),
-"Telegraph_attack_down_left": SubResource("Animation_3x1br"),
-"Telegraph_attack_up": SubResource("Animation_1fp0t"),
-"Telegraph_attack_up_left": SubResource("Animation_xuohy"),
 "Telegraph_fly": SubResource("Animation_qjfe5"),
 "Telegraph_fly_left": SubResource("Animation_546fc"),
+"Telegraph_lunge_down": SubResource("Animation_2idfl"),
+"Telegraph_lunge_down_left": SubResource("Animation_im5hn"),
+"Telegraph_lunge_up": SubResource("Animation_smxiu"),
+"Telegraph_lunge_up_left": SubResource("Animation_udjg2"),
+"Telegraph_move_down": SubResource("Animation_lh8mh"),
+"Telegraph_move_down_left": SubResource("Animation_3x1br"),
+"Telegraph_move_up": SubResource("Animation_1fp0t"),
+"Telegraph_move_up_left": SubResource("Animation_xuohy"),
 "Walking_down": SubResource("Animation_e1h1e"),
 "Walking_down_left": SubResource("Animation_cmqil"),
 "Walking_up": SubResource("Animation_3km18"),
@@ -1264,7 +1390,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:self_modulate")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1281,7 +1407,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BeetleBoss-sheet:self_modulate")
+tracks/0/path = NodePath("Spasm/BeetleBoss-sheet:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1297,13 +1423,18 @@ _data = {
 "damage": SubResource("Animation_oye75")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gutda"]
+radius = 17.0
+height = 48.0
+
 [node name="Beetle" type="CharacterBody2D"]
-position = Vector2(197, 78)
 script = ExtResource("1_f8qx2")
 
-[node name="BeetleBoss-sheet" type="Sprite2D" parent="."]
+[node name="Spasm" type="Node2D" parent="."]
+
+[node name="BeetleBoss-sheet" type="Sprite2D" parent="Spasm"]
 texture_filter = 1
-scale = Vector2(1.3, 1.3)
+position = Vector2(0, -7)
 texture = ExtResource("2_kv3ci")
 hframes = 34
 
@@ -1356,5 +1487,13 @@ libraries = {
 "": SubResource("AnimationLibrary_gilpm")
 }
 
-[connection signal="area_entered" from="Rotate/main_attack" to="." method="deal_main_attack"]
+[node name="main_hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="main_hurtbox"]
+position = Vector2(-1, -4)
+shape = SubResource("CapsuleShape2D_gutda")
+
 [connection signal="area_entered" from="Rotate/aoe" to="." method="deal_aoe_attack"]
+[connection signal="area_entered" from="main_hurtbox" to="." method="deal_main_attack"]

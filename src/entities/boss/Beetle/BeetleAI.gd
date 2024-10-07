@@ -1,9 +1,32 @@
 extends CharacterBody2D
 
+var move_state_time = 4
+
+var main_attack_state_move_speed = 75
+var main_attack_range = 120
+var main_attack_speed = 130
+var main_attack_spacing = 60
+
+var flutter_aoe_max_dist = 100
+
+var rapid_attack_state_move_speed = 75
+
+var quick_walk_mult = 2
 
 var aoe_damage = 1
 var main_attack_damage = 1
 
+@onready var lunge_indicator_scene = preload("res://src/helper/telegraphs/beetle_lunge.tscn")
+
+var cur_lunge_indic = null
+
+# 0 - pick state
+# 1 - move state
+# 2 - main attack state
+# 3 - flutter aoe state
+# 4 - jump aoe state
+# 5 - rapid attack state
+# 6 - fast move state
 var state = 0 #int
 var screenSize #Vector2
 var vel #Vector2
@@ -30,7 +53,7 @@ Direction:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	vel = Vector2.ZERO
-	screenSize = get_viewport_rect().size
+	screenSize = Vector2(180, 180)
 	health = 1.0
 	speed = 45.0
 	aoeCollider = $Rotate/aoe
@@ -40,22 +63,29 @@ func _ready() -> void:
 	
 	player = get_parent().get_node("PlayerAnt")
 
+func _process(delta: float) -> void:
+	if cur_lunge_indic != null:
+		var dir_vect = (player.global_position - global_position).normalized()
+		cur_lunge_indic.global_rotation = dir_vect.angle()
+		cur_lunge_indic.global_position = global_position
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	state = 2
+	# state = 5
 	
 	position += vel * delta * speed
-	position = position.clamp(Vector2.ZERO, screenSize)
+	#position = position.clamp(Vector2.ZERO, screenSize)
 	
 	
-	if (state == 1 || state == 6) && (position.x > screenSize.x-10 or position.x < 10):
+	if (state == 1 || state == 4) && (position.x > screenSize.x-10+70 or position.x - 70 < 10):
 		vel.x *= -1
-		update_direction_facing(vel)
+		position.x = clamp(position.x, 70, screenSize.x+70)
+		update_direction_facing(vel if state == 1 else vel / quick_walk_mult)
 		update_direction_walking()
-	elif (state == 1 || state == 6) && (position.y > screenSize.y-10 or position.y < 10):
+	elif (state == 1 || state == 4) && (position.y > screenSize.y-10 or position.y < 10):
 		vel.y *= -1
-		update_direction_facing(vel)
+		position.y = clamp(position.y, 0, screenSize.y)
+		update_direction_facing(vel if state == 1 else vel / quick_walk_mult)
 		update_direction_walking()
 		
 	
@@ -63,6 +93,11 @@ func _physics_process(delta: float) -> void:
 		make_decisions()
 	
 	
+
+func pos_clamp(pos):
+	pos.x = clamp(pos.x, 10 + 70, screenSize.x-10+70)
+	pos.y = clamp(pos.y, 10, screenSize.y-10 )
+	return pos
 
 func pick_between_four(anims):
 	match curDirection:
@@ -74,13 +109,12 @@ func pick_between_four(anims):
 			aPlayer.play(anims[2])
 		3:
 			aPlayer.play(anims[3])
-			
+
 func pick_between_two(anims): #left is 1
 	if(curDirection == 0 || curDirection == 3):
 		aPlayer.play(anims[0])
 	else:
 		aPlayer.play(anims[1])
-
 
 func face_player():
 	var angleTo = get_angle_to(player.position)
@@ -90,29 +124,31 @@ func face_player():
 		angle.x = 1
 	else:
 		angle.x = -1
-	if(angle.y > 0):
+	if(angle.y > -0.2):
 		angle.y = 1
 	else:
 		angle.y = -1
 	update_direction_facing(angle)
 	
-func go_to_player():
+func go_to_player(move_speed):
 	var playerPos = player.global_position
 	var angleTo = get_angle_to(playerPos - global_position)
 	var distance = global_position.distance_to(playerPos)
 	face_player()
 	
-	#should add anim in here
-	pick_between_four(["Telegraph_attack_up_left","Telegraph_attack_up","Telegraph_attack_down","Telegraph_attack_down_left"])
-	await get_tree().create_timer(1.0).timeout
-	var distanceToJump =distance-screenSize.x/8
-	update_direction_walking()
-	for i in range(100):
-		var jumpLocation = position.move_toward(playerPos,distanceToJump*0.01)
-		position = jumpLocation
-		await get_tree().create_timer(0.01).timeout
+	pick_between_four(["Telegraph_move_up_left","Telegraph_move_up","Telegraph_move_down","Telegraph_move_down_left"])
+	await $AnimationPlayer.animation_finished
 	face_player()
-	
+	playerPos = player.global_position
+	angleTo = get_angle_to(playerPos - global_position)
+	distance = global_position.distance_to(playerPos)
+	var distanceToJump = distance - main_attack_spacing
+	update_direction_walking()
+	var t = create_tween()
+	t.tween_property(self, "global_position", global_position + (playerPos - global_position).normalized() * distanceToJump, distanceToJump / move_speed)
+	await t.finished
+	face_player()
+
 func fly_to_player():
 	var angleTo = get_angle_to(player.position)
 	var distance = position.distance_to(player.position)
@@ -162,13 +198,34 @@ func music_player(music):
 		#play 2nd stage music
 		await get_tree().create_timer(3.0).timeout
 
+func lunge():
+	var new_lunge_indic = lunge_indicator_scene.instantiate()
+	get_parent().get_node("Effects").add_child(new_lunge_indic)
+	cur_lunge_indic = new_lunge_indic
+	var t = create_tween()
+	t.tween_property(new_lunge_indic.get_node("ColorRect"), "size", Vector2(main_attack_range, 20), 1)
+	
+	pick_between_four(["Telegraph_lunge_up_left","Telegraph_lunge_up","Telegraph_lunge_down","Telegraph_lunge_down_left"])
+	await $AnimationPlayer.animation_finished
+	
+	cur_lunge_indic.get_node("AnimationPlayer").play("fade")
+	cur_lunge_indic = null
+	
+	var dir_vect = (player.global_position - global_position).normalized()
+	face_player()
+	pick_between_four(["Attack_up_left","Attack_up","Attack_down","Attack_down_left"])
+	var target_pos = global_position + dir_vect * main_attack_range
+	target_pos = pos_clamp(target_pos)
+	t = create_tween()
+	t.tween_property(self, "global_position", target_pos, (target_pos - global_position).length() / main_attack_speed)
+	
+	await t.finished
+	pick_between_two(["RESET_left","RESET"])
+
 func main_attack() -> void: 
 	#activate hit animation and attack box
-	go_to_player()
-	await get_tree().create_timer(2.0).timeout
-	pick_between_four(["Attack_up_left","Attack_up","Attack_down","Attack_down_left"])
-	await $AnimationPlayer.animation_finished
-	pick_between_two(["RESET_left","RESET"])
+	await go_to_player(main_attack_state_move_speed)
+	await lunge()
 	pick_between_two(["Weak_left","Weak"])
 	#expose vulnerable
 	await $AnimationPlayer.animation_finished
@@ -182,15 +239,13 @@ func main_attack() -> void:
 func aoe_attack() -> void:
 	#start area of attack anim
 	
-	go_to_player()
-	await get_tree().create_timer(2.0).timeout
 	pick_between_two(["Telegraph_fly_left","Telegraph_fly"])
-	await get_tree().create_timer(0.75).timeout
+	await $AnimationPlayer.animation_finished
 	pick_between_two(["Fly_left","Fly"])
-	await get_tree().create_timer(1.5).timeout
+	await $AnimationPlayer.animation_finished
 	pick_between_two(["RESET_left","RESET"])
 	pick_between_two(["Weak_left","Weak"])
-	await get_tree().create_timer(2.5).timeout
+	await $AnimationPlayer.animation_finished
 	
 	pick_between_two(["RESET_left","RESET"])
 	state = 0
@@ -213,20 +268,19 @@ func second_attack() -> void:
 	
 func rapid_attack() -> void:
 	#activate rapid hit animation and attack box
-	go_to_player()
-	await get_tree().create_timer(2.0).timeout
-	pick_between_four(["Attack_rapid_up_left","Attack_rapid_up","Attack_rapid_down","Attack_rapid_down_left"])
-	await get_tree().create_timer(1.25).timeout
+	await go_to_player(rapid_attack_state_move_speed)
+	for i in 3:
+		await lunge()
 	pick_between_two(["RESET_left","RESET"])
 	pick_between_two(["Weak_left","Weak"])
-	await get_tree().create_timer(2.5).timeout
+	await $AnimationPlayer.animation_finished
 	pick_between_two(["RESET_left","RESET"])
 	state = 0
 	something_running = 0
 	
 func move() -> void:
 	
-	var direction = rng.randi_range(0,4)
+	var direction = rng.randi_range(0,3)
 	match direction:
 		0:
 			vel = Vector2(1,1)
@@ -239,29 +293,34 @@ func move() -> void:
 	update_direction_facing(vel)
 	update_direction_walking()
 	
-	await get_tree().create_timer(4.0).timeout
+	await get_tree().create_timer(move_state_time).timeout
 	vel = Vector2.ZERO
 	pick_between_two(["RESET_left","RESET"])
+	pick_between_two(["Weak_left","Weak"])
+	await $AnimationPlayer.animation_finished
 	state = 0
 	something_running = 0
-	
+
 func move_fast() -> void:
-	var direction = rng.randi_range(0,4)
+	var direction = rng.randi_range(0,3)
 	match direction:
 		0:
-			vel = Vector2(1.5,1.5)
+			vel = Vector2(1.,1.)
 		1:
-			vel = Vector2(-1.5,1.5)
+			vel = Vector2(-1.,1.)
 		2:
-			vel = Vector2(1.5,-1.5)
+			vel = Vector2(1.,-1.)
 		3:
-			vel = Vector2(-1.5,-1.5)
-	update_direction_facing(vel/1.5)
+			vel = Vector2(-1.,-1.)
+	update_direction_facing(vel)
+	vel *= quick_walk_mult
 	update_direction_walking()
 	
 	await get_tree().create_timer(4.0).timeout
 	vel = Vector2.ZERO
 	pick_between_two(["RESET_left","RESET"])
+	pick_between_two(["Weak_left","Weak"])
+	await $AnimationPlayer.animation_finished
 	state = 0
 	something_running = 0
 
@@ -286,17 +345,20 @@ func make_decisions() -> void:
 	match state:
 		0: #find new state
 			pick_between_two(["RESET_left","RESET"])
-			if(stage == 0 && health < 50):
-				stage = 1
-				state = 4
+			#if(stage == 0 && health < 50):
+				#stage = 1
+				#state = 4
 				
-			var stateper = rng.randi_range(1, 3)
+			var stateper = rng.randi_range(1, 2)
 			if(stage == 0):
 				state = stateper
 			else:
-				state = stateper + 3
-		
-		
+				state = stateper + 2
+			
+			if (player.global_position - global_position).length() < flutter_aoe_max_dist and randf() < 0.5:
+				state = 5
+			
+			
 			
 		1:	#default walking
 			something_running = 1
@@ -304,16 +366,16 @@ func make_decisions() -> void:
 		2:	#basic attack
 			something_running = 1
 			main_attack()
-		3:	#flutter wings aoe
-			something_running = 1
-			aoe_attack()
-		4:  #jump and and aoe
-			something_running = 1
-			second_attack()
-		5:  #rapid attack
+		#4:  #jump and and aoe
+			#something_running = 1
+			#second_attack()
+		3:  #rapid attack
 			something_running = 1
 			rapid_attack()
-		6: #move 1.5x speed
+		4: #move 1.5x speed
 			something_running = 1
 			move_fast()
+		5:	#flutter wings aoe
+			something_running = 1
+			aoe_attack()
 		
