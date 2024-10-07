@@ -27,7 +27,7 @@ func damageAnimation() -> void:
 	scale += Vector2(1,1) * scaleVelocity
 
 func healthUpdate() -> void:
-	var percent = Singleton.player.cur_health/Singleton.player.max_health
+	var percent : float = float(Singleton.player.cur_health)/float(Singleton.player.max_health)
 	bar.color = lerp(minHealthColor,maxHealthColor,percent)
 	displayHealthDestination = maxDimensions.x*percent
 	var curDimensions = Vector2(displayHealth,maxDimensions.y)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bmkjq2v77ou1d"]
+[gd_scene load_steps=17 format=3 uid="uid://bmkjq2v77ou1d"]
 
 [ext_resource type="Script" path="res://src/entities/player/player.gd" id="1_2nvsa"]
 [ext_resource type="PackedScene" uid="uid://dj77jvs4c3x0c" path="res://src/helper/shadow/shadow.tscn" id="2_6kiui"]
@@ -41,7 +41,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -229,6 +229,44 @@ height = 12.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w83he"]
 size = Vector2(25, 15)
 
+[sub_resource type="Animation" id="Animation_qhpbl"]
+resource_name = "damage"
+length = 0.05
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("transformables/Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(3, 5, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_b4cwr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("transformables/Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jbrrp"]
+_data = {
+"RESET": SubResource("Animation_b4cwr"),
+"damage": SubResource("Animation_qhpbl")
+}
+
 [node name="PlayerAnt" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_2nvsa")
@@ -273,6 +311,7 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(16.5, 0.5)
 shape = SubResource("RectangleShape2D_w83he")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Hurtbox"]
 visible = false
@@ -283,6 +322,11 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_tiugg")
 hframes = 2
 vframes = 3
+
+[node name="DamageAnimp" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jbrrp")
+}
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="slash_hit"]
