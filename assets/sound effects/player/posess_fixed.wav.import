@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b8fdixqry4s52"
+path="res://.godot/imported/posess_fixed.wav-0be35b98ad5e3f6e304cde0e7dea62ed.sample"
+
+[deps]
+
+source_file="res://assets/sound effects/player/posess_fixed.wav"
+dest_files=["res://.godot/imported/posess_fixed.wav-0be35b98ad5e3f6e304cde0e7dea62ed.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
