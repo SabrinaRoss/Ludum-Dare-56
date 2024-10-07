@@ -21,6 +21,7 @@ var infectionScene = preload("res://src/main/Infection.tscn")
 func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
 	Singleton.main = self
+	Singleton.camera = get_node("Camera2D")
 	setLevel(0)
 
 func _input(_ev):
