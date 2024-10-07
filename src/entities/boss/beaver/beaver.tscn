@@ -21,6 +21,7 @@ script = ExtResource("2_553ta")
 
 [node name="Player_near" type="CollisionShape2D" parent="Ai"]
 position = Vector2(-1, 0)
+scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_uybsu")
 
 [node name="Player_near_sprite" type="Sprite2D" parent="Ai/Player_near"]
@@ -30,18 +31,27 @@ scale = Vector2(2.1875, 2.1875)
 texture = ExtResource("3_em727")
 
 [node name="Timer_Player_Near" type="Timer" parent="Ai"]
-wait_time = 2.0
+one_shot = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="Hitbox"]
 position = Vector2(-1.5, -0.625009)
 scale = Vector2(0.226562, 0.228516)
 texture = ExtResource("3_fr3dc")
 
-[node name="Enemy_Collision" type="CollisionShape2D" parent="."]
+[node name="Enemy_Collision" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(-1.5, -1)
 shape = SubResource("RectangleShape2D_7ij7q")
-metadata/_edit_lock_ = true
 
+[connection signal="area_entered" from="Ai" to="Ai" method="_on_area_entered"]
+[connection signal="area_shape_entered" from="Ai" to="." method="_on_ai_area_shape_entered"]
+[connection signal="area_shape_entered" from="Ai" to="Ai" method="_on_area_shape_entered"]
+[connection signal="area_shape_exited" from="Ai" to="Ai" method="_on_area_shape_exited"]
 [connection signal="body_entered" from="Ai" to="Ai" method="_on_body_entered"]
 [connection signal="body_exited" from="Ai" to="Ai" method="_on_body_exited"]
+[connection signal="body_shape_entered" from="Ai" to="Ai" method="_on_body_shape_entered"]
 [connection signal="timeout" from="Ai/Timer_Player_Near" to="Ai" method="_on_timer_player_near_timeout"]
+[connection signal="area_shape_entered" from="Hitbox" to="." method="_on_hitbox_area_shape_entered"]
