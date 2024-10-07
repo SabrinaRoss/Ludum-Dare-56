@@ -1,18 +1,25 @@
 extends Node2D
-var speed = 0.1
+var speed = 0.5
 var destination
-var startPoint
-var endPoint
+var line
+var stretching = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	startPoint = get_node("Line2D").points[0]
-	endPoint = get_node("Line2D").points[1]
-
-func setDestination(bossPos) -> void:
-	destination = Singleton.player.position - bossPos
+	line = get_node("Line2D")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	endPoint += destination * speed
-	pass
+	if destination != null:
+		if stretching:
+			var diff = destination - line.points[1]
+			if diff.length() > 1:
+				line.points[1] += diff.normalized() * speed
+			else:
+				stretching = false
+		else:
+			var diff = destination - line.points[0]
+			if diff.length() > 1:
+				line.points[0] += diff.normalized() * speed
+			else:
+				get_parent().queue_free()
