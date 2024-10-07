@@ -21,6 +21,7 @@ var curProjectilesNode
 
 var infectionScene = preload("res://src/main/Infection.tscn")
 var zoomOutAnimationPlaying = false
+var introScene = preload("res://src/helper/StartScene/StartCutscene.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
@@ -50,6 +51,11 @@ func setLevel(newLevel) -> void:
 	if level == 0:
 		gameScene = mainMenuScene.instantiate()
 	elif level == 1:
+		var intro = introScene.instantiate()
+		add_child(intro)
+		intro.playAnimation()
+		await intro.animationFinished
+		intro.queue_free()
 		gameScene = level1Scene.instantiate()
 	elif level == 2:
 		gameScene = level2Scene.instantiate()

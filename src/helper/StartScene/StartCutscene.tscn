@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://4s12pdraniib"]
+[gd_scene load_steps=11 format=3 uid="uid://4s12pdraniib"]
 
 [ext_resource type="Texture2D" uid="uid://4udrq5krqdb4" path="res://assets/sprites/Ant_infected.png" id="1_25vgi"]
 [ext_resource type="Texture2D" uid="uid://brb4poq46a070" path="res://assets/sprites/Backgrounds/Pre-Ant/IntroBackground.png" id="1_e27bk"]
 [ext_resource type="FontFile" uid="uid://ouq63g53tqfi" path="res://assets/fonts/tinypixel/tinypixel/tinypixel.otf" id="1_fadwt"]
+[ext_resource type="Script" path="res://src/helper/StartScene/start_cutscene.gd" id="1_jmadb"]
 [ext_resource type="Texture2D" uid="uid://bptrqpigimbno" path="res://assets/sprites/spore.png" id="2_3cnyy"]
 
 [sub_resource type="Animation" id="Animation_ac3jc"]
@@ -174,37 +175,37 @@ libraries = {
 "": SubResource("AnimationLibrary_wqw2m")
 }
 autoplay = "IntroAntInfection"
+script = ExtResource("1_jmadb")
 
 [node name="IntroBackground" type="Sprite2D" parent="."]
 modulate = Color(0.450648, 0.450648, 0.450648, 1)
 texture_filter = 1
-position = Vector2(160, 59)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("1_e27bk")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -7.0
+offset_left = -160.0
 offset_top = -6.0
-offset_right = 33.0
+offset_right = -120.0
 offset_bottom = 34.0
 scale = Vector2(8.47043, 4.92)
 color = Color(0, 0, 0, 0)
 
 [node name="Label" type="Label" parent="."]
-offset_left = 72.0
-offset_top = 12.0
-offset_right = 132.0
-offset_bottom = 35.0
+offset_left = -121.0
+offset_top = -96.0
+offset_right = -61.0
+offset_bottom = -73.0
 text = "Damn..."
 label_settings = SubResource("LabelSettings_j1yfj")
 visible_characters = 0
 visible_ratio = 0.0
 
 [node name="Label2" type="Label" parent="."]
-offset_left = 103.0
-offset_top = 41.0
-offset_right = 275.0
-offset_bottom = 64.0
+offset_left = -74.0
+offset_top = -27.0
+offset_right = 98.0
+offset_bottom = -4.0
 text = "I wish I was a beaver..."
 label_settings = SubResource("LabelSettings_fmyx2")
 visible_characters = 0
@@ -212,7 +213,7 @@ visible_ratio = 0.0
 
 [node name="AntInfected" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(158, 112)
+position = Vector2(0, 50)
 texture = ExtResource("1_25vgi")
 hframes = 2
 vframes = 2
