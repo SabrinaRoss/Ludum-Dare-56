@@ -12,34 +12,35 @@ var dash_dist = 60
 var dash_speed = 150
 
 ## shotgun vars
-var shotgun_amount = 10
-var shotgun_spread = PI / 3
+var shotgun_amount = 6
+var shotgun_spread = PI / 2
 var shotgun_spawn_radius = 2
 var shotgun_speed = 150
 var shotgun_acorn_chance = 0.05
+var shotgun_speed_change = 60
 
 ## spinning ball vars
-var spinning_ball_amount = 7
+var spinning_ball_amount = 6
 var spinning_ball_acorn_chance = 1
 var spinning_ball_speed = 100
 var spinning_ball_rot_speed = 40
 var spinning_ball_spawn_dist = 2
-var spinning_ball_radius = 50
+var spinning_ball_radius = 60
 
 ## burst vars
-var burst_amount = 16
+var burst_amount = 12
 var burst_acorn_chance = 0.1
-var burst_speed = 150
+var burst_speed = 125
 var burst_spawn_dist = 2
 
 ## snipe vars
-var snipe_speed = 400
+var snipe_speed = 300
 var snipe_spawn_dist = 2
 
 ## frenzy vars
 var frenzy_speed = 75
 var frenzy_acorns_per_wave = 8
-var frenzy_wave_num = 100
+var frenzy_wave_num = 60
 var frenzy_wave_cooldown = 0.2
 var frenzy_spawn_dist = 2
 var frenzy_turn = PI / 32
@@ -94,7 +95,6 @@ func take_damage(damage):
 	health -= damage
 	if health <= 0:
 		death()
-	print("boss damaged")
 
 func death():
 	pass
@@ -209,9 +209,8 @@ func dash_move():
 func shotgun_attack():
 	var dir_vect = (Singleton.player.global_position - global_position).normalized()
 	update_facing(dir_vect)
-	var start_angle = dir_vect.angle() - shotgun_spread / 2 + shotgun_spread / shotgun_amount / 2
 	for i in range(shotgun_amount):
-		var cur_dir = Vector2.RIGHT.rotated(start_angle + i * shotgun_spread / shotgun_amount)
+		var cur_dir = dir_vect.rotated(randf_range(-shotgun_spread/2, shotgun_spread/2))
 		var new_projectile
 		if randf() < shotgun_acorn_chance:
 			new_projectile = acorn_scene.instantiate()
@@ -220,7 +219,7 @@ func shotgun_attack():
 			new_projectile.bounces = nut_bounces
 		new_projectile.global_position = global_position + cur_dir * shotgun_spawn_radius
 		new_projectile.dir = cur_dir
-		new_projectile.speed = shotgun_speed
+		new_projectile.speed = shotgun_speed + randf_range(-shotgun_speed_change/2, shotgun_speed_change/2)
 		get_parent().get_node("Projectiles").call_deferred("add_child", new_projectile)
 
 func spinning_ball_attack():
@@ -236,7 +235,7 @@ func spinning_ball_attack():
 	new_spinning_ball.bounces = nut_bounces
 	new_spinning_ball.global_position = global_position + dir_vect * spinning_ball_spawn_dist
 	get_parent().get_node("Projectiles").call_deferred("add_child", new_spinning_ball)
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(1 * idle_mult).timeout
 	new_spinning_ball.still = false
 
 func burst_attack():
