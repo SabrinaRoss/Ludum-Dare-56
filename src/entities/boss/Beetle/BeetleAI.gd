@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var max_health = 250
+var max_health = 500
 
 var move_state_time = 4
 
