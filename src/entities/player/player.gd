@@ -27,7 +27,7 @@ var roll_vel = 0
 var bullet_timer = 0
 var slash_damage = 50
 var bullet_damage = 1
-var parry_damage = 50
+var parry_damage = 20
 
 # 0 - ant
 # 1 - beetle
@@ -78,6 +78,7 @@ func _physics_process(delta: float) -> void:
 		calc_movement_physics(delta)
 		do_actions()
 	move_and_slide()
+	
 	tick_timers(delta)
 
 func get_input():
@@ -128,14 +129,14 @@ func do_actions():
 		$Sound/roll.play()
 		animp.play("roll")
 	
-	if action_just_pressed:
+	elif action_just_pressed:
 		match animal:
 			0:
 				slash()
 			1:
 				parry()
 
-	if action_is_pressed and animal == 2 and bullet_timer <= 0:
+	elif action_is_pressed and animal == 2 and bullet_timer <= 0:
 		shoot()
 
 func slash():
