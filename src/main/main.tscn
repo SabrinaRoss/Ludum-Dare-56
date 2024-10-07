@@ -10,3 +10,4 @@ script = ExtResource("1_wfnoq")
 offset = Vector2(160, 90)
 
 [node name="TransitionBosses" parent="Camera2D" instance=ExtResource("2_b3ls1")]
+top_level = true
