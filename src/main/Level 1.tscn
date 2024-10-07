@@ -43,8 +43,5 @@ shape = SubResource("RectangleShape2D_f656i")
 position = Vector2(160, 190)
 shape = SubResource("RectangleShape2D_f656i")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(160, 90)
-
 [node name="Beetle" parent="." instance=ExtResource("3_ms3k3")]
 position = Vector2(220, 106)

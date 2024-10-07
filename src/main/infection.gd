@@ -22,4 +22,8 @@ func _process(delta: float) -> void:
 			if diff.length() > 1:
 				line.points[0] += diff.normalized() * speed
 			else:
-				get_parent().queue_free()
+				Singleton.camera.zoom += Vector2(0.1,0.1)
+				var camDiff = destination - Singleton.camera.position - Vector2(160,90)
+				Singleton.camera.position += camDiff/30.0 #ik the variable is hardcoded, stfu
+				if Singleton.camera.zoom.x > 30:
+					get_parent().queue_free()
