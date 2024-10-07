@@ -21,32 +21,35 @@ var last_shader = ColorRect
 func _ready() -> void:
 	vel = Vector2.ZERO
 	attacking = false
-	health = 250.0 #make more later idk
+	health = 300.0 #make more later idk
 	screenSize = get_viewport_rect().size
-	$Ai/Player_near/Player_near_sprite.modulate.a = .50
+	$Ai/Player_near/Player_near_sprite.modulate.a = .10
 	lo_shaders.append(get_parent().get_node("180p_Shader"))
 	lo_shaders.append(get_parent().get_node("GreyScale_Shader"))
 	lo_shaders.append(get_parent().get_node("Screenshake_Shader"))
 	lo_shaders.append(get_parent().get_node("FlipScreen_Shader"))
+	$Hitbox/AnimationPlayer.play("idle")
 func _physics_process(delta: float) -> void:
 	if (!attacking):
-		position += vel * delta * 20
+		position += vel * delta * 30
 		position = position.clamp(Vector2.ZERO, screenSize)
 		
-		if (position.x > screenSize.x -10 or position.x < 10):
+		if (position.x > screenSize.x -20 or position.x < 20):
 			vel.x *= -1
-		elif (position.y > screenSize.y - 10 or position.y < 10):
+		elif (position.y > screenSize.y - 20 or position.y < 20):
 			vel.y *= -1
+		var dir_vect = vel.normalized()
+		update_facing(dir_vect)
 		if !re_move:
 			re_move = true
 			move()
 	else:
 		var ai = get_node("Ai")
-		if (health < 50):
+		if (health < 75):
 			ace_attack()
 		ai.main_attack()		
 		re_move = false
-
+	if (health <= 0): queue_free()
 func ace_attack():
 	if re_move && can_shader_bend && second_phase: shader_include()
 	pass
@@ -76,7 +79,7 @@ func shader_include():
 	add_child(timer)
 	timer.start()
 	rand_shader.visible = true
-	health += 5
+	health += 10
 	timer.timeout.connect(_on_timeout.bind(rand_shader))
 func _on_timeout(rand_shader):
 	rand_shader.visible = false
@@ -101,9 +104,16 @@ func player_hit_restart():
 func _on_state_changer_timeout() -> void:
 	if (attacking):
 		attacking = false
-		
+		$Hitbox/AnimationPlayer.play("idle")
 		print("wddsa")
 	elif (!attacking):
 		attacking = true
 		can_shader_bend = true
+		$Hitbox/AnimationPlayer.play("summon")
 		print("Simon was here")
+
+func update_facing(dir : Vector2):
+	if dir.dot(Vector2.RIGHT) < 0:
+		$".".scale.x = 1
+	else:
+		$".".scale.x = -1

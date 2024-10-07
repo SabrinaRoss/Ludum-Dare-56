@@ -16,7 +16,6 @@ var gameScene
 var curEffectsNode
 var curProjectilesNode
 
-var infectionScene = preload("res://src/main/Infection.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
@@ -59,21 +58,6 @@ func setLevel(newLevel) -> void:
 func death() -> void:
 	get_tree().paused = true
 	deathAnimationPlaying = true
-
-func bossDeath() -> void:
-	var boss
-	if level == 1:
-		boss = gameScene.get_node("Beetle")
-	elif level == 2:
-		boss = gameScene.get_node("Squirrel")
-	else:
-		boss = gameScene.get_node("Beaver")
-	var infection = infectionScene.instantiate()
-	add_child(infection)
-	infection.destination = boss.position
-	infection.line.points[0] = Singleton.player.position
-	infection.line.points[1] = Singleton.player.position
-	get_tree().paused = true
 
 func _process(_delta: float) -> void:
 	if deathAnimationPlaying:
