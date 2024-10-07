@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bvnme36cdfxnr"]
+[gd_scene load_steps=32 format=3 uid="uid://bvnme36cdfxnr"]
 
 [ext_resource type="Script" path="res://src/entities/boss/Beetle/BeetleAI.gd" id="1_f8qx2"]
 [ext_resource type="Texture2D" uid="uid://by2nre4c1g8qy" path="res://assets/sprites/BeetleBoss-Sheet.png" id="2_kv3ci"]
@@ -1249,61 +1249,20 @@ _data = {
 "Weak_left": SubResource("Animation_5vam2")
 }
 
-[sub_resource type="Animation" id="Animation_utw5y"]
-resource_name = "damage"
-length = 0.05
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(5, 5, 5, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_4emik"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_1xvmg"]
-_data = {
-"RESET": SubResource("Animation_4emik"),
-"damage": SubResource("Animation_utw5y")
-}
-
 [node name="Beetle" type="CharacterBody2D"]
+position = Vector2(197, 78)
 script = ExtResource("1_f8qx2")
 
 [node name="BeetleBoss-sheet" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(-2, -8)
 scale = Vector2(1.3, 1.3)
 texture = ExtResource("2_kv3ci")
 hframes = 34
 
 [node name="Rotate" type="Node2D" parent="."]
-position = Vector2(-2, -8)
-rotation = 0.785398
+rotation = 3.92699
 
 [node name="main_attack" type="Area2D" parent="Rotate"]
-collision_layer = 0
-collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rotate/main_attack"]
 position = Vector2(-36, 0)
@@ -1313,8 +1272,6 @@ disabled = true
 debug_color = Color(0.958556, 0, 0.526491, 0.42)
 
 [node name="weak" type="Area2D" parent="Rotate"]
-collision_layer = 4
-collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rotate/weak"]
 position = Vector2(16.2635, 17.6777)
@@ -1325,8 +1282,6 @@ disabled = true
 debug_color = Color(2.02149e-06, 0.641939, 0.326133, 0.42)
 
 [node name="aoe" type="Area2D" parent="Rotate"]
-collision_layer = 0
-collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rotate/aoe"]
 shape = SubResource("CircleShape2D_srtja")
@@ -1341,11 +1296,3 @@ disabled = true
 libraries = {
 "": SubResource("AnimationLibrary_tkonk")
 }
-
-[node name="DamageAnimp" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_1xvmg")
-}
-
-[connection signal="area_entered" from="Rotate/main_attack" to="." method="deal_main_attack"]
-[connection signal="area_entered" from="Rotate/aoe" to="." method="deal_aoe_attack"]

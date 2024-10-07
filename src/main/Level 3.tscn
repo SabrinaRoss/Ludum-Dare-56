@@ -103,3 +103,9 @@ visible = false
 material = SubResource("ShaderMaterial_vq1p7")
 offset_right = 321.0
 offset_bottom = 182.0
+
+[node name="State_changer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[connection signal="timeout" from="State_changer" to="Beaver" method="_on_state_changer_timeout"]
