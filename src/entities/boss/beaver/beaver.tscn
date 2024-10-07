@@ -1,15 +1,73 @@
-[gd_scene load_steps=7 format=3 uid="uid://ch7qrikum5eyl"]
+[gd_scene load_steps=11 format=3 uid="uid://ch7qrikum5eyl"]
 
 [ext_resource type="Script" path="res://src/entities/boss/beaver/beaver.gd" id="1_d2i2x"]
 [ext_resource type="Script" path="res://src/entities/boss/beaver/beaverAI.gd" id="2_553ta"]
 [ext_resource type="Texture2D" uid="uid://badkiyyh0u7eb" path="res://assets/sprites/Beaver_Berrier.png" id="3_em727"]
-[ext_resource type="Texture2D" uid="uid://bdwkbjtjtu6tx" path="res://icon.svg" id="3_fr3dc"]
+[ext_resource type="Texture2D" uid="uid://r54h1pk5vnoo" path="res://assets/sprites/boss_beaver.png" id="4_1mmsn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uybsu"]
-radius = 34.0
+radius = 26.5047
+
+[sub_resource type="Animation" id="Animation_y0g7d"]
+resource_name = "summon"
+length = 0.8
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.142857, 0.3, 0.428571, 0.571429),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_s5org"]
+resource_name = "idle"
+length = 0.55
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_kxsve"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d7o0k"]
+_data = {
+"RESET": SubResource("Animation_kxsve"),
+"idle": SubResource("Animation_s5org"),
+"summon": SubResource("Animation_y0g7d")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ij7q"]
-size = Vector2(31, 30)
+size = Vector2(64, 49)
 
 [node name="Beaver" type="Node2D"]
 script = ExtResource("1_d2i2x")
@@ -20,14 +78,14 @@ collision_mask = 2
 script = ExtResource("2_553ta")
 
 [node name="Player_near" type="CollisionShape2D" parent="Ai"]
-position = Vector2(-1, 0)
+position = Vector2(0, 1)
 scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_uybsu")
 
 [node name="Player_near_sprite" type="Sprite2D" parent="Ai/Player_near"]
 texture_filter = 1
-position = Vector2(1.90735e-06, 1.90735e-06)
-scale = Vector2(2.1875, 2.1875)
+position = Vector2(-1.5, -2.27374e-13)
+scale = Vector2(1.75, 1.8125)
 texture = ExtResource("3_em727")
 
 [node name="Timer_Player_Near" type="Timer" parent="Ai"]
@@ -37,13 +95,23 @@ one_shot = true
 collision_layer = 4
 collision_mask = 8
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Hitbox"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_d7o0k")
+}
+autoplay = "summon"
+
 [node name="Sprite2D" type="Sprite2D" parent="Hitbox"]
+texture_filter = 1
+texture_repeat = 1
 position = Vector2(-1.5, -0.625009)
-scale = Vector2(0.226562, 0.228516)
-texture = ExtResource("3_fr3dc")
+texture = ExtResource("4_1mmsn")
+hframes = 3
+vframes = 4
 
 [node name="Enemy_Collision" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-1.5, -1)
+position = Vector2(-2, 5.5)
 shape = SubResource("RectangleShape2D_7ij7q")
 
 [connection signal="area_entered" from="Ai" to="Ai" method="_on_area_entered"]

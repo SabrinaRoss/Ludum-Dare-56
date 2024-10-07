@@ -23,11 +23,11 @@ func _physics_process(delta: float) -> void:
 func main_attack():
 	if $"..".re_move:
 		smite_player()
-		if ($"..".health < 200):	
+		if ($"..".health < 220):	
 			smite_grid_lines_vertical()
-		if ($"..".health < 150):
+		if ($"..".health < 170):
 			smite_grid_lines_horizontal()
-		if ($"..".health < 100):
+		if ($"..".health < 120):
 			smite_random_position()
 	
 func smite_player():
@@ -105,6 +105,11 @@ func second_attack(): # proximity attack
 	# TODO: Do shit with the player when the player is more developed
 	var player = cur_body.owner
 	player.take_damage(999999999)
+	var animation_player = $"../Hitbox/AnimationPlayer"
+	if animation_player:
+		animation_player.play("summon")
+		$Timer_Player_Near.stop()
+	
 	pass
 
 	
@@ -129,4 +134,5 @@ func _on_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, 
 func _on_area_shape_exited(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
 	$Timer_Player_Near.stop()
 	$Player_near/Player_near_sprite.modulate = Color.WHITE
+	$Player_near/Player_near_sprite.modulate.a = .10
 	print("SHIT!")

@@ -92,7 +92,7 @@ func calc_movement_physics(delta):
 	compute_axis("x", delta)
 	compute_axis("y", delta)
 	
-	if (animp.current_animation != "shoot" or not action_is_pressed) and animp.current_animation != "slash":
+	if animp.current_animation != "shoot" and animp.current_animation != "slash":
 		update_facing(input_vect)
 		if input_vect == Vector2.ZERO:
 			animp.play("idle")
@@ -167,7 +167,6 @@ func shoot():
 	new_bullet.speed = bullet_speed
 	new_bullet.damage = bullet_damage
 	add_child(new_bullet)
-	#get_parent().get_node("Projectiles").call_deferred("add_child", new_bullet)
 	bullet_timer = bullet_cooldown
 
 func slash_hit(target : Area2D):
@@ -180,7 +179,7 @@ func tick_timers(delta):
 func take_damage(damage):
 	cur_health -= damage
 	Singleton.health_bar_scene.damageAnimation()
-	$DamageAnimp.play("damage")
+	#$DamageAnimp.play("damage")
 	#var dmg_ind = damage_indicator.instantiate()
 	#dmg_ind.setIntensity(damage)
 	#Singleton.main.curEffectsNode.add_child(dmg_ind)
