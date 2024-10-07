@@ -93,6 +93,7 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(damage):
 	health -= damage
+	$Sound/hurt.play()
 	if health <= 0:
 		death()
 
@@ -186,6 +187,14 @@ func check_switch_state():
 		6:
 			check_switch_frenzy_state()
 
+func jump_sound():
+	$Sound/jump.pitch_scale = randf_range(1.9, 2.1)
+	$Sound/jump.play()
+
+func throw_sound():
+	$Sound/jump.pitch_scale = randf_range(.9, 1.1)
+	$Sound/jump.play()
+
 func update_facing(dir : Vector2):
 	if dir.dot(Vector2.RIGHT) < 0:
 		transformables.scale.x = 1
@@ -210,6 +219,7 @@ func dash_move():
 func shotgun_attack():
 	var dir_vect = (Singleton.player.global_position - global_position).normalized()
 	update_facing(dir_vect)
+	throw_sound()
 	for i in range(shotgun_amount):
 		var cur_dir = dir_vect.rotated(randf_range(-shotgun_spread/2, shotgun_spread/2))
 		var new_projectile
@@ -222,6 +232,7 @@ func shotgun_attack():
 		new_projectile.dir = cur_dir
 		new_projectile.speed = shotgun_speed + randf_range(-shotgun_speed_change/2., shotgun_speed_change/2.)
 		get_parent().get_node("Projectiles").call_deferred("add_child", new_projectile)
+		
 
 func spinning_ball_attack():
 	var dir_vect = (Singleton.player.global_position - global_position).normalized()
@@ -238,10 +249,12 @@ func spinning_ball_attack():
 	get_parent().get_node("Projectiles").call_deferred("add_child", new_spinning_ball)
 	await get_tree().create_timer(1 * idle_mult).timeout
 	new_spinning_ball.still = false
+	throw_sound()
 
 func burst_attack():
 	var angle_inc = TAU / burst_amount
 	var start_angle = randf_range(0, angle_inc)
+	throw_sound()
 	for i in range(burst_amount):
 		var dir_vect = Vector2.from_angle(start_angle + angle_inc * i)
 		var new_projectile
@@ -267,6 +280,7 @@ func snipe_attack():
 func spawn_frenzy_wave():
 	var start_angle = frenzy_degree
 	var angle_inc = TAU / frenzy_acorns_per_wave
+	throw_sound()
 	for i in frenzy_acorns_per_wave:
 		var ang = start_angle + angle_inc * i
 		var nut_dir = Vector2.RIGHT.rotated(ang)
@@ -350,6 +364,7 @@ func enter_idle_state():
 func enter_jump_state():
 	Singleton.main.phase_change()
 	animp.play("jump_start")
+	jump_sound()
 	jump_starting = true
 	move_destination = Vector2.ZERO
 	update_facing((move_destination - global_position).normalized())

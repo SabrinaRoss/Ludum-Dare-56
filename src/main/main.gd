@@ -54,6 +54,8 @@ func setLevel(newLevel) -> void:
 		var intro = introScene.instantiate()
 		add_child(intro)
 		intro.playAnimation()
+		$Music/BeaverIntro.play()
+		cur_music = $Music/BeaverIntro
 		await intro.animationFinished
 		intro.queue_free()
 		gameScene = level1Scene.instantiate()
@@ -77,8 +79,8 @@ func setLevel(newLevel) -> void:
 			$Music/SquirrelIntro1.play()
 			cur_music = $Music/SquirrelIntro1
 		3:
-			$Music/BeaverIntro.play()
-			cur_music = $Music/BeaverIntro
+			$Music/BeaverLoop.play()
+			cur_music = $Music/BeaverLoop
 	
 func getBoss():
 	if level == 1:
@@ -105,6 +107,7 @@ func death() -> void:
 
 func bossDeath() -> void:
 	get_tree().paused = true
+	$Sound/boss_kill.play()
 	await fade_out_music()
 	var boss = getBoss()
 	var infection = infectionScene.instantiate()
@@ -125,6 +128,7 @@ func bossDeath() -> void:
 	await t.finished
 	
 	var trans = Singleton.camera.get_node("TransitionBosses")
+	$Sound/brain_stuff.play()
 	trans.cover_screen()
 	await trans.transition_finished
 	setLevel(level+1)

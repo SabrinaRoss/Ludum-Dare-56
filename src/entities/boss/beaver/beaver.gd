@@ -85,9 +85,18 @@ func _on_timeout(rand_shader):
 	rand_shader.visible = false
 	can_shader_bend = true
 	last_shader = rand_shader
-	
+
+func footstep():
+	$Sound/walk.pitch_scale = randf_range(0.8, 1)
+	$Sound/walk.play()
+
+func scream():
+	$Sound/scream.pitch_scale = randf_range(0.9, 1.1)
+	$Sound/scream.play()
+
 func take_damage(damage):
 	health -= damage
+	$Sound/hurt.play()
 	if health <= 0:
 		death()
 

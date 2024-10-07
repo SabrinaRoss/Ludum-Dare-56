@@ -1,9 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://bmkjq2v77ou1d"]
+[gd_scene load_steps=24 format=3 uid="uid://bmkjq2v77ou1d"]
 
 [ext_resource type="Script" path="res://src/entities/player/player.gd" id="1_2nvsa"]
 [ext_resource type="PackedScene" uid="uid://dj77jvs4c3x0c" path="res://src/helper/shadow/shadow.tscn" id="2_6kiui"]
 [ext_resource type="Texture2D" uid="uid://dv2rc810bcnoj" path="res://assets/sprites/Ant.png" id="2_q1bvx"]
 [ext_resource type="Texture2D" uid="uid://qh5lr501ywbx" path="res://assets/sprites/slash.png" id="2_tiugg"]
+[ext_resource type="AudioStream" uid="uid://cfufvq5lxxcmj" path="res://assets/sound effects/player/dodge.wav" id="5_cdh0y"]
+[ext_resource type="AudioStream" uid="uid://dec3kntolu12q" path="res://assets/sound effects/player/walk.wav" id="6_wh6p6"]
+[ext_resource type="AudioStream" uid="uid://c4atx0wo4v0bw" path="res://assets/sound effects/player/slash.wav" id="7_nstc2"]
+[ext_resource type="AudioStream" uid="uid://cyw5vrej75ltq" path="res://assets/sound effects/player/shoot.wav" id="8_jbhpl"]
+[ext_resource type="AudioStream" uid="uid://dcw5v0a3p6364" path="res://assets/sound effects/player/parry.wav" id="9_5fnss"]
+[ext_resource type="AudioStream" uid="uid://ccqdctwdpm4a1" path="res://assets/sound effects/boss_squirrel/acorn_parry.wav" id="10_rxwlh"]
+[ext_resource type="AudioStream" uid="uid://v6gq7aqkodp0" path="res://assets/sound effects/boss_squirrel/nut_parry.wav" id="11_75n50"]
 
 [sub_resource type="Animation" id="Animation_chsr5"]
 length = 0.001
@@ -154,6 +161,20 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 2]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.125),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_footstep"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_00xlg"]
@@ -327,6 +348,42 @@ vframes = 3
 libraries = {
 "": SubResource("AnimationLibrary_jbrrp")
 }
+
+[node name="Sound" type="Node2D" parent="."]
+
+[node name="roll" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("5_cdh0y")
+pitch_scale = 1.2
+
+[node name="footstep" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("6_wh6p6")
+volume_db = 24.0
+pitch_scale = 0.9
+
+[node name="slash" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("7_nstc2")
+volume_db = 3.0
+pitch_scale = 1.3
+
+[node name="shoot" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("8_jbhpl")
+volume_db = 7.0
+pitch_scale = 0.9
+
+[node name="parry" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("9_5fnss")
+volume_db = 18.0
+pitch_scale = 0.9
+
+[node name="parry_acorn" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("10_rxwlh")
+volume_db = 10.0
+pitch_scale = 1.4
+
+[node name="parry_nut" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("11_75n50")
+volume_db = 20.0
+pitch_scale = 0.9
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="slash_hit"]

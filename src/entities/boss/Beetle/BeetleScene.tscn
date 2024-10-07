@@ -2387,8 +2387,10 @@ explosiveness = 1.0
 [node name="Spasm" type="Node2D" parent="."]
 
 [node name="Shadow" parent="Spasm" instance=ExtResource("2_w4f2t")]
-offset_left = -24.0
-offset_top = -19.0
+offset_left = -13.6
+offset_top = -10.3
+offset_right = 13.6
+offset_bottom = 6.0
 
 [node name="BeetleBoss-sheet" type="Sprite2D" parent="Spasm"]
 texture_filter = 1

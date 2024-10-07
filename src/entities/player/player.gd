@@ -125,6 +125,7 @@ func do_actions():
 		animp.play("RESET")
 		animp.advance(0)
 		update_facing(old_roll_dir)
+		$Sound/roll.play()
 		animp.play("roll")
 	
 	if action_just_pressed:
@@ -141,6 +142,7 @@ func slash():
 	var mouse_vect = (get_global_mouse_position() - global_position).normalized()
 	$Hurtbox.rotation = mouse_vect.angle()
 	update_facing(mouse_vect)
+	$Sound/slash.play()
 	animp.play("slash")
 
 func parry():
@@ -148,6 +150,7 @@ func parry():
 	parrying = true
 	velocity = Vector2.ZERO
 	update_facing(mouse_vect)
+	$Sound/parry.play()
 	animp.play("parry")
 
 func bullet_parried(bullet_area : Area2D):
@@ -157,13 +160,16 @@ func bullet_parried(bullet_area : Area2D):
 		bullet.dir = facing_dir
 		bullet.damage = parry_damage
 		bullet.speed = parry_speed
+		$Sound/parry_acorn.play()
 	else:
 		bullet.explode()
+		$Sound/parry_nut.play()
 
 func shoot():
 	var mouse_vect = (get_global_mouse_position() - global_position).normalized()
 	update_facing(mouse_vect)
 	animp.play("shoot")
+	$Sound/shoot.play()
 	var new_bullet = bullet_scene.instantiate()
 	new_bullet.global_position = global_position + mouse_vect * 10
 	new_bullet.dir = facing_dir
@@ -192,6 +198,10 @@ func take_damage(damage):
 	if cur_health <= 0:
 		Singleton.main.death()
 		dmg_ind.setIntensity(damage*2)
+
+func play_footstep():
+	$Sound/footstep.pitch_scale = randf_range(0.8, 1.)
+	$Sound/footstep.play()
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	match anim_name:

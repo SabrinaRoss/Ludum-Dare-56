@@ -7,4 +7,8 @@ func _ready() -> void:
 
 
 func startButtonPressed():
+	main.get_node("Sound").get_node("button_press").play()
 	main.setLevel(1)
+
+func _on_button_mouse_entered() -> void:
+	main.get_node("Sound").get_node("button_hover").play()
