@@ -1,10 +1,25 @@
 [gd_scene load_steps=11 format=3 uid="uid://mivgkrnbtiw3"]
 
 [ext_resource type="PackedScene" uid="uid://ep7y72lycq5p" path="res://src/entities/boss/squirrel/squirrel.tscn" id="1_7alo3"]
-[ext_resource type="Texture2D" uid="uid://daypykrpv7ouh" path="res://assets/sprites/Backgrounds/Player_Squirrel/player_squirrel_backround.png" id="1_v03u6"]
-[ext_resource type="Texture2D" uid="uid://chn6j67k4nog3" path="res://assets/sprites/Backgrounds/Player_Squirrel/player_squirrel_tree-Sheet.png" id="2_5fv85"]
+[ext_resource type="Texture2D" uid="uid://by1dlq6sjcwvq" path="res://assets/sprites/Backgrounds/Player_Squirrel/player_squirrel_backround.png" id="1_v03u6"]
+[ext_resource type="Texture2D" uid="uid://b80ajpsniknsk" path="res://assets/sprites/Backgrounds/Player_Squirrel/player_squirrel_tree-Sheet.png" id="2_5fv85"]
 [ext_resource type="PackedScene" uid="uid://t2oal6prg838" path="res://src/entities/player/player_beetle.tscn" id="2_lvcr3"]
 [ext_resource type="PackedScene" uid="uid://db4onktx5rhfw" path="res://src/main/Health Bar.tscn" id="3_ade2g"]
+
+[sub_resource type="Animation" id="Animation_rhbu5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_qpgig"]
 resource_name = "default"
@@ -21,21 +36,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 1]
-}
-
-[sub_resource type="Animation" id="Animation_rhbu5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kqs5m"]

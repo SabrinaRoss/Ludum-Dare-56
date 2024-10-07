@@ -5,7 +5,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kpsqs"]
 shader = ExtResource("1_aga4e")
-shader_parameter/rect = Vector2(27, 13)
+shader_parameter/rect = Vector2(24, 10)
 
 [node name="Shadow" type="ColorRect"]
 material = SubResource("ShaderMaterial_kpsqs")
