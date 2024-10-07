@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://mivgkrnbtiw3"]
 
 [ext_resource type="PackedScene" uid="uid://ep7y72lycq5p" path="res://src/entities/boss/squirrel/squirrel.tscn" id="1_7alo3"]
-[ext_resource type="Texture2D" uid="uid://by1dlq6sjcwvq" path="res://assets/sprites/Backgrounds/Player_Squirrel/player_squirrel_backround.png" id="1_v03u6"]
-[ext_resource type="Texture2D" uid="uid://b80ajpsniknsk" path="res://assets/sprites/Backgrounds/Player_Squirrel/player_squirrel_tree-Sheet.png" id="2_5fv85"]
+[ext_resource type="Texture2D" uid="uid://buj07ejvktt4x" path="res://assets/sprites/Backgrounds/Player_Squirrel/player_squirrel_backround.png" id="1_v03u6"]
+[ext_resource type="Texture2D" uid="uid://mcgub1nub6x4" path="res://assets/sprites/Backgrounds/Player_Squirrel/player_squirrel_tree-Sheet.png" id="2_5fv85"]
 [ext_resource type="PackedScene" uid="uid://t2oal6prg838" path="res://src/entities/player/player_beetle.tscn" id="2_lvcr3"]
 [ext_resource type="PackedScene" uid="uid://db4onktx5rhfw" path="res://src/main/Health Bar.tscn" id="3_ade2g"]
 

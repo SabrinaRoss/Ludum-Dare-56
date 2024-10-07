@@ -43,6 +43,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	state = 2
 	
 	position += vel * delta * speed
 	position = position.clamp(Vector2.ZERO, screenSize)
@@ -96,9 +97,9 @@ func face_player():
 	update_direction_facing(angle)
 	
 func go_to_player():
-	var playerPos = player.position
-	var angleTo = get_angle_to(playerPos)
-	var distance = position.distance_to(playerPos)
+	var playerPos = player.global_position
+	var angleTo = get_angle_to(playerPos - global_position)
+	var distance = global_position.distance_to(playerPos)
 	face_player()
 	
 	#should add anim in here
@@ -166,11 +167,11 @@ func main_attack() -> void:
 	go_to_player()
 	await get_tree().create_timer(2.0).timeout
 	pick_between_four(["Attack_up_left","Attack_up","Attack_down","Attack_down_left"])
-	await get_tree().create_timer(1.0).timeout
+	await $AnimationPlayer.animation_finished
 	pick_between_two(["RESET_left","RESET"])
 	pick_between_two(["Weak_left","Weak"])
 	#expose vulnerable
-	await get_tree().create_timer(1.25).timeout
+	await $AnimationPlayer.animation_finished
 	
 	pick_between_two(["RESET_left","RESET"])
 	state = 0
@@ -289,7 +290,7 @@ func make_decisions() -> void:
 				stage = 1
 				state = 4
 				
-			var stateper = rng.randi_range(0, 3)
+			var stateper = rng.randi_range(1, 3)
 			if(stage == 0):
 				state = stateper
 			else:
