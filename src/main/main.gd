@@ -71,8 +71,8 @@ func setLevel(newLevel) -> void:
 			$Music/SquirrelIntro1.play()
 			cur_music = $Music/SquirrelIntro1
 		3:
-			$Music/BeaverLoop.play()
-			cur_music = $Music/BeaverLoop
+			$Music/BeaverIntro.play()
+			cur_music = $Music/BeaverIntro
 	
 func getBoss():
 	if level == 1:
@@ -172,3 +172,7 @@ func _on_beetle_intro_finished() -> void:
 func _on_squirrel_intro_1_finished() -> void:
 	$Music/SquirrelLoop1.play()
 	cur_music = $Music/SquirrelLoop1
+
+func _on_beaver_intro_finished() -> void:
+	$Music/BeaverLoop.play()
+	cur_music = $Music/BeaverLoop
