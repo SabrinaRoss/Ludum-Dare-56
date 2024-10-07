@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dd6v7pypex615"]
+[gd_scene load_steps=6 format=3 uid="uid://dd6v7pypex615"]
 
 [ext_resource type="PackedScene" uid="uid://bmkjq2v77ou1d" path="res://src/entities/player/player_ant.tscn" id="1_o7ecf"]
 [ext_resource type="PackedScene" uid="uid://db4onktx5rhfw" path="res://src/main/Health Bar.tscn" id="2_uqitk"]
+[ext_resource type="PackedScene" uid="uid://bvnme36cdfxnr" path="res://src/entities/boss/Beetle/BeetleScene.tscn" id="3_ms3k3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ehqe3"]
 size = Vector2(20, 180)
@@ -11,15 +12,18 @@ size = Vector2(320, 20)
 
 [node name="Level1" type="Node2D"]
 process_mode = 3
+y_sort_enabled = true
 
 [node name="PlayerAnt" parent="." instance=ExtResource("1_o7ecf")]
 position = Vector2(89, 95)
 
 [node name="HealthBar" parent="." instance=ExtResource("2_uqitk")]
 
-[node name="Effects" type="Node" parent="."]
+[node name="Effects" type="Node2D" parent="."]
+y_sort_enabled = true
 
-[node name="Projectiles" type="Node" parent="."]
+[node name="Projectiles" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Walls" type="StaticBody2D" parent="."]
 
@@ -38,3 +42,9 @@ shape = SubResource("RectangleShape2D_f656i")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
 position = Vector2(160, 190)
 shape = SubResource("RectangleShape2D_f656i")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(160, 90)
+
+[node name="Beetle" parent="." instance=ExtResource("3_ms3k3")]
+position = Vector2(220, 106)

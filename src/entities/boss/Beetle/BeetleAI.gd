@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
 
+var aoe_damage = 1
+var main_attack_damage = 1
+
 var state = 0 #int
 var screenSize #Vector2
 var vel #Vector2
@@ -35,7 +38,7 @@ func _ready() -> void:
 	weakCollider = $Rotate/weak
 	aPlayer = $AnimationPlayer
 	
-	player = get_parent().get_node("Player")
+	player = get_parent().get_node("PlayerAnt")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -145,11 +148,7 @@ func update_direction_facing(dir: Vector2):
 			curDirection = 2
 		Vector2(-1,1):
 			curDirection = 3
-			
-			
-func _on_weak_area_shape_entered(_area_rid: RID, _area: Area2D, _area_shape_index: int, _local_shape_index: int) -> void:
-	take_damage(5.0)
-		
+
 func music_player(music):
 	#play intro
 	await get_tree().create_timer(3.0).timeout #length of intro
@@ -264,10 +263,24 @@ func move_fast() -> void:
 	pick_between_two(["RESET_left","RESET"])
 	state = 0
 	something_running = 0
-	
+
+func deal_main_attack(area : Area2D):
+	var target = area.owner
+	target.take_damage(main_attack_damage)
+
+func deal_aoe_attack(area : Area2D):
+	var target = area.owner
+	target.take_damage(aoe_damage)
+
 func take_damage(damage: float) -> void:
 	health -= damage
-	
+	$DamageAnimp.play("damage")
+	if health <= 0:
+		death()
+
+func death():
+	pass
+
 func make_decisions() -> void:
 	match state:
 		0: #find new state

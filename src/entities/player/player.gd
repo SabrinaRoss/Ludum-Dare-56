@@ -46,14 +46,14 @@ func _ready() -> void:
 	match animal:
 		# max_vel / x where x is the num of seconds to reach max_vel
 		0:
-			max_vel = 100
+			max_vel = 60
 			input_acc = max_vel / 0.05
 			idle_deacc = max_vel / 0.1
 			turn_acc = max_vel / 0.02
-			roll_vel = 500
+			roll_vel = 250
 			max_health = 5
 		1:
-			max_vel = 100
+			max_vel = 90
 			input_acc = max_vel / 0.05
 			idle_deacc = max_vel / 0.1
 			turn_acc = max_vel / 0.02
@@ -84,9 +84,20 @@ func get_input():
 	roll_just_pressed = Input.is_action_just_pressed("roll")
 	facing_dir = (get_global_mouse_position() - global_position).normalized()
 
+func update_facing(vect):
+	if vect.x != 0:
+		transformables.scale.x = vect.x / abs(vect.x)
+
 func calc_movement_physics(delta):
 	compute_axis("x", delta)
 	compute_axis("y", delta)
+	
+	if animp.current_animation != "shoot" and animp.current_animation != "slash":
+		update_facing(input_vect)
+		if input_vect == Vector2.ZERO:
+			animp.play("idle")
+		else:
+			animp.play("run")
 
 func compute_axis(axis, delta):
 	if input_vect[axis] == 0:
@@ -108,6 +119,8 @@ func do_actions():
 			velocity = roll_vel * facing_dir
 		old_roll_dir = facing_dir if input_vect == Vector2.ZERO else input_vect
 		animp.play("RESET")
+		animp.advance(0)
+		update_facing(old_roll_dir)
 		animp.play("roll")
 	
 	if action_just_pressed:
@@ -121,6 +134,9 @@ func do_actions():
 		shoot()
 
 func slash():
+	var mouse_vect = (get_global_mouse_position() - global_position).normalized()
+	$Hurtbox.rotation = mouse_vect.angle()
+	update_facing(mouse_vect)
 	animp.play("slash")
 
 func parry():
@@ -128,6 +144,7 @@ func parry():
 	$transformables/ParryBox/CollisionShape2D.position = mouse_vect * 10
 	parrying = true
 	velocity = Vector2.ZERO
+	update_facing(mouse_vect)
 	animp.play("parry")
 
 func bullet_parried(bullet_area : Area2D):
@@ -141,9 +158,10 @@ func bullet_parried(bullet_area : Area2D):
 		bullet.explode()
 
 func shoot():
+	var mouse_vect = (get_global_mouse_position() - global_position).normalized()
+	update_facing(mouse_vect)
 	animp.play("shoot")
 	var new_bullet = bullet_scene.instantiate()
-	var mouse_vect = (get_global_mouse_position() - global_position).normalized()
 	new_bullet.global_position = global_position + mouse_vect * 10
 	new_bullet.dir = facing_dir
 	new_bullet.speed = bullet_speed
@@ -161,6 +179,7 @@ func tick_timers(delta):
 func take_damage(damage):
 	cur_health -= damage
 	Singleton.health_bar_scene.damageAnimation()
+	#$DamageAnimp.play("damage")
 	#var dmg_ind = damage_indicator.instantiate()
 	#dmg_ind.setIntensity(damage)
 	#Singleton.main.curEffectsNode.add_child(dmg_ind)
