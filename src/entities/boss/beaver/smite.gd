@@ -35,9 +35,8 @@ func _on_area_shape_exited(area_rid: RID, area: Area2D, area_shape_index: int, l
 func attack_player(area):
 	var breaver = get_parent().get_parent().get_node("Beaver")
 	if player_been_hit && player_can_be_hit && breaver.can_player_be_hit:
-		print("I love minecraft")
 		if area is Area2D:
 			var player = area.owner
 			breaver.player_hit_restart()
-			area.owner.take_damage(1)
+			area.owner.take_damage(360)
 			player_can_be_hit = false 
