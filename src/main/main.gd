@@ -58,18 +58,30 @@ func setLevel(newLevel) -> void:
 		curEffectsNode = gameScene.get_node("Effects")
 		curProjectilesNode = gameScene.get_node("Projectiles")
 	
+func getBoss():
+	if level == 1:
+		return gameScene.get_node("Beetle")
+	elif level == 2:
+		return gameScene.get_node("Squirrel")
+	else:
+		return gameScene.get_node("Beaver")
+	
 func death() -> void:
-	get_tree().paused = true
+	Engine.time_scale = 0.5
 	deathAnimationPlaying = true
+	var fb = Singleton.camera.get_node("FadeBlack")
+	fb.cover_screen()
+	await fb.transition_finished
+	Engine.time_scale = 1
+	get_tree().paused = true
+	setLevel(level)
+	fb.reveal_screen()
+	deathAnimationPlaying = false
+	await fb.transition_finished
+	get_tree().paused = false
 
 func bossDeath() -> void:
-	var boss
-	if level == 1:
-		boss = gameScene.get_node("Beetle")
-	elif level == 2:
-		boss = gameScene.get_node("Squirrel")
-	else:
-		boss = gameScene.get_node("Beaver")
+	var boss = getBoss()
 	var infection = infectionScene.instantiate()
 	add_child(infection)
 	infection.destination = boss.position
@@ -90,10 +102,6 @@ func bossDeath() -> void:
 func _process(_delta: float) -> void:
 	if deathAnimationPlaying:
 		Singleton.player.scale -= Vector2(1,1) * deathAnimationShrinkSpeed
-		if Singleton.player.scale.x <= 0:
-			deathAnimationPlaying = false
-			get_tree().paused = false
-			setLevel(0)
 	if zoomOutAnimationPlaying:
 		Singleton.camera.zoom -= Singleton.camera.zoom/4.0
 		if Singleton.camera.zoom.x < 1:
