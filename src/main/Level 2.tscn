@@ -76,7 +76,7 @@ autoplay = "default"
 
 [node name="PlayerBeetle" parent="." instance=ExtResource("2_lvcr3")]
 process_mode = 1
-position = Vector2(56, 84)
+position = Vector2(160, 90)
 
 [node name="Squirrel" parent="." instance=ExtResource("1_7alo3")]
 position = Vector2(289, 84)

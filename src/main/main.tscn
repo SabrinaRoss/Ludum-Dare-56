@@ -1,9 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfhgmxtiyw5is"]
+[gd_scene load_steps=4 format=3 uid="uid://bfhgmxtiyw5is"]
 
 [ext_resource type="Script" path="res://src/main/main.gd" id="1_wfnoq"]
+[ext_resource type="PackedScene" uid="uid://bejcshhck5gqq" path="res://src/helper/transition_bosses.tscn" id="2_b3ls1"]
+[ext_resource type="PackedScene" uid="uid://cg7v2wrqjceec" path="res://src/helper/fade_black.tscn" id="3_bx38u"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_wfnoq")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(160, 90)
+
+[node name="TransitionBosses" parent="Camera2D" instance=ExtResource("2_b3ls1")]
+top_level = true
+
+[node name="FadeBlack" parent="Camera2D" instance=ExtResource("3_bx38u")]

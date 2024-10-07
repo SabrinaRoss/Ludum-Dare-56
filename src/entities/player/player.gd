@@ -181,12 +181,13 @@ func take_damage(damage):
 	cur_health -= damage
 	Singleton.health_bar_scene.damageAnimation()
 	$DamageAnimp.play("damage")
-	#var dmg_ind = damage_indicator.instantiate()
-	#dmg_ind.setIntensity(damage)
-	#Singleton.main.curEffectsNode.add_child(dmg_ind)
-	#dmg_ind.position = position
-	#if cur_health <= 0:
-		#Singleton.main.death()
+	var dmg_ind = damage_indicator.instantiate()
+	dmg_ind.setIntensity(damage)
+	Singleton.main.curEffectsNode.add_child(dmg_ind)
+	dmg_ind.position = position
+	if cur_health <= 0:
+		Singleton.main.death()
+		dmg_ind.setIntensity(damage*2)
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	match anim_name:
