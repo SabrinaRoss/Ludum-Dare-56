@@ -75,6 +75,16 @@ func bossDeath() -> void:
 	infection.line.points[0] = Singleton.player.position
 	infection.line.points[1] = Singleton.player.position
 	get_tree().paused = true
+	var trans = Singleton.camera.get_node("TransitionBosses")
+	trans.cover_screen()
+	await trans.transition_finished
+	infection.queue_free()
+	setLevel(level+1)
+	trans.reveal_screen()
+	Singleton.camera.position = Vector2(0,0)
+	Singleton.camera.zoom = Vector2(1,1)
+	await trans.transition_finished
+	get_tree().paused = false
 
 func _process(_delta: float) -> void:
 	if deathAnimationPlaying:

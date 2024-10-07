@@ -25,5 +25,5 @@ func _process(delta: float) -> void:
 				Singleton.camera.zoom += Vector2(0.1,0.1)
 				var camDiff = destination - Singleton.camera.position - Vector2(160,90)
 				Singleton.camera.position += camDiff/30.0 #ik the variable is hardcoded, stfu
-				if Singleton.camera.zoom.x > 30:
-					get_parent().queue_free()
+				Singleton.camera.get_node("TransitionBosses").scale = Vector2(1.0,1.0)/Singleton.camera.zoom.x
+				Singleton.camera.get_node("TransitionBosses").position = Singleton.camera.position + Singleton.camera.offset# - Vector2(80,45)
