@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bmkjq2v77ou1d"]
+[gd_scene load_steps=11 format=3 uid="uid://bmkjq2v77ou1d"]
 
 [ext_resource type="Script" path="res://src/entities/player/player.gd" id="1_2nvsa"]
+[ext_resource type="Texture2D" uid="uid://dv2rc810bcnoj" path="res://assets/sprites/Ant.png" id="2_q1bvx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j3vac"]
 radius = 8.0
@@ -26,17 +27,19 @@ _data = {
 "slash": SubResource("Animation_00xlg")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_eio08"]
-size = Vector2(16, 16)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sxi0d"]
+radius = 2.0
+height = 8.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_erq0d"]
-size = Vector2(16, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w83he"]
+size = Vector2(6, 20)
 
 [node name="PlayerAnt" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_2nvsa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_j3vac")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -51,16 +54,26 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transformables/Hitbox"]
-shape = SubResource("RectangleShape2D_eio08")
+visible = false
+position = Vector2(-1, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_sxi0d")
 
 [node name="Hurtbox" type="Area2D" parent="transformables"]
 collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transformables/Hurtbox"]
-shape = SubResource("RectangleShape2D_erq0d")
+visible = false
+position = Vector2(7, 0)
+shape = SubResource("RectangleShape2D_w83he")
 
 [node name="Sprite2D" type="Sprite2D" parent="transformables"]
+texture_filter = 1
+position = Vector2(0, -10)
+texture = ExtResource("2_q1bvx")
+hframes = 2
+vframes = 3
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="transformables/Hurtbox" to="." method="slash_hit"]
