@@ -31,7 +31,7 @@ Direction:
 func _ready() -> void:
 	vel = Vector2.ZERO
 	screenSize = get_viewport_rect().size
-	health = 1.0
+	health = 100.0
 	speed = 45.0
 	aoeCollider = $Rotate/aoe
 	mainAttackCollider = $Rotate/main_attack
@@ -279,7 +279,7 @@ func take_damage(damage: float) -> void:
 		death()
 
 func death():
-	Singleton.main.bossDeath()
+	pass
 
 func make_decisions() -> void:
 	match state:
