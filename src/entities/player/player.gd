@@ -54,7 +54,7 @@ func _ready() -> void:
 			idle_deacc = max_vel / 0.1
 			turn_acc = max_vel / 0.02
 			roll_vel = 250
-			max_health = 5
+			max_health = 8
 		1:
 			max_vel = 90
 			input_acc = max_vel / 0.05
