@@ -14,7 +14,7 @@ var dash_speed = 150
 ## shotgun vars
 var shotgun_amount = 6
 var shotgun_spread = PI / 2
-var shotgun_spawn_radius = 2
+var shotgun_spawn_radius = 5
 var shotgun_speed = 150
 var shotgun_acorn_chance = 0.05
 var shotgun_speed_change = 60
@@ -24,25 +24,25 @@ var spinning_ball_amount = 6
 var spinning_ball_acorn_chance = 1
 var spinning_ball_speed = 100
 var spinning_ball_rot_speed = 40
-var spinning_ball_spawn_dist = 2
+var spinning_ball_spawn_dist = 5
 var spinning_ball_radius = 60
 
 ## burst vars
 var burst_amount = 12
 var burst_acorn_chance = 0.1
 var burst_speed = 125
-var burst_spawn_dist = 2
+var burst_spawn_dist = 5
 
 ## snipe vars
 var snipe_speed = 300
-var snipe_spawn_dist = 2
+var snipe_spawn_dist = 7
 
 ## frenzy vars
 var frenzy_speed = 75
 var frenzy_acorns_per_wave = 8
 var frenzy_wave_num = 30
 var frenzy_wave_cooldown = 0.2
-var frenzy_spawn_dist = 2
+var frenzy_spawn_dist = 5
 var frenzy_turn = PI / 32
 
 @onready var transformables = $Transformables
@@ -80,7 +80,7 @@ var has_frenzied = false
 
 func _ready() -> void:
 	health = max_health
-	switch_states(3)
+	switch_states(1)
 
 func _physics_process(delta: float) -> void:
 	physics_process_state(delta)
