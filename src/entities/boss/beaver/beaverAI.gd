@@ -51,10 +51,10 @@ func smite_ind_sound():
 
 func smite_grid_lines_vertical():
 	var viewport = get_tree().get_root().get_viewport().get_visible_rect()
-	for i in roundi(viewport.end.x):
+	for i in range(320):
 		if (!$"..".attacking): return
 		if (i % 50 == randi_range(0, 50)):
-			for j in roundi(viewport.end.y):
+			for j in roundi(180):
 				if (j % 5 == 0):
 					var timer = Timer.new()
 					timer.wait_time = .005
@@ -64,16 +64,16 @@ func smite_grid_lines_vertical():
 					await timer.timeout
 					var instance = smite.instantiate()
 					instance.scale *= .5
-					instance.global_position = Vector2(i, j)
+					instance.global_position = Vector2(i - 180, j - 90)
 					instance.rotation_degrees = randi_range(0, 360)
 					get_parent().get_parent().get_node("Projectiles").add_child(instance)
 
 func smite_grid_lines_horizontal():
 	var viewport = get_tree().get_root().get_viewport().get_visible_rect()
-	for i in roundi(viewport.end.y):
+	for i in range(180):
 		if (!$"..".attacking): return
 		if (i % 50 == randi_range(0, 50)):
-			for j in roundi(viewport.end.x):
+			for j in range(320):
 				if (j % 5 == 0):
 					var timer = Timer.new()
 					timer.wait_time = .005
@@ -83,10 +83,10 @@ func smite_grid_lines_horizontal():
 					await timer.timeout
 					var instance = smite.instantiate()
 					instance.scale *= .5
-					instance.global_position = Vector2(j, i)
+					instance.global_position = Vector2(j - 90, i - 180)
 					instance.rotation_degrees = randi_range(0, 360)
 					get_parent().get_parent().get_node("Projectiles").add_child(instance)
-					
+
 func smite_random_position():
 	for i in num_of_smites:
 		if (!$"..".attacking): return
@@ -100,7 +100,7 @@ func smite_random_position():
 		var instance = smite.instantiate()
 		instance.scale *= .5
 		var viewport = get_tree().get_root().get_viewport().get_visible_rect()
-		instance.global_position = Vector2(randf_range(10, viewport.size.x -10), randf_range(10, viewport.size.y - 10))
+		instance.global_position = Vector2(randf_range(-160 + 10, 160 -10), randf_range(-90 + 10, 90 - 10))
 		instance.rotation_degrees = randi_range(0, 360)
 		get_parent().get_parent().get_node("Projectiles").add_child(instance)
 

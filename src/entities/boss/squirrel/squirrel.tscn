@@ -415,7 +415,7 @@ autoplay = "idle"
 
 [node name="throw" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("4_ldqt1")
-volume_db = 16.0
+volume_db = 20.0
 
 [node name="snipe" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("4_ldqt1")
@@ -424,12 +424,12 @@ pitch_scale = 1.2
 
 [node name="jump" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("5_0e1nt")
-volume_db = 15.0
+volume_db = 20.0
 pitch_scale = 2.0
 
 [node name="snipe_charge" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("5_5vb3a")
-volume_db = 20.0
+volume_db = 24.0
 pitch_scale = 1.4
 
 [node name="hurt" type="AudioStreamPlayer" parent="Sound"]

@@ -2,6 +2,8 @@ extends Node2D
 
 var cur_music
 
+var swapping = false
+
 var paused = false
 var pauseMenuScene = preload("res://src/main/Pause Menu.tscn")
 var pauseMenu
@@ -98,6 +100,9 @@ func getBoss():
 		return gameScene.get_node("Beaver")
 	
 func death() -> void:
+	if swapping:
+		return
+	swapping = true
 	fade_out_music()
 	Engine.time_scale = 0.5
 	deathAnimationPlaying = true
@@ -111,8 +116,12 @@ func death() -> void:
 	deathAnimationPlaying = false
 	await fb.transition_finished
 	get_tree().paused = false
+	swapping = false
 
 func bossDeath() -> void:
+	if swapping:
+		return
+	swapping = true
 	get_tree().paused = true
 	$Sound/boss_kill.play()
 	await fade_out_music()
@@ -148,6 +157,7 @@ func bossDeath() -> void:
 	t.tween_property(gameScene, "scale", Vector2(1, 1), 3)
 	await t.finished
 	get_tree().paused = false
+	swapping = false
 
 func _process(_delta: float) -> void:
 	if deathAnimationPlaying:
