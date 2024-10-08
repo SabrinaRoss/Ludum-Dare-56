@@ -212,6 +212,9 @@ func music_player(music):
 
 func lunge():
 	var new_lunge_indic = lunge_indicator_scene.instantiate()
+	var dir_vect = (player.global_position - global_position).normalized()
+	new_lunge_indic.global_rotation = dir_vect.angle()
+	new_lunge_indic.global_position = global_position
 	get_parent().get_node("BeatleTelegraphs").call_deferred("add_child", new_lunge_indic)
 	cur_lunge_indic = new_lunge_indic
 	var t = create_tween()
@@ -223,7 +226,7 @@ func lunge():
 	cur_lunge_indic.get_node("AnimationPlayer").play("fade")
 	cur_lunge_indic = null
 	
-	var dir_vect = (player.global_position - global_position).normalized()
+	dir_vect = (player.global_position - global_position).normalized()
 	face_player()
 	pick_between_four(["Attack_up_left","Attack_up","Attack_down","Attack_down_left"])
 	var target_pos = global_position + dir_vect * main_attack_range

@@ -206,7 +206,6 @@ func dash_move():
 	var mid_vect : Vector2 = stage_middle - global_position
 	mid_vect /= 6
 	mid_vect = mid_vect.length_squared() * mid_vect.normalized()
-	print(mid_vect)
 	var player_vect = Singleton.player.global_position - global_position
 	player_vect = (200 - player_vect.length()) * player_vect.normalized()
 	var orth_vect = Vector2(player_vect.y, -player_vect.x).normalized()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bvnme36cdfxnr"]
+[gd_scene load_steps=51 format=3 uid="uid://bvnme36cdfxnr"]
 
 [ext_resource type="Script" path="res://src/entities/boss/Beetle/BeetleAI.gd" id="1_f8qx2"]
 [ext_resource type="Texture2D" uid="uid://by2nre4c1g8qy" path="res://assets/sprites/BeetleBoss-Sheet.png" id="2_kv3ci"]
@@ -9,38 +9,6 @@
 [ext_resource type="AudioStream" uid="uid://cvwrulaxed5t7" path="res://assets/sound effects/boss_beetle/walk.wav" id="7_d0h1d"]
 [ext_resource type="AudioStream" uid="uid://c57jyapc55m8h" path="res://assets/sound effects/boss_beetle/wing_flap.wav" id="8_vqu83"]
 [ext_resource type="AudioStream" uid="uid://bkhwn3fdd8d23" path="res://assets/sound effects/boss_squirrel/nut_explosion.wav" id="9_ddt56"]
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1pclv"]
-particle_flag_disable_z = true
-emission_shape = 6
-emission_ring_axis = Vector3(0, 0, 1)
-emission_ring_height = 1.0
-emission_ring_radius = 90.0
-emission_ring_inner_radius = 40.0
-spread = 180.0
-initial_velocity_min = 50.0
-initial_velocity_max = 50.0
-gravity = Vector3(0, 0, 0)
-scale_min = 16.0
-scale_max = 16.0
-color = Color(0.962573, 0.676299, 0, 1)
-turbulence_enabled = true
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p43s8"]
-particle_flag_disable_z = true
-emission_shape = 6
-emission_ring_axis = Vector3(0, 0, 1)
-emission_ring_height = 1.0
-emission_ring_radius = 40.0
-emission_ring_inner_radius = 10.0
-spread = 180.0
-initial_velocity_min = 50.0
-initial_velocity_max = 50.0
-gravity = Vector3(0, 0, 0)
-scale_min = 2.0
-scale_max = 2.0
-color = Color(0.962573, 0.676299, 0, 1)
-turbulence_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tx4r1"]
 radius = 12.4224
@@ -753,7 +721,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("GPUParticles2D:emitting")
+tracks/4/path = NodePath("CPUParticles2D:emitting")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -850,7 +818,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("GPUParticles2D:emitting")
+tracks/4/path = NodePath("CPUParticles2D:emitting")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1030,7 +998,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("GPUParticles2D:emitting")
+tracks/11/path = NodePath("CPUParticles2D:emitting")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -1066,7 +1034,7 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("GPUParticles2D2:emitting")
+tracks/14/path = NodePath("Sounds/slam:playing")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -1078,7 +1046,7 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("Sounds/slam:playing")
+tracks/15/path = NodePath("Sounds/weak_sound:playing")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
@@ -1090,22 +1058,10 @@ tracks/15/keys = {
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("Sounds/weak_sound:playing")
+tracks/16/path = NodePath("Sounds/slam_weak:playing")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/17/type = "value"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("Sounds/slam_weak:playing")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -2091,11 +2047,11 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("GPUParticles2D2:emitting")
+tracks/4/path = NodePath("Sounds/slam:playing")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.25),
+"times": PackedFloat32Array(0.125),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -2103,11 +2059,11 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Sounds/slam:playing")
+tracks/5/path = NodePath("CPUParticles2D:emitting")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0.125),
+"times": PackedFloat32Array(0.25),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -2361,6 +2317,10 @@ _data = {
 "damage": SubResource("Animation_oye75")
 }
 
+[sub_resource type="Gradient" id="Gradient_dpcrb"]
+offsets = PackedFloat32Array(0, 0.56, 1)
+colors = PackedColorArray(0.960784, 0.67451, 0, 1, 0.960784, 0.67451, 0, 1, 1, 1, 1, 0)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gutda"]
 radius = 17.0
 height = 48.0
@@ -2368,27 +2328,11 @@ height = 48.0
 [node name="Beetle" type="CharacterBody2D"]
 script = ExtResource("1_f8qx2")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-emitting = false
-process_material = SubResource("ParticleProcessMaterial_1pclv")
-lifetime = 0.1
-one_shot = true
-explosiveness = 1.0
-
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
-emitting = false
-process_material = SubResource("ParticleProcessMaterial_p43s8")
-lifetime = 0.1
-one_shot = true
-explosiveness = 1.0
-
 [node name="Spasm" type="Node2D" parent="."]
 
 [node name="Shadow" parent="Spasm" instance=ExtResource("2_w4f2t")]
-offset_left = -13.6
-offset_top = -10.3
-offset_right = 13.6
-offset_bottom = 6.0
+offset_left = -24.0
+offset_top = -19.0
 
 [node name="BeetleBoss-sheet" type="Sprite2D" parent="Spasm"]
 texture_filter = 1
@@ -2446,6 +2390,19 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_gilpm")
 }
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 12
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 65.0
+scale_amount_min = 8.0
+scale_amount_max = 8.0
+color = Color(0.960784, 0.67451, 0, 1)
+color_ramp = SubResource("Gradient_dpcrb")
 
 [node name="main_hurtbox" type="Area2D" parent="."]
 collision_layer = 0
