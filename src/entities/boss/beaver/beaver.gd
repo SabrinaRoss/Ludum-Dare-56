@@ -118,12 +118,11 @@ func _on_state_changer_timeout() -> void:
 	if (attacking):
 		attacking = false
 		$Hitbox/AnimationPlayer.play("idle")
-		print("wddsa")
+
 	elif (!attacking):
 		attacking = true
 		can_shader_bend = true
 		$Hitbox/AnimationPlayer.play("summon")
-		print("Simon was here")
 
 func update_facing(dir : Vector2):
 	if dir.dot(Vector2.RIGHT) < 0:

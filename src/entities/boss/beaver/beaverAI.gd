@@ -83,7 +83,7 @@ func smite_grid_lines_horizontal():
 					await timer.timeout
 					var instance = smite.instantiate()
 					instance.scale *= .5
-					instance.global_position = Vector2(j - 90, i - 180)
+					instance.global_position = Vector2(j - 180, i - 90)
 					instance.rotation_degrees = randi_range(0, 360)
 					get_parent().get_parent().get_node("Projectiles").add_child(instance)
 
