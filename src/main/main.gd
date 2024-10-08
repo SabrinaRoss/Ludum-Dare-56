@@ -35,9 +35,9 @@ func _input(_ev):
 
 func togglePause() -> void:
 	if paused:
-		pauseMenu.call_deffered("queue_free")
+		pauseMenu.call_deferred("queue_free")
 		paused = false
-	elif level != 0:
+	elif level != 0 and level != 1 and level != 4:
 		pauseMenu = pauseMenuScene.instantiate()
 		pauseMenu.main = self
 		call_deferred("add_child", pauseMenu)
@@ -174,6 +174,7 @@ func phase_change():
 	await fade_out_music()
 	match level:
 		1:
+			await fade_out_music()
 			$Music/BeetleLoop2.play()
 			cur_music = $Music/BeetleLoop2
 		2:

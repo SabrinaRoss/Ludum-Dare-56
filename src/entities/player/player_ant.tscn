@@ -86,6 +86,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(1, -3)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sound/slash:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_7bnyd"]
 resource_name = "idle"
@@ -229,6 +241,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sound/slash:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e7ch1"]
 _data = {
@@ -357,18 +381,17 @@ pitch_scale = 1.2
 
 [node name="footstep" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("6_wh6p6")
-volume_db = 10.0
 pitch_scale = 0.9
 
 [node name="slash" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("7_nstc2")
-volume_db = 3.0
+volume_db = 6.0
 pitch_scale = 1.3
 
 [node name="shoot" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("8_jbhpl")
-volume_db = 7.0
-pitch_scale = 0.9
+volume_db = 17.0
+pitch_scale = 0.8
 
 [node name="parry" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("9_5fnss")
@@ -377,12 +400,12 @@ pitch_scale = 0.9
 
 [node name="parry_acorn" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("10_rxwlh")
-volume_db = 10.0
+volume_db = 15.0
 pitch_scale = 1.4
 
 [node name="parry_nut" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("11_75n50")
-volume_db = 20.0
+volume_db = 24.0
 pitch_scale = 0.9
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

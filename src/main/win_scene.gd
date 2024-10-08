@@ -6,4 +6,5 @@ func _ready() -> void:
 	main = get_parent()
 
 func _on_button_pressed() -> void:
+	main.fade_out_music()
 	main.setLevel(0)

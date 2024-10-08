@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cg1cjl2wh8y3k"]
+[gd_scene load_steps=2 format=3 uid="uid://b3mc3kl8gglta"]
 
 [ext_resource type="Script" path="res://src/main/pause_menu.gd" id="1_e2bd0"]
 
 [node name="PauseMenu" type="Control"]
+z_index = 1000
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

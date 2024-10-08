@@ -40,7 +40,7 @@ var snipe_spawn_dist = 2
 ## frenzy vars
 var frenzy_speed = 75
 var frenzy_acorns_per_wave = 8
-var frenzy_wave_num = 60
+var frenzy_wave_num = 30
 var frenzy_wave_cooldown = 0.2
 var frenzy_spawn_dist = 2
 var frenzy_turn = PI / 32

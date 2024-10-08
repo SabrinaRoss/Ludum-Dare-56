@@ -124,7 +124,6 @@ func _on_timeout(): #timeout for the smite
 
 func _on_timer_player_near_timeout() -> void:
 	second_attack()
-	print("Hey DUde")
 
 
 func _on_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
@@ -132,11 +131,9 @@ func _on_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, 
 	$Player_near/Player_near_sprite.modulate = Color.RED
 	$Player_near/Player_near_sprite.rotation_degrees += 10
 	cur_body = area
-	print("FUCK")
 
 
 func _on_area_shape_exited(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
 	$Timer_Player_Near.stop()
 	$Player_near/Player_near_sprite.modulate = Color.WHITE
 	$Player_near/Player_near_sprite.modulate.a = .10
-	print("SHIT!")

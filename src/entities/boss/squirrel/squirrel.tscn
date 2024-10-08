@@ -17,7 +17,6 @@ radius = 5.0
 height = 20.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dg0rt"]
-radius = 8.0
 height = 28.0
 
 [sub_resource type="Animation" id="Animation_1aaqa"]
@@ -402,8 +401,7 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Transformables/Hitbox"]
-visible = false
-position = Vector2(0, -2)
+position = Vector2(0, -5)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_dg0rt")
 

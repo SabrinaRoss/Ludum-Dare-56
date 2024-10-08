@@ -16,12 +16,10 @@ func _physics_process(delta: float) -> void:
 	attack_player(area_player)
 
 func _on_body_entered(body):
-	print("I love minecraft")
 	if body.is_node("PlayerSquirrel"):
 		if player_can_be_hit:
 			body.owner.take_damage(1)
 			player_can_be_hit = false # Disable further hits after the first
-			print("Hawk Tuh")
 
 func _on_timer_timeout():
 	$AnimationPlayer.play("inirt")

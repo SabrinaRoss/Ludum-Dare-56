@@ -39,28 +39,35 @@ volume_db = 10.0
 
 [node name="BeetleLoop2" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("6_acn5o")
-volume_db = 10.0
+volume_db = 16.0
 
 [node name="SquirrelIntro1" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("7_h37ax")
+volume_db = 13.0
 
 [node name="SquirrelLoop1" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("8_yl32p")
+volume_db = 13.0
 
 [node name="SquirrelIntro2" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("9_r8rwe")
+volume_db = 16.0
 
 [node name="SquirrelLoop2" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("10_uchde")
+volume_db = 13.0
 
 [node name="BeaverIntro" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("11_yjf1o")
+volume_db = 13.0
 
 [node name="BeaverLoop" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("11_ba0e3")
+volume_db = 13.0
 
 [node name="EndingTheme" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("13_7t7ml")
+volume_db = 12.0
 
 [node name="Sound" type="Node2D" parent="."]
 

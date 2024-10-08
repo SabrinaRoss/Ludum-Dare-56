@@ -143,7 +143,6 @@ func slash():
 	var mouse_vect = (get_global_mouse_position() - global_position).normalized()
 	$Hurtbox.rotation = mouse_vect.angle()
 	update_facing(mouse_vect)
-	$Sound/slash.play()
 	animp.play("slash")
 
 func parry():
@@ -170,6 +169,7 @@ func shoot():
 	var mouse_vect = (get_global_mouse_position() - global_position).normalized()
 	update_facing(mouse_vect)
 	animp.play("shoot")
+	$Sound/shoot.pitch_scale = randf_range(.7,.9)
 	$Sound/shoot.play()
 	var new_bullet = bullet_scene.instantiate()
 	new_bullet.global_position = global_position + mouse_vect * 10
